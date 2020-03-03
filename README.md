@@ -1,4 +1,4 @@
-# CSCI 3601 Iteration Template
+# DoorBoard
 
 [![Server Build Status](../../workflows/Server%20Java/badge.svg)](../../actions?query=workflow%3A"Server+Java")
 [![Client Build Status](../../workflows/Client%20Angular/badge.svg)](../../actions?query=workflow%3A"Client+Angular")
