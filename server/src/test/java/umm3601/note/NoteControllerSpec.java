@@ -1,5 +1,7 @@
 package umm3601.note;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,10 +18,16 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
 import org.bson.Document;
+import org.junit.Test;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 
+import io.javalin.http.Context;
+import io.javalin.http.util.ContextUtil;
+import io.javalin.plugin.json.JavalinJson;
+
+import umm3601.notes.Note;
 import umm3601.notes.NoteController;
 
 public class NoteControllerSpec {
@@ -77,5 +85,18 @@ public class NoteControllerSpec {
   public static void teardown() {
     db.drop();
     mongoClient.close();
+  }
+
+  @Test
+  public void GetAllNotes() throws IOException {
+
+    // Create our fake Javalin context
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes");
+    noteController.getNotes(ctx);
+
+    assertEquals(200, mockRes.getStatus());
+
+    String result = ctx.resultString();
+    assertEquals(db.getCollection("notes").countDocuments(), JavalinJson.fromJson(result, Note[].class).length);
   }
 }
