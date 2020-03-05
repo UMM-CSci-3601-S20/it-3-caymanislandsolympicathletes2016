@@ -51,6 +51,6 @@ describe('Note service: ', () => {
 
     const req = httpTestingController.expectOne(noteService.noteUrl);
     expect(req.request.method).toEqual('GET');
-    req.flush(testUsers);
+    req.flush(testNotes);
   });
-}
+});
