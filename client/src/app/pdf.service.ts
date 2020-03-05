@@ -11,6 +11,8 @@ export class PDFService {
   }
 
   getPDF(): void {
+    const url: string = environment.BASE_URL + '/viewer';
+
     const doc = new jsPDF({
       orientation: 'portrait',
       unit: 'in',
@@ -20,7 +22,7 @@ export class PDFService {
     doc.setFontSize(18);
     doc.text('Rachel Johnson\'s DoorBoard', (8.5 / 2), 0.5, { align: 'center' });
     // TODO: hook up the production IP address for deployment.
-    doc.text('http://localhost:4200', (8.5 / 2), 1, { align: 'center' });
+    doc.text(url, (8.5 / 2), 1, { align: 'center' });
     doc.save('DoorBoard.pdf');
   }
 }
