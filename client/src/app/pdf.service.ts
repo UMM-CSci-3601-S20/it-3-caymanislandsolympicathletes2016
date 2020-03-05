@@ -24,16 +24,6 @@ import * as jsPDF from 'jspdf';
  */
 export type RealJsPDF = jsPDF & {
   getNumberOfPages: () => number,
-  getCurrentPageInfo: () => {
-    pageContext: {
-      mediaBox: {
-        bottomLeftX: number,
-        bottomLeftY: number,
-        topRightX: number,
-        topRightY: number,
-      },
-    },
-  },
 };
 
 @Injectable()
