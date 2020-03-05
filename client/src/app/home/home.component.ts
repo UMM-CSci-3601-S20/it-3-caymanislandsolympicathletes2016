@@ -10,7 +10,7 @@ export class HomeComponent {
   constructor(private pdfService: PDFService) {
   }
 
-  getPDF(): void {
-    this.pdfService.getPDF();
+  savePDF(): void {
+    this.pdfService.getPDF().save('DoorBoard');
   }
 }

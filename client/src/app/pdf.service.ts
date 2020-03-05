@@ -10,7 +10,11 @@ export class PDFService {
   constructor() {
   }
 
-  getPDF(): void {
+  /**
+   * Returns a jsPDF object with a link to Professor Rachel's
+   * DoorBoard viewer page.
+   */
+  getPDF(): jsPDF {
     const url: string = environment.BASE_URL + '/viewer';
 
     const doc = new jsPDF({
@@ -23,6 +27,7 @@ export class PDFService {
     doc.text('Rachel Johnson\'s DoorBoard', (8.5 / 2), 0.5, { align: 'center' });
     // TODO: hook up the production IP address for deployment.
     doc.text(url, (8.5 / 2), 1, { align: 'center' });
-    doc.save('DoorBoard.pdf');
+
+    return doc;
   }
 }
