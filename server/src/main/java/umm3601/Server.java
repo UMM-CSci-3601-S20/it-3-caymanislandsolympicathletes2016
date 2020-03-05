@@ -10,11 +10,7 @@ import com.mongodb.client.MongoDatabase;
 
 import io.javalin.Javalin;
 
-import umm3601.user.UserController;
-
 public class Server {
-
-  static String appName = "CSCI 3601 Iteration Template";
 
   private static MongoDatabase database;
 
@@ -35,30 +31,9 @@ public class Server {
     // Get the database
     database = mongoClient.getDatabase(databaseName);
 
-    // Initialize dependencies
-    UserController userController = new UserController(database);
-    //UserRequestHandler userRequestHandler = new UserRequestHandler(userController);
+    // Initialize dependencies here ...
 
     Javalin server = Javalin.create().start(4567);
-
-    // Simple example route
-    server.get("hello", ctx -> ctx.result("Hello World"));
-
-    // Utility routes
-    server.get("api", ctx -> ctx.result(appName));
-
-    // Get specific user
-    server.get("api/users/:id", userController::getUser);
-
-    server.delete("api/users/:id", userController::deleteUser);
-
-    // List users, filtered using query parameters
-    server.get("api/users", userController::getUsers);
-
-    // Add new user
-    server.post("api/users/new", userController::addNewUser);
-
-
 
     server.exception(Exception.class, (e, ctx) -> {
       ctx.status(500);
