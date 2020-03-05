@@ -11,9 +11,13 @@ export class PDFService {
   }
 
   getPDF(): void {
-    const doc = new jsPDF();
+    const doc = new jsPDF({
+      orientation: 'portrait',
+      unit: 'in',
+      format: 'letter',
+    });
 
-    doc.text('Rachel Johnson\'s DoorBoard:\nhttp://localhost:4200', 10, 10);
-    doc.save('a4.pdf');
+    doc.text('Rachel Johnson\'s DoorBoard:\nhttp://localhost:4200', 0.5, 0.5);
+    doc.save('DoorBoard.pdf');
   }
 }
