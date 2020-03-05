@@ -25,10 +25,4 @@ describe('Home', () => {
     de = fixture.debugElement.query(By.css('.home-card'));
     el = de.nativeElement;
   });
-
-  it('It has the basic home page text', () => {
-    fixture.detectChanges();
-    expect(el.textContent).toContain('This is a home page! It doesn\'t do anything!');
-  });
-
 });
