@@ -9,6 +9,7 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
 
 import io.javalin.Javalin;
+import umm3601.notes.NoteController;
 
 public class Server {
 
@@ -32,8 +33,12 @@ public class Server {
     database = mongoClient.getDatabase(databaseName);
 
     // Initialize dependencies here ...
+    NoteController noteController = new NoteController(database);
 
     Javalin server = Javalin.create().start(4567);
+
+    // List notes
+    server.get("api/notes", noteController::getNotes);
 
     server.exception(Exception.class, (e, ctx) -> {
       ctx.status(500);
