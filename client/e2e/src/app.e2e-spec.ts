@@ -2,7 +2,7 @@ import {browser} from 'protractor';
 import {AppPage} from './app.po';
 import * as fs from 'fs';
 import { downloadsFolder } from '../downloads-folder';
-import { E2EUtil } from './e2e.util';
+import { sleep } from './e2e.util';
 
 
 describe('App', () => {
@@ -38,7 +38,7 @@ describe('App', () => {
 
       page.clickGeneratePDFButton();
       // Wait 3 seconds for the file to download
-      await E2EUtil.sleep(3000);
+      await sleep(3000);
       expect(fs.existsSync(downloadFilePath)).toBeTruthy();
     });
 
