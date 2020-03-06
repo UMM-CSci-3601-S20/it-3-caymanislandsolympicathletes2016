@@ -4,7 +4,7 @@ import { TestBed } from '@angular/core/testing';
 import { Note } from './note';
 import { NotesService } from './notes.service';
 
-describe('Note service: ', () => {
+describe('Note service:', () => {
 
   const testNotes: Note[] = [
     {
@@ -44,13 +44,15 @@ describe('Note service: ', () => {
     httpTestingController.verify();
   });
 
-  it('getNotes() calls api/notes', () => {
-    noteService.getNotes().subscribe(
-      notes => expect(notes).toBe(testNotes)
-    );
+  describe('The getNotes() method:', () => {
+    it('calls api/notes', () => {
+      noteService.getNotes().subscribe(
+        notes => expect(notes).toBe(testNotes)
+      );
 
-    const req = httpTestingController.expectOne(noteService.noteUrl);
-    expect(req.request.method).toEqual('GET');
-    req.flush(testNotes);
+      const req = httpTestingController.expectOne(noteService.noteUrl);
+      expect(req.request.method).toEqual('GET');
+      req.flush(testNotes);
+    });
   });
 });

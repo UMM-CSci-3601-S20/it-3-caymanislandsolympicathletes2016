@@ -6,7 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { PDFService } from '../pdf.service';
 import { MockPDFService } from 'src/testing/pdf.service.mock';
 
-describe('Home', () => {
+describe('Home:', () => {
 
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
@@ -32,15 +32,15 @@ describe('Home', () => {
     el = de.nativeElement;
   });
 
-  describe('the savePDF() method', () => {
-    it('Gets a pdf document from PDFService and calls .save() on it', () => {
+  describe('The savePDF() method:', () => {
+    it('gets a pdf document from PDFService and calls .save() on it', () => {
       component.savePDF();
       expect(mockPDFService.doc.save).toHaveBeenCalled();
     });
   });
 
-  describe('the GENERATE PDF button', () => {
-    it('Gets a pdf document from PDFService and calls .save() on it', () => {
+  describe('The GENERATE PDF button:', () => {
+    it('gets a pdf document from PDFService and calls .save() on it', () => {
       el.click();
       expect(mockPDFService.doc.save).toHaveBeenCalled();
     });

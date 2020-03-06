@@ -9,7 +9,7 @@ import { MatCardModule } from '@angular/material/card';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatListModule } from '@angular/material/list';
 
-describe('AppComponent', () => {
+describe('AppComponent:', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -27,13 +27,13 @@ describe('AppComponent', () => {
     }).compileComponents();
   }));
 
-  it('should create the app', () => {
+  it('creates the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'DoorBoard'`, () => {
+  it('has "DoorBoard" as its title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app.title).toEqual('DoorBoard');
