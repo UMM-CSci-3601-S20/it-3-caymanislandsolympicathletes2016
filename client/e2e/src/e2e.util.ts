@@ -14,4 +14,10 @@
   public static randomBoolean(): boolean {
     return Boolean(Math.round(Math.random()));
   }
+
+  // From https://stackoverflow.com/a/39914235
+  // Thanks!
+  public static sleep(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
 }
