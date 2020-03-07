@@ -27,6 +27,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from '@angular/cdk/layout';
+import { PDFService } from './pdf.service';
 
 const MATERIAL_MODULES: any[] = [
   MatListModule,
@@ -64,6 +65,7 @@ const MATERIAL_MODULES: any[] = [
     LayoutModule,
   ],
   providers: [
+    PDFService,
   ],
   bootstrap: [AppComponent]
 })
