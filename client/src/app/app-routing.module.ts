@@ -6,7 +6,7 @@ import { ViewerPageComponent } from './viewer-page/viewer-page.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
-  {path: '/viewers', component: ViewerPageComponent}
+  {path: 'viewers', component: ViewerPageComponent}
 ];
 
 @NgModule({
