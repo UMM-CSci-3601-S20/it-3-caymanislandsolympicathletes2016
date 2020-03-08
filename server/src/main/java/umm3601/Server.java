@@ -41,7 +41,7 @@ public class Server {
     server.get("api/notes", noteController::getNotes);
 
     // Add new note
-    server.put("api/new", noteController::addNote);
+    server.post("api/new", noteController::addNote);
 
     server.exception(Exception.class, (e, ctx) -> {
       ctx.status(500);
