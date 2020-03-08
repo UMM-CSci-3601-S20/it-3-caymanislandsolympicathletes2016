@@ -22,7 +22,7 @@ export class MockNoteService extends NotesService {
   ]
 
   constructor() {
-    super();
+    super(null);
   }
 
   getNotes() {
