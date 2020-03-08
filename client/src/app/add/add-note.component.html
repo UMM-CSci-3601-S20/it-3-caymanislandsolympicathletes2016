@@ -10,7 +10,7 @@
             <mat-label>Body</mat-label>
             <input matInput id="bodyField" placeholder="Body" formControlName="body"
                   required>
-            <mat-error *ngFor="let validation of add_note_validation_messages.name">
+            <mat-error *ngFor="let validation of add_note_validation_messages.body">
               <mat-error class="error-message" id="body-error"
                         *ngIf="addNoteForm.get('body').hasError(validation.type) && (addNoteForm.get('body').dirty || addNoteForm.get('body').touched)">
                 {{validation.message}}

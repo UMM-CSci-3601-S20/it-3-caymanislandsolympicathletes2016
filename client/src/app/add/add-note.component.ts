@@ -23,7 +23,9 @@ export class AddNoteComponent implements OnInit {
   // but this is where the red text that shows up (when there is invalid input) comes from
   add_note_validation_messages = {
     body: [
-      // insert validation messages
+      {type: 'required', message: 'Body is required'},
+      {type: 'minlength', message: 'Body must be at least 2 characters long'},
+      {type: 'maxlength', message: 'Body cannot be more than 50 characters long'}
     ]
   };
 
@@ -42,6 +44,10 @@ export class AddNoteComponent implements OnInit {
 
   ngOnInit() {
     this.createForms();
+  }
+
+  submitForm() {
+
   }
 
 }

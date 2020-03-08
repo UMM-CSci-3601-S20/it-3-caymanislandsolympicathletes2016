@@ -28,6 +28,7 @@ import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from '@angular/cdk/layout';
 import { PDFService } from './pdf.service';
+import { AddNoteComponent } from './add/add-note.component';
 
 const MATERIAL_MODULES: any[] = [
   MatListModule,
@@ -52,6 +53,7 @@ const MATERIAL_MODULES: any[] = [
   declarations: [
     AppComponent,
     HomeComponent,
+    AddNoteComponent,
   ],
   imports: [
     BrowserModule,
