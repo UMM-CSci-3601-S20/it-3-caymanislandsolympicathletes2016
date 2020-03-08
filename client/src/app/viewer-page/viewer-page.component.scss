@@ -1,0 +1,32 @@
+.note-container {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.note-card {
+  width: 200px;
+  height: 200px;
+  margin: 10px;
+  position: relative;
+  background-color: palegoldenrod;
+}
+
+h2 {
+  font-size: 40px;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+h1 {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 30px;
+  color: gray;
+}
+p {
+  font-size: 15px;
+}

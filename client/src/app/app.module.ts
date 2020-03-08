@@ -28,6 +28,7 @@ import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from '@angular/cdk/layout';
 import { PDFService } from './pdf.service';
+import { NotesService } from './notes.service';
 import { ViewerPageComponent } from './viewer-page/viewer-page.component';
 
 const MATERIAL_MODULES: any[] = [
@@ -68,6 +69,7 @@ const MATERIAL_MODULES: any[] = [
   ],
   providers: [
     PDFService,
+    NotesService,
   ],
   bootstrap: [AppComponent]
 })
