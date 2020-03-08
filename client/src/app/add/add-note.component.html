@@ -7,58 +7,14 @@
         </mat-card-header>
         <mat-card-content fxLayout="column">
           <mat-form-field>
-            <mat-label>Name</mat-label>
-            <input matInput id="nameField" placeholder="Name" formControlName="name"
+            <mat-label>Body</mat-label>
+            <input matInput id="bodyField" placeholder="Body" formControlName="body"
                   required>
             <mat-error *ngFor="let validation of add_note_validation_messages.name">
-              <mat-error class="error-message" id="name-error"
-                        *ngIf="addNoteForm.get('name').hasError(validation.type) && (addNoteForm.get('name').dirty || addNoteForm.get('name').touched)">
+              <mat-error class="error-message" id="body-error"
+                        *ngIf="addNoteForm.get('body').hasError(validation.type) && (addNoteForm.get('body').dirty || addNoteForm.get('body').touched)">
                 {{validation.message}}
               </mat-error>
-            </mat-error>
-          </mat-form-field>
-
-          <mat-form-field>
-            <mat-label>Age</mat-label>
-            <input matInput #input id="ageField" type="number" placeholder="Age"
-                  formControlName="age" required>
-            <mat-error *ngFor="let validation of add_note_validation_messages.age">
-              <mat-error class="error-message" id="age-error"
-                        *ngIf="addNoteForm.get('age').hasError(validation.type) && (addNoteForm.get('age').dirty || addNoteForm.get('age').touched)">
-                {{validation.message}}
-              </mat-error>
-            </mat-error>
-          </mat-form-field>
-
-          <mat-form-field>
-            <mat-label>Company</mat-label>
-            <input matInput #input id="companyField" placeholder="Company"
-                  formControlName="company">
-            <mat-hint>Not required in Angular for demonstration, still required by server</mat-hint>
-          </mat-form-field>
-
-          <mat-form-field >
-            <mat-label>Email</mat-label>
-            <input matInput #input id="emailField" placeholder="Email"
-                  formControlName="email" required>
-            <mat-error *ngFor="let validation of add_note_validation_messages.email">
-              <mat-error class="error-message" id='email-error'
-                        *ngIf="addNoteForm.get('email').hasError(validation.type) && (addNoteForm.get('email').dirty || addNoteForm.get('email').touched)">
-                {{validation.message}}
-              </mat-error>
-            </mat-error>
-          </mat-form-field>
-
-          <mat-form-field>
-            <mat-label>Role</mat-label>
-            <mat-select id="roleField" required formControlName="role">
-              <mat-option value="admin">Admin</mat-option>
-              <mat-option value="editor">Editor</mat-option>
-              <mat-option value="viewer">Viewer</mat-option>
-            </mat-select>
-            <mat-error *ngIf="addNoteForm.get('role').hasError('required')">You must make a selection</mat-error>
-            <mat-error *ngIf="addNoteForm.get('role').hasError('pattern') && !addNoteForm.get('role').hasError('required')">
-              Your selection is invalid
             </mat-error>
           </mat-form-field>
 

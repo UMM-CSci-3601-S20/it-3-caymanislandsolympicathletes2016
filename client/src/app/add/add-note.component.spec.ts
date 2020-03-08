@@ -12,7 +12,7 @@ import { MockNoteService } from 'src/testing/note.service.mock';
 import { AddNoteComponent } from './add-note.component';
 import { NotesService } from '../notes.service';
 
-describe('AddNoteComponent', () => {
+describe('AddNoteComponent:', () => {
   let addNoteComponent: AddNoteComponent;
   let addNoteForm: FormGroup;
   let calledClose: boolean;
@@ -58,7 +58,7 @@ describe('AddNoteComponent', () => {
     expect(addNoteForm.valid).toBeFalsy();
   });
 
-  describe('The body field', () => {
+  describe('The body field:', () => {
     let bodyControl: AbstractControl;
 
     beforeEach(() => {
@@ -71,7 +71,7 @@ describe('AddNoteComponent', () => {
     });
 
     it('should be fine with "late to office hours"', () => {
-      bodyControl.setValue('Chris Smith');
+      bodyControl.setValue('late to office hours');
       expect(bodyControl.valid).toBeTruthy();
     });
 
