@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { NotesService } from '../notes.service';
+import { Note } from '../note';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-viewer-page',
@@ -7,9 +10,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewerPageComponent implements OnInit {
 
-  constructor() { }
+  public notes: Note[];
+  getNotesSub: Subscription;
+
+  constructor(private notesService: NotesService) { }
 
   ngOnInit(): void {
   }
 
+  retrieveNotes(): void {
+    this.getNotesSub = this.notesService.getNotes().subscribe(returnedNotes =>{
+      this.notes = returnedNotes;
+    }, err => {
+      console.log(err);
+    });
+  }
 }
