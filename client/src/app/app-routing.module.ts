@@ -6,7 +6,7 @@ import { AddNoteComponent } from './add/add-note.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
-  {path: 'add', component: AddNoteComponent},
+  {path: 'new', component: AddNoteComponent},
 ];
 
 @NgModule({
