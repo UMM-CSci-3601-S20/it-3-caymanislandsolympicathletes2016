@@ -29,6 +29,11 @@ public class NoteController {
     ctx.json(noteCollection.find(new Document()).into(new ArrayList<>()));
   }
 
+  /**
+   * Delete a note with a given id, if the id exists.
+   *
+   * If the id does not exist, do nothing.
+   */
   public void deleteNote(Context ctx) {
     String id = ctx.pathParam("id");
     noteCollection.deleteOne(eq("_id", new ObjectId(id)));

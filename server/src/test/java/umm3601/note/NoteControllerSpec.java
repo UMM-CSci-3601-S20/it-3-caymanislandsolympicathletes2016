@@ -94,7 +94,6 @@ public class NoteControllerSpec {
 
   @Test
   public void GetAllNotes() throws IOException {
-
     // Create our fake Javalin context
     Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes");
     noteController.getNotes(ctx);
@@ -114,7 +113,22 @@ public class NoteControllerSpec {
 
     assertEquals(200, mockRes.getStatus());
 
-    // User is no longer in the database
+    // Note is no longer in the database
     assertEquals(0, db.getCollection("notes").countDocuments(eq("_id", importantNoteId)));
   }
+
+  @Test
+  public void DeletingANonexistentNoteHasNoEffect() throws IOException {
+    ObjectId noSuchNoteId = new ObjectId();
+
+    assertEquals(0, db.getCollection("notes").countDocuments(eq("_id", noSuchNoteId)));
+
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes/:id", ImmutableMap.of("id", noSuchNoteId.toHexString()));
+    noteController.deleteNote(ctx);
+
+    assertEquals(200, mockRes.getStatus());
+
+    assertEquals(0, db.getCollection("notes").countDocuments(eq("_id", noSuchNoteId)));
+  }
+
 }
