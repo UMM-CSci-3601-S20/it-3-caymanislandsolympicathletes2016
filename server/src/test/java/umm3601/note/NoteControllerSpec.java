@@ -22,7 +22,7 @@ import com.mongodb.client.MongoDatabase;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
