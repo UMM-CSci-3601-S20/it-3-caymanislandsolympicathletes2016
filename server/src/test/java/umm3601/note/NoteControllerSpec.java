@@ -66,15 +66,9 @@ public class NoteControllerSpec {
     MongoCollection<Document> noteDocuments = db.getCollection("notes");
     noteDocuments.drop();
     List<Document> testNotes = new ArrayList<>();
-    testNotes.add(Document.parse("{\n" +
-    "                    body: \"This is the first body\",\n" +
-    "                }"));
-    testNotes.add(Document.parse("{\n" +
-    "                    body: \"This is the second body\",\n" +
-    "                }"));
-    testNotes.add(Document.parse("{\n" +
-    "                    body: \"This is the third body\",\n" +
-    "                }"));
+    testNotes.add(Document.parse("{ body: \"This is the first body\" }"));
+    testNotes.add(Document.parse("{ body: \"This is the second body\" }"));
+    testNotes.add(Document.parse("{ body: \"This is the third body\" }"));
 
     noteDocuments.insertMany(testNotes);
 
