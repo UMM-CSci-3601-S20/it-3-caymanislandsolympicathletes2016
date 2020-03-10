@@ -1,5 +1,35 @@
+.note-container {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 .add-note-fab {
   position: fixed;
   bottom: 15px;
   right: 30px;
+}
+
+.note-card {
+  width: 200px;
+  height: 200px;
+  margin: 10px;
+  position: relative;
+  background-color: palegoldenrod;
+}
+
+p {
+  font-size: 15px;
+}
+
+h2 {
+  text-align: center;
+  text-decoration: underline;
+}
+
+.note-error {
+  text-align: center;
+  padding: 10px;
 }
