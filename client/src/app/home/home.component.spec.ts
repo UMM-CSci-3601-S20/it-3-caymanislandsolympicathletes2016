@@ -7,6 +7,7 @@ import { PDFService } from '../pdf.service';
 import { MockPDFService } from 'src/testing/pdf.service.mock';
 import { MockNoteService } from 'src/testing/note.service.mock';
 import { NotesService } from '../notes.service';
+import { Note } from '../note';
 
 describe('Home:', () => {
 
@@ -41,12 +42,23 @@ describe('Home:', () => {
   });
 
   describe('The retrieveNotes() method:', () => {
+
+    let homeComponent: HomeComponent;
+
     it('gets all the notes from the server', () =>{
       component.retrieveNotes();
 
       expect(component.notes.length).toBe(3);
     });
+
+    it('contains a note with body \'This is the first note\'', () => {
+      component.retrieveNotes();
+
+      expect(component.notes.some((note: Note) => note.body === 'This is the first note')).toBe(true);
+    });
   });
+
+
 
   describe('The savePDF() method:', () => {
     it('gets a pdf document from PDFService and calls .save() on it', () => {
@@ -61,4 +73,5 @@ describe('Home:', () => {
       expect(mockPDFService.doc.save).toHaveBeenCalled();
     });
   });
+
 });
