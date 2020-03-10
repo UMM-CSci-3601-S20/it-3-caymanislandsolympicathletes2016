@@ -25,7 +25,7 @@ describe('Home:', () => {
     TestBed.configureTestingModule({
       imports: [MatCardModule],
       declarations: [HomeComponent], // declare the test component
-      providers: [{provide: PDFService, useValue: mockPDFService},{provide: NotesService, useValue: mockNoteService}],
+      providers: [{provide: PDFService, useValue: mockPDFService}, {provide: NotesService, useValue: mockNoteService}],
     });
 
     fixture = TestBed.createComponent(HomeComponent);
@@ -42,8 +42,6 @@ describe('Home:', () => {
   });
 
   describe('The retrieveNotes() method:', () => {
-
-    let homeComponent: HomeComponent;
 
     it('gets all the notes from the server', () =>{
       component.retrieveNotes();
