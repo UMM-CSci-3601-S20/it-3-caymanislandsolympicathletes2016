@@ -7,14 +7,14 @@ import { NotesService } from '../notes.service';
 describe('ViewerPageComponent:', () => {
   let component: ViewerPageComponent;
   let fixture: ComponentFixture<ViewerPageComponent>;
-  let mockNotesService: MockNoteService;
+  let mockNoteService: MockNoteService;
 
   beforeEach(() => {
-    mockNotesService = new MockNoteService();
+    mockNoteService = new MockNoteService();
 
     TestBed.configureTestingModule({
       declarations: [ ViewerPageComponent ],
-      providers: [{provide: NotesService, useValue: mockNotesService}]
+      providers: [{provide: NotesService, useValue: mockNoteService}]
     });
 
     fixture = TestBed.createComponent(ViewerPageComponent);
