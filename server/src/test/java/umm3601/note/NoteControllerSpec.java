@@ -112,6 +112,7 @@ public class NoteControllerSpec {
     noteController.deleteNote(ctx);
 
     assertEquals(200, mockRes.getStatus());
+    assertEquals(ctx.resultString(), NoteController.DELETED_RESPONSE);
 
     // Note is no longer in the database
     assertEquals(0, db.getCollection("notes").countDocuments(eq("_id", importantNoteId)));
@@ -127,6 +128,8 @@ public class NoteControllerSpec {
     noteController.deleteNote(ctx);
 
     assertEquals(200, mockRes.getStatus());
+    assertEquals(ctx.resultString(), NoteController.NOT_DELETED_RESPONSE);
+
 
     assertEquals(0, db.getCollection("notes").countDocuments(eq("_id", noSuchNoteId)));
   }
