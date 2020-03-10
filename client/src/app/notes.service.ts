@@ -11,7 +11,7 @@ export class NotesService {
 
   readonly noteUrl: string = environment.API_URL + 'notes';
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
   getNotes() {
     return this.httpClient.get<Note[]>(this.noteUrl);

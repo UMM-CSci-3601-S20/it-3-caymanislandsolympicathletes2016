@@ -1,0 +1,9 @@
+<nav class="navbar">
+  <h2> Rachel Johnson's DoorBoard </h2>
+</nav>
+
+<ul class= "note-container">
+  <mat-card class="note-card" *ngFor="let note of this.notes">
+    <p> {{this.note.body}} </p>
+  </mat-card>
+</ul>
