@@ -25,7 +25,7 @@ import static com.mongodb.client.model.Filters.eq;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -130,14 +130,30 @@ public class NoteControllerSpec {
     assertEquals(1, db.getCollection("notes").countDocuments(eq("_id", new ObjectId(id))));
 
     //verify user was added to the database and the correct ID
-    Document addedNote = db.getCollection("users").find(eq("_id", new ObjectId(id))).first();
+    Document addedNote = db.getCollection("notes").find(eq("_id", new ObjectId(id))).first();
     assertNotNull(addedNote);
     assertEquals("Test Note", addedNote.getString("body"));
   }
 
   @Test
-  public void AddNoteWithInvalidBody() throws IOException {
+  public void AddNoteWithTooShortBody() throws IOException {
     String testNewNote = "{\n\t\"body\":x\n}";
+    mockReq.setBodyContent(testNewNote);
+    mockReq.setMethod("POST");
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes/new");
+
+    assertThrows(BadRequestResponse.class, () -> {
+      noteController.addNote(ctx);
+    });
+  }
+
+  public void AddNoteWithTooLongBody() throws IOException {
+    String testNewNote = "{\n\t\"body\":";
+    for(int i = 0; i < 300; i++) {
+      testNewNote = testNewNote + "x";
+    }
+    testNewNote = testNewNote + "\n}";
+
     mockReq.setBodyContent(testNewNote);
     mockReq.setMethod("POST");
     Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes/new");
