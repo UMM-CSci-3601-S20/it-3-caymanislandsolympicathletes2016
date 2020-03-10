@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ViewerPageComponent } from './viewer-page.component';
 import { MockNoteService } from 'src/testing/note.service.mock';
 import { NotesService } from '../notes.service';
+import { Note } from '../note';
 
 describe('ViewerPageComponent:', () => {
   let component: ViewerPageComponent;
@@ -26,10 +27,18 @@ describe('ViewerPageComponent:', () => {
   });
 
   describe('The retrieveNotes() method:', () => {
+
     it('gets all the notes from the server', () =>{
       component.retrieveNotes();
 
       expect(component.notes.length).toBe(3);
     });
+
+    it('contains a note with body \'This is the first note\'', () => {
+      component.retrieveNotes();
+
+      expect(component.notes.some((note: Note) => note.body === 'This is the first note')).toBe(true);
+    });
+
   });
 });
