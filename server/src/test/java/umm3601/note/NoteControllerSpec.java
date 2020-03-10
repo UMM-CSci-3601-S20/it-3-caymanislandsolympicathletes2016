@@ -111,7 +111,7 @@ public class NoteControllerSpec {
   @Test
   public void AddNote() throws IOException {
 
-    String testNewNote = "{\n\t\"body\": \"Test Note\"}";
+    String testNewNote = "{\"body\": \"Test Note\"}";
 
     mockReq.setBodyContent(testNewNote);
     mockReq.setMethod("POST");
@@ -125,7 +125,6 @@ public class NoteControllerSpec {
     String result = ctx.resultString();
     String id = jsonMapper.readValue(result, ObjectNode.class).get("id").asText();
     assertNotEquals("", id);
-    System.out.println(id);
 
     assertEquals(1, db.getCollection("notes").countDocuments(eq("_id", new ObjectId(id))));
 
@@ -137,7 +136,7 @@ public class NoteControllerSpec {
 
   @Test
   public void AddNoteWithTooShortBody() throws IOException {
-    String testNewNote = "{\n\t\"body\":x\n}";
+    String testNewNote = "{\"body\":\"x\"}";
     mockReq.setBodyContent(testNewNote);
     mockReq.setMethod("POST");
     Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes/new");
@@ -148,11 +147,11 @@ public class NoteControllerSpec {
   }
 
   public void AddNoteWithTooLongBody() throws IOException {
-    String testNewNote = "{\n\t\"body\":";
+    String testNewNote = "{\"body\":\"";
     for(int i = 0; i < 1000; i++) {
       testNewNote = testNewNote + "x";
     }
-    testNewNote = testNewNote + "\n}";
+    testNewNote = testNewNote + "\"}";
 
     mockReq.setBodyContent(testNewNote);
     mockReq.setMethod("POST");
