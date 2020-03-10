@@ -30,6 +30,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { PDFService } from './pdf.service';
 import { NotesService } from './notes.service';
 import { ViewerPageComponent } from './viewer-page/viewer-page.component';
+import { AddNoteComponent } from './add/add-note.component';
 
 const MATERIAL_MODULES: any[] = [
   MatListModule,
@@ -55,6 +56,7 @@ const MATERIAL_MODULES: any[] = [
     AppComponent,
     HomeComponent,
     ViewerPageComponent,
+    AddNoteComponent,
   ],
   imports: [
     BrowserModule,

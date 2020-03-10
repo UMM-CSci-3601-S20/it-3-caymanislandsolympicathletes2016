@@ -40,6 +40,9 @@ public class Server {
     // List notes
     server.get("api/notes", noteController::getNotes);
 
+    // Add new note
+    server.post("api/notes/new", noteController::addNote);
+
     server.exception(Exception.class, (e, ctx) -> {
       ctx.status(500);
       ctx.json(e); // you probably want to remove this in production

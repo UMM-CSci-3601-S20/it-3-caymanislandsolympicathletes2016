@@ -2,6 +2,7 @@ package umm3601.notes;
 
 import java.util.ArrayList;
 
+import com.google.common.collect.ImmutableMap;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
@@ -25,5 +26,15 @@ public class NoteController {
   public void getNotes(Context ctx) {
 
     ctx.json(noteCollection.find(new Document()).into(new ArrayList<>()));
+  }
+
+  public void addNote(Context ctx) {
+
+    Note newNote = ctx.bodyValidator(Note.class)
+    .check((note) -> note.body.length() >= 2 && note.body.length() <= 300).get();
+
+    noteCollection.insertOne(newNote);
+    ctx.status(201);
+    ctx.json(ImmutableMap.of("id", newNote._id));
   }
 }
