@@ -31,7 +31,7 @@ public class NoteController {
   public void addNote(Context ctx) {
 
     Note newNote = ctx.bodyValidator(Note.class)
-    .check((note) -> note.body.length() >= 2 && note.body.length() <= 250).get();
+    .check((note) -> note.body.length() >= 2 && note.body.length() <= 300).get();
 
     noteCollection.insertOne(newNote);
     ctx.status(201);

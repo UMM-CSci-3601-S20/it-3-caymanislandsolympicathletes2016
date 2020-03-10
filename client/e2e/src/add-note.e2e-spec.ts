@@ -22,7 +22,7 @@ describe('Add note:', () => {
 
     expect(element(by.buttonText('ADD NOTE')).isEnabled()).toBe(true);
 
-    await page.typeInput('bodyField', E2EUtil.randomText(250));
+    await page.typeInput('bodyField', E2EUtil.randomText(1000));
     expect(element(by.buttonText('ADD NOTE')).isEnabled()).toBe(false);
   });
 

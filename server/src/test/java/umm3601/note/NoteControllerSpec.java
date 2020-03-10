@@ -149,7 +149,7 @@ public class NoteControllerSpec {
 
   public void AddNoteWithTooLongBody() throws IOException {
     String testNewNote = "{\n\t\"body\":";
-    for(int i = 0; i < 300; i++) {
+    for(int i = 0; i < 1000; i++) {
       testNewNote = testNewNote + "x";
     }
     testNewNote = testNewNote + "\n}";

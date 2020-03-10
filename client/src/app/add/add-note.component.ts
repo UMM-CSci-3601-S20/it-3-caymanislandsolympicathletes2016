@@ -23,7 +23,7 @@ export class AddNoteComponent implements OnInit {
     body: [
       {type: 'required', message: 'Body is required'},
       {type: 'minlength', message: 'Body must be at least 2 characters long'},
-      {type: 'maxlength', message: 'Body cannot be more than 250 characters long'}
+      {type: 'maxlength', message: 'Body cannot be more than 300 characters long'}
     ]
   };
 
@@ -34,7 +34,7 @@ export class AddNoteComponent implements OnInit {
       body: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(2),
-        Validators.maxLength(250),
+        Validators.maxLength(300),
       ])),
     });
 
