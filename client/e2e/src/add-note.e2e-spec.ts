@@ -1,5 +1,5 @@
-import { AddNotePage, TestNote } from "./add-note.po";
-import { by, element, browser, protractor } from "protractor";
+import { AddNotePage, TestNote } from './add-note.po';
+import { by, element, browser, protractor } from 'protractor';
 import { E2EUtil } from './e2e.util';
 
 
@@ -8,7 +8,7 @@ describe('Add note:', () => {
   const EC = protractor.ExpectedConditions;
 
   beforeEach(() => {
-    page = new AddNotePage;
+    page = new AddNotePage();
     page.navigateTo();
   });
 
