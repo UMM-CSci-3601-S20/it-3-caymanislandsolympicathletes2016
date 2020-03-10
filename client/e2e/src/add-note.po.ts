@@ -25,11 +25,6 @@ export class AddNotePage {
     return element(by.buttonText('ADD NOTE')).click();
   }
 
-  async addNote(newNote: TestNote) {
-    await this.typeInput('bodyField', newNote.body);
-    return this.clickAddNote();
-  }
-
   getUrl() {
     return browser.getCurrentUrl();
   }

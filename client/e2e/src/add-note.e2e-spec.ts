@@ -31,11 +31,9 @@ describe('Add note:', () => {
       body: E2EUtil.randomText(10)
     };
 
-    await page.addNote(note);
+    await page.typeInput('bodyField', note.body);
+    page.clickAddNote();
 
     await browser.wait(EC.not(EC.urlContains('/new')), 10000);
-
-    const url = await page.getUrl();
-    expect(url.endsWith('/new')).toBe(false);
   });
 });

@@ -19,13 +19,11 @@ export class AddNoteComponent implements OnInit {
   constructor(private fb: FormBuilder, private noteService: NotesService, private snackBar: MatSnackBar, private router: Router) {
   }
 
-  // not sure if this name is magical and making it be found or if I'm missing something,
-  // but this is where the red text that shows up (when there is invalid input) comes from
-  add_note_validation_messages = {
+  addNoteValidationMessages = {
     body: [
       {type: 'required', message: 'Body is required'},
       {type: 'minlength', message: 'Body must be at least 2 characters long'},
-      {type: 'maxlength', message: 'Body cannot be more than 50 characters long'}
+      {type: 'maxlength', message: 'Body cannot be more than 250 characters long'}
     ]
   };
 
