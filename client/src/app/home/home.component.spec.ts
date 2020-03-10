@@ -5,6 +5,8 @@ import {By} from '@angular/platform-browser';
 import { MatCardModule } from '@angular/material/card';
 import { PDFService } from '../pdf.service';
 import { MockPDFService } from 'src/testing/pdf.service.mock';
+import { MockNoteService } from 'src/testing/note.service.mock';
+import { NotesService } from '../notes.service';
 
 describe('Home:', () => {
 
@@ -13,14 +15,16 @@ describe('Home:', () => {
   let de: DebugElement;
   let el: HTMLElement;
   let mockPDFService: MockPDFService;
+  let mockNoteService: MockNoteService;
 
   beforeEach(() => {
     mockPDFService = new MockPDFService();
+    mockNoteService = new MockNoteService();
 
     TestBed.configureTestingModule({
       imports: [MatCardModule],
       declarations: [HomeComponent], // declare the test component
-      providers: [{provide: PDFService, useValue: mockPDFService}],
+      providers: [{provide: PDFService, useValue: mockPDFService},{provide: NotesService, useValue: mockNoteService}],
     });
 
     fixture = TestBed.createComponent(HomeComponent);
@@ -30,6 +34,18 @@ describe('Home:', () => {
     // query for the link (<a> tag) by CSS element selector
     de = fixture.debugElement.query(By.css('#generate-pdf-button'));
     el = de.nativeElement;
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  describe('The retrieveNotes() method:', () => {
+    it('gets all the notes from the server', () =>{
+      component.retrieveNotes();
+
+      expect(component.notes.length).toBe(3);
+    });
   });
 
   describe('The savePDF() method:', () => {
