@@ -12,7 +12,7 @@ export class PDFService {
    * Returns a jsPDF object with a link to Professor Rachel's
    * DoorBoard viewer page.
    */
-  getPDF(): RealJsPDF {
+  getPDF(): jsPDF {
     const url: string = environment.BASE_URL + '/viewers';
 
     const doc = new jsPDF({
