@@ -35,6 +35,7 @@ import io.javalin.http.BadRequestResponse;
 import io.javalin.http.Context;
 import io.javalin.http.util.ContextUtil;
 import io.javalin.plugin.json.JavalinJson;
+import io.javalin.http.NotFoundResponse;
 
 import umm3601.notes.Note;
 import umm3601.notes.NoteController;
@@ -107,6 +108,43 @@ public class NoteControllerSpec {
 
     String result = ctx.resultString();
     assertEquals(db.getCollection("notes").countDocuments(), JavalinJson.fromJson(result, Note[].class).length);
+  }
+
+ @Test
+  public void GetNoteWithExistentId() throws IOException {
+
+    String testID = db.getCollection("notes").find(eq("body", "This is the first body")).first().get("_id").toString();
+
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes/:id", ImmutableMap.of("id", testID));
+    noteController.getNoteByID(ctx);
+
+    assertEquals(200, mockRes.getStatus());
+
+    String result = ctx.resultString();
+    Note resultNote = JavalinJson.fromJson(result, Note.class);
+
+    assertEquals(resultNote._id, testID);
+    assertEquals(resultNote.body, "This is the first body");
+  }
+
+  @Test
+  public void GetNoteWithBadId() throws IOException {
+
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes/:id", ImmutableMap.of("id", "bad"));
+
+    assertThrows(BadRequestResponse.class, () -> {
+      noteController.getNoteByID(ctx);
+    });
+  }
+
+  @Test
+  public void GetNoteWithNonexistentId() throws IOException {
+
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes/:id", ImmutableMap.of("id", "58af3a600343927e48e87335"));
+
+    assertThrows(NotFoundResponse.class, () -> {
+      noteController.getNoteByID(ctx);
+    });
   }
 
   @Test
