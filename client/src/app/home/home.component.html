@@ -16,7 +16,7 @@
   <mat-card class="note-card" *ngFor="let note of this.notes">
     <p> {{this.note.body}} </p>
     <mat-card-actions>
-      <button mat-button class="note-action delete">
+      <button mat-button class="note-action delete" (click)="deleteNote(note._id);">
         <mat-icon aria-label="Delete note">delete</mat-icon>
       </button>
     </mat-card-actions>

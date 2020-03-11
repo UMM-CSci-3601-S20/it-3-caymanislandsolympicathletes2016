@@ -18,8 +18,17 @@ export class HomeComponent {
 
   retrieveNotes(): void {
     this.unsub();
-    this.getNotesSub = this.notesService.getNotes().subscribe(returnedNotes =>{
+    this.getNotesSub = this.notesService.getNotes().subscribe(returnedNotes => {
       this.notes = returnedNotes;
+    }, err => {
+      console.log(err);
+    });
+  }
+
+  const deleteNote(id: string): void {
+    this.notesService.deleteNote(id).subscribe(result => {
+      // Ignore the result for now.
+      this.retrieveNotes();
     }, err => {
       console.log(err);
     });
