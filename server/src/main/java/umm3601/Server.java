@@ -49,6 +49,9 @@ public class Server {
     // Edit an existing note
     server.post("api/notes/edit", noteController::editNote);
 
+    // Delete a note
+    server.delete("api/notes/:id", noteController::deleteNote);
+
     server.exception(Exception.class, (e, ctx) -> {
       ctx.status(500);
       ctx.json(e); // you probably want to remove this in production

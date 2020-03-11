@@ -1,10 +1,13 @@
 package umm3601.notes;
 
+import static com.mongodb.client.model.Filters.eq;
+
 import java.util.ArrayList;
 
 import com.google.common.collect.ImmutableMap;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.result.DeleteResult;
 
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Updates.set;
@@ -22,6 +25,9 @@ public class NoteController {
   JacksonCodecRegistry jacksonCodecRegistry = JacksonCodecRegistry.withDefaultObjectMapper();
 
   private final MongoCollection<Note> noteCollection;
+
+  public static final String DELETED_RESPONSE = "deleted";
+  public static final String NOT_DELETED_RESPONSE = "nothing deleted";
 
   public NoteController(MongoDatabase database) {
     jacksonCodecRegistry.addCodecForClass(Note.class);
@@ -46,7 +52,6 @@ public class NoteController {
   }
 
   public void getNotes(Context ctx) {
-
     ctx.json(noteCollection.find(new Document()).into(new ArrayList<>()));
   }
 
@@ -71,6 +76,23 @@ public class NoteController {
       throw new NotFoundResponse("The requested note was not found");
     } else {
       ctx.status(204);
+    }
+  }
+
+  /**
+   * Delete a note with a given id, if the id exists.
+   *
+   * If the id does not exist, do nothing.
+   */
+  public void deleteNote(Context ctx) {
+    String id = ctx.pathParam("id");
+    DeleteResult result = noteCollection.deleteOne(eq("_id", new ObjectId(id)));
+
+    if (result.getDeletedCount() > 0) {
+      ctx.result(DELETED_RESPONSE);
+    } else {
+      // Deleting a non-existent id is still considered a success.
+      ctx.result(NOT_DELETED_RESPONSE);
     }
   }
 }

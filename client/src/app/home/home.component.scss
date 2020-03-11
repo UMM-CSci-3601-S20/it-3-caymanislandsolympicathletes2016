@@ -19,6 +19,19 @@
   margin: 10px;
   position: relative;
   background-color: palegoldenrod;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.note-card p {
+  flex-grow: 1;
+}
+
+.note-card mat-card-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
 }
 
 p {

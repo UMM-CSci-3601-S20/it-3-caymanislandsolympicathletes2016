@@ -29,4 +29,7 @@ export class MockNoteService extends NotesService {
     return of(MockNoteService.testNotes);
   }
 
+  deleteNote(id: string) {
+    return of(true);
+  }
 }
