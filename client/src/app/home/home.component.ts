@@ -25,7 +25,7 @@ export class HomeComponent {
     });
   }
 
-  const deleteNote(id: string): void {
+  deleteNote(id: string): void {
     this.notesService.deleteNote(id).subscribe(result => {
       // Ignore the result for now.
       this.retrieveNotes();

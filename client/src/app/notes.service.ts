@@ -36,8 +36,12 @@ export class NotesService {
   deleteNote(id: string): Observable<boolean> {
     type DeleteResponse = 'deleted' | 'nothing deleted';
 
-    const response =
-      this.httpClient.delete<DeleteResponse>(this.noteUrl + '/' + encodeURI(id));
+    const response =this.httpClient.delete(
+      this.noteUrl + '/' + encodeURI(id),
+      {
+        responseType: 'text',
+      },
+    ) as Observable<DeleteResponse>;
 
     return response.pipe(map(theResponse => theResponse === 'deleted'));
   }
