@@ -1,5 +1,8 @@
 import {Component} from '@angular/core';
 import {PDFService} from '../pdf.service';
+import { NotesService } from '../notes.service';
+import { Note } from '../note';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home-component',
@@ -7,7 +10,33 @@ import {PDFService} from '../pdf.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-  constructor(private pdfService: PDFService) {
+
+  public notes: Note[];
+  getNotesSub: Subscription;
+
+  constructor(private pdfService: PDFService, private notesService: NotesService) {}
+
+  retrieveNotes(): void {
+    this.unsub();
+    this.getNotesSub = this.notesService.getNotes().subscribe(returnedNotes =>{
+      this.notes = returnedNotes;
+    }, err => {
+      console.log(err);
+    });
+  }
+
+  ngOnInit(): void {
+    this.retrieveNotes();
+  }
+
+  ngOnDestroy(): void {
+    this.unsub();
+  }
+
+  unsub(): void {
+    if (this.getNotesSub) {
+      this.getNotesSub.unsubscribe();
+    }
   }
 
   savePDF(): void {

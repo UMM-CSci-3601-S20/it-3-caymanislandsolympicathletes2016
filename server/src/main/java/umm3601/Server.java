@@ -40,6 +40,9 @@ public class Server {
     // List notes
     server.get("api/notes", noteController::getNotes);
 
+    // Add new note
+    server.post("api/notes/new", noteController::addNote);
+
     // Delete a note
     server.delete("api/notes/:id", noteController::deleteNote);
 

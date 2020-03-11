@@ -14,8 +14,6 @@ export class ViewerPageComponent implements OnInit {
   public notes: Note[];
   getNotesSub: Subscription;
 
-  public noteBody: string;
-
   constructor(private notesService: NotesService) {}
 
   retrieveNotes(): void {

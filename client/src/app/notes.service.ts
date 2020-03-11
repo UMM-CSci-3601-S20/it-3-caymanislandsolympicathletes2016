@@ -20,6 +20,10 @@ export class NotesService {
     return this.httpClient.get<Note[]>(this.noteUrl);
   }
 
+  addNote(newNote: Note): Observable<string> {
+    return this.httpClient.post<{id: string}>(this.noteUrl + '/new', newNote).pipe(map(res => res.id));
+  }
+
   /**
    * Delete a note by ID from the database.
    *

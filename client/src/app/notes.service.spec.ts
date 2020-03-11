@@ -56,6 +56,22 @@ describe('Note service:', () => {
     });
   });
 
+  describe('The addNote() method:', () => {
+    it('calls api/notes/new', () => {
+
+      noteService.addNote(testNotes[1]).subscribe(
+        id => expect(id).toBe('testid')
+      );
+
+      const req = httpTestingController.expectOne(noteService.noteUrl + '/new');
+
+      expect(req.request.method).toEqual('POST');
+      expect(req.request.body).toEqual(testNotes[1]);
+
+      req.flush({id: 'testid'});
+    });
+  });
+
   describe('The deleteNote() method:', () => {
     it('calls DELETE on api/notes/:id', async () => {
       const id = 'Hi! I\'m an ID';
@@ -87,7 +103,5 @@ describe('Note service:', () => {
       const req = httpTestingController.expectOne(noteService.noteUrl + '/' + encodeURI(id));
       req.flush('nothing deleted');
     });
-
-
   });
 });
