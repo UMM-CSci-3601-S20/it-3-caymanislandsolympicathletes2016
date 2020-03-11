@@ -1,5 +1,6 @@
 package umm3601.note;
 
+import static com.mongodb.client.model.Filters.eq;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -12,9 +13,11 @@ import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.google.common.collect.ImmutableMap;
 import com.mockrunner.mock.web.MockHttpServletRequest;
 import com.mockrunner.mock.web.MockHttpServletResponse;
 import com.mongodb.client.MongoClient;
+import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoClients;
@@ -50,6 +53,8 @@ public class NoteControllerSpec {
 
   static ObjectMapper jsonMapper = new ObjectMapper();
 
+  static ObjectId importantNoteId;
+
   @BeforeAll
   public static void setupAll() {
     String mongoAddr = System.getenv().getOrDefault("MONGO_ADDR", "localhost");
@@ -74,17 +79,16 @@ public class NoteControllerSpec {
     MongoCollection<Document> noteDocuments = db.getCollection("notes");
     noteDocuments.drop();
     List<Document> testNotes = new ArrayList<>();
-    testNotes.add(Document.parse("{\n" +
-    "                    body: \"This is the first body\",\n" +
-    "                }"));
-    testNotes.add(Document.parse("{\n" +
-    "                    body: \"This is the second body\",\n" +
-    "                }"));
-    testNotes.add(Document.parse("{\n" +
-    "                    body: \"This is the third body\",\n" +
-    "                }"));
+    testNotes.add(Document.parse("{ body: \"This is the first body\" }"));
+    testNotes.add(Document.parse("{ body: \"This is the second body\" }"));
+    testNotes.add(Document.parse("{ body: \"This is the third body\" }"));
+
+    importantNoteId = new ObjectId();
+    BasicDBObject importantNote = new BasicDBObject("_id", importantNoteId)
+        .append("body", "Frogs are pretty cool");
 
     noteDocuments.insertMany(testNotes);
+    noteDocuments.insertOne(Document.parse(importantNote.toJson()));
 
     noteController = new NoteController(db);
   }
@@ -97,7 +101,6 @@ public class NoteControllerSpec {
 
   @Test
   public void GetAllNotes() throws IOException {
-
     // Create our fake Javalin context
     Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes");
     noteController.getNotes(ctx);
@@ -161,4 +164,35 @@ public class NoteControllerSpec {
       noteController.addNote(ctx);
     });
   }
+
+  @Test
+  public void DeleteNote() throws IOException {
+    assertEquals(1, db.getCollection("notes").countDocuments(eq("_id", importantNoteId)));
+
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes/:id", ImmutableMap.of("id", importantNoteId.toHexString()));
+    noteController.deleteNote(ctx);
+
+    assertEquals(200, mockRes.getStatus());
+    assertEquals(ctx.resultString(), NoteController.DELETED_RESPONSE);
+
+    // Note is no longer in the database
+    assertEquals(0, db.getCollection("notes").countDocuments(eq("_id", importantNoteId)));
+  }
+
+  @Test
+  public void DeletingANonexistentNoteHasNoEffect() throws IOException {
+    ObjectId noSuchNoteId = new ObjectId();
+
+    assertEquals(0, db.getCollection("notes").countDocuments(eq("_id", noSuchNoteId)));
+
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes/:id", ImmutableMap.of("id", noSuchNoteId.toHexString()));
+    noteController.deleteNote(ctx);
+
+    assertEquals(200, mockRes.getStatus());
+    assertEquals(ctx.resultString(), NoteController.NOT_DELETED_RESPONSE);
+
+
+    assertEquals(0, db.getCollection("notes").countDocuments(eq("_id", noSuchNoteId)));
+  }
+
 }

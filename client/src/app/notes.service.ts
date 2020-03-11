@@ -5,6 +5,7 @@ import { Note } from './note';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -21,5 +22,27 @@ export class NotesService {
 
   addNote(newNote: Note): Observable<string> {
     return this.httpClient.post<{id: string}>(this.noteUrl + '/new', newNote).pipe(map(res => res.id));
+  }
+
+  /**
+   * Delete a note by ID from the database.
+   *
+   * @return true if the note was deleted, and false if the note wasn't
+   *   deleted (eg, if the ID you gave didn't correspond to a note in the
+   *   database.)
+   *
+   * Usually, you can just ignore the return value.
+   */
+  deleteNote(id: string): Observable<boolean> {
+    type DeleteResponse = 'deleted' | 'nothing deleted';
+
+    const response = this.httpClient.delete(
+      this.noteUrl + '/' + encodeURI(id),
+      {
+        responseType: 'text',
+      },
+    ) as Observable<DeleteResponse>;
+
+    return response.pipe(map(theResponse => theResponse === 'deleted'));
   }
 }
