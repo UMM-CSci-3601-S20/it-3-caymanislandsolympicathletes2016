@@ -8,6 +8,7 @@ import { MockPDFService } from 'src/testing/pdf.service.mock';
 import { MockNoteService } from 'src/testing/note.service.mock';
 import { NotesService } from '../notes.service';
 import { Note } from '../note';
+import { of } from 'rxjs';
 
 describe('Home:', () => {
 
@@ -56,7 +57,15 @@ describe('Home:', () => {
     });
   });
 
+  describe('The deleteNote() method:', () => {
+    it('calls notesService.deleteNote', () => {
+      const id = 'Hey everyone, I\'m an ID!';
+      spyOn(MockNoteService.prototype, 'deleteNote').and.returnValue(of(true));
 
+      component.deleteNote(id);
+      expect(MockNoteService.prototype.deleteNote).toHaveBeenCalledWith(id);
+    });
+  });
 
   describe('The savePDF() method:', () => {
     it('gets a pdf document from PDFService and calls .save() on it', () => {
