@@ -48,7 +48,7 @@ export class NotesService {
 
   editNote(editNote: Note, id: string): Observable<string> {
     let httpParams: HttpParams = new HttpParams();
-    httpParams = httpParams.set('_id', id);
+    httpParams = httpParams.set('id', id);
     httpParams = httpParams.set('body', editNote.body);
     return this.httpClient.post<{id: string}>(this.noteUrl + '/edit', {params: httpParams}).pipe(map(res => res.id));
   }
