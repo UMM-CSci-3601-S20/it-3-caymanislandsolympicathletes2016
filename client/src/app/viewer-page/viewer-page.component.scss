@@ -1,19 +1,4 @@
-.note-container {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.note-card {
-  width: 200px;
-  min-height: 200px;
-  margin: 10px;
-  position: relative;
-  background-color: palegoldenrod;
-}
+@import '../notes.scss';
 
 p {
   font-size: 15px;
@@ -22,9 +7,4 @@ p {
 h2 {
   text-align: center;
   text-decoration: underline;
-}
-
-.note-error {
-  text-align: center;
-  padding: 10px;
 }
