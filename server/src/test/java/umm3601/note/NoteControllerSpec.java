@@ -218,7 +218,7 @@ public class NoteControllerSpec {
   }
 
   @Test
-  public void EditNoteWithWrongID() throws IOException {
+  public void EditNoteWithNonexistentID() throws IOException {
     mockReq.setMethod("POST");
     Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes/:id", ImmutableMap.of("id", "58af3a600343927e48e87335", "body", "HI"));
 
