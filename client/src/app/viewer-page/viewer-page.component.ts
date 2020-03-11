@@ -1,20 +1,20 @@
-import {Component} from '@angular/core';
-import {PDFService} from '../pdf.service';
+import { Component, OnInit } from '@angular/core';
 import { NotesService } from '../notes.service';
 import { Note } from '../note';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-home-component',
-  templateUrl: 'home.component.html',
-  styleUrls: ['./home.component.scss'],
+  selector: 'app-viewer-page',
+  templateUrl: './viewer-page.component.html',
+  styleUrls: ['./viewer-page.component.scss']
 })
-export class HomeComponent {
+
+export class ViewerPageComponent implements OnInit {
 
   public notes: Note[];
   getNotesSub: Subscription;
 
-  constructor(private pdfService: PDFService, private notesService: NotesService) {}
+  constructor(private notesService: NotesService) {}
 
   retrieveNotes(): void {
     this.unsub();
@@ -39,7 +39,4 @@ export class HomeComponent {
     }
   }
 
-  savePDF(): void {
-    this.pdfService.getPDF().save('DoorBoard');
-  }
 }
