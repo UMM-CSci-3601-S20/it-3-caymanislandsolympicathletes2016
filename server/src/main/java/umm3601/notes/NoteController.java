@@ -67,6 +67,7 @@ public class NoteController {
     Note oldNote = noteCollection.findOneAndUpdate(eq(new ObjectId(id)), set("body", newBody));
 
     if (oldNote == null) {
+      ctx.status(400);
       throw new NotFoundResponse("The requested note was not found");
     } else {
       ctx.status(204);

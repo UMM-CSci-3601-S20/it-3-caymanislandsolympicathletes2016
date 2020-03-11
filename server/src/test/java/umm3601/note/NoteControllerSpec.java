@@ -216,4 +216,15 @@ public class NoteControllerSpec {
     String updatedBody = db.getCollection("notes").find(eq("_id", new ObjectId(id))).first().get("body").toString();
     assertEquals(newBody, updatedBody);
   }
+
+  @Test
+  public void EditNoteWithWrongID() throws IOException {
+    mockReq.setMethod("POST");
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes/:id", ImmutableMap.of("id", "58af3a600343927e48e87335", "body", "HI"));
+
+    assertThrows(NotFoundResponse.class, () -> {
+      noteController.editNote(ctx);
+    });
+    assertEquals(400, mockRes.getStatus());
+  }
 }
