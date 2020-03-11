@@ -61,7 +61,7 @@ public class NoteController {
   }
 
   public void editNote(Context ctx) {
-    String id = ctx.pathParam("_id");
+    String id = ctx.pathParam("id");
     String newBody = ctx.pathParam("body");
 
     Note oldNote = noteCollection.findOneAndUpdate(eq(new ObjectId(id)), set("body", newBody));
