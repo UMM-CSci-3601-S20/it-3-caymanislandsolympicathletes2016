@@ -6,6 +6,9 @@ import com.google.common.collect.ImmutableMap;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
+import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Updates.set;
+
 import org.bson.Document;
 import org.mongojack.JacksonCodecRegistry;
 
@@ -36,5 +39,11 @@ public class NoteController {
     noteCollection.insertOne(newNote);
     ctx.status(201);
     ctx.json(ImmutableMap.of("id", newNote._id));
+  }
+
+  public void editNote(Context ctx) {
+    noteCollection.findOneAndUpdate(eq(ctx.pathParam("_id")), set("body", ctx.pathParam("body")));
+
+    ctx.status(204);
   }
 }
