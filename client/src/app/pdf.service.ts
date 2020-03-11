@@ -33,7 +33,7 @@ export class PDFService {
    * DoorBoard viewer page.
    */
   getPDF(): RealJsPDF {
-    const url: string = environment.BASE_URL + '/viewer';
+    const url: string = environment.BASE_URL + '/viewers';
 
     const doc = new jsPDF({
       orientation: 'portrait',
