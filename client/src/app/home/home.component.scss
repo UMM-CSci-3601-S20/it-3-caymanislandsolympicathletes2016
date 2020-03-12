@@ -1,25 +1,9 @@
-.note-container {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
+@import '../notes.scss';
 
-.add-note-fab {
-  position: fixed;
-  bottom: 15px;
-  right: 30px;
-}
-
+/**
+ * Modify the note card so it has a little action-bar at the bottom
+ */
 .note-card {
-  width: 200px;
-  min-height: 200px;
-  margin: 10px;
-  position: relative;
-  background-color: palegoldenrod;
-
   display: flex;
   flex-direction: column;
 }
@@ -34,6 +18,12 @@
   justify-content: flex-end;
 }
 
+.add-note-fab {
+  position: fixed;
+  bottom: 15px;
+  right: 30px;
+}
+
 p {
   font-size: 15px;
 }
@@ -41,9 +31,4 @@ p {
 h2 {
   text-align: center;
   text-decoration: underline;
-}
-
-.note-error {
-  text-align: center;
-  padding: 10px;
 }
