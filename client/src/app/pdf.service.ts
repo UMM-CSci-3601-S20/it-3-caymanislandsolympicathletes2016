@@ -23,7 +23,6 @@ export class PDFService {
 
     doc.setFontSize(18);
     doc.text('Rachel Johnson\'s DoorBoard', (8.5 / 2), 0.5, { align: 'center' });
-    // TODO: hook up the production IP address for deployment.
     doc.text(url, (8.5 / 2), 1, { align: 'center' });
 
     return doc;
