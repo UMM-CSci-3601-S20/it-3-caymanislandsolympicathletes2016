@@ -32,4 +32,19 @@ export class MockNoteService extends NotesService {
   deleteNote(id: string) {
     return of(true);
   }
+
+  addNote(note) {
+    return of('I just put your note in the database and this is its new ID');
+  }
+
+  editNote(note: Note, id: string) {
+    return of(id);
+  }
+
+  getNoteById(id: string) {
+    return of({
+      _id: id,
+      body: 'This is definitely the note you wanted',
+    });
+  }
 }
