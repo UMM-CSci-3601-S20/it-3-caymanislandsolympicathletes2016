@@ -19,7 +19,9 @@ export class MockNoteService extends NotesService {
       _id: 'third_id',
       body: 'This is the third note'
     }
-  ]
+  ];
+
+  public static FAKE_BODY = 'This is definitely the note you wanted';
 
   constructor() {
     super(null);
@@ -44,7 +46,7 @@ export class MockNoteService extends NotesService {
   getNoteById(id: string) {
     return of({
       _id: id,
-      body: 'This is definitely the note you wanted',
+      body: MockNoteService.FAKE_BODY,
     });
   }
 }

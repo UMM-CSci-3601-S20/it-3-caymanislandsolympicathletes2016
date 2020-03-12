@@ -59,11 +59,20 @@ describe('EditComponent', () => {
     expect(editNoteForm).toBeTruthy();
   });
 
+  it('form should auto-populate to a valid state', () => {
+    expect(editNoteForm.valid).toBeTruthy();
+  });
+
   describe('The body field:', () => {
     let bodyControl: AbstractControl;
 
     beforeEach(() => {
       bodyControl = editComponent.editNoteForm.controls[`body`];
+    });
+
+    it('should auto-populate with the body of the appropriate note', () => {
+      // This is the value provided by MockNoteService
+      expect(bodyControl.value).toEqual(MockNoteService.FAKE_BODY);
     });
 
     it('should not allow empty bodies', () => {
