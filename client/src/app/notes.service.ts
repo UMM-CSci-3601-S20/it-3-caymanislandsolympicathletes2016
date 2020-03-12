@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { Note } from './note';
 import { Observable } from 'rxjs';
@@ -47,8 +47,6 @@ export class NotesService {
   }
 
   editNote(editNote: Note, id: string): Observable<string> {
-    let httpParams: HttpParams = new HttpParams();
-    httpParams = httpParams.set('body', editNote.body);
     return this.httpClient.post<{id: string}>(this.noteUrl + '/edit/' + id, editNote).pipe(map(res => res.id));
   }
 
