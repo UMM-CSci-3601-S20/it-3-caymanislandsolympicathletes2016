@@ -104,4 +104,23 @@ describe('Note service:', () => {
       req.flush('nothing deleted');
     });
   });
+
+  describe('The editNote() method:', () => {
+    it('calls api/notes/edit/:id', () => {
+      const newNote = {
+        body: 'We sailed on the Sloop John B / My grandfather and me'
+      } as Note;
+
+      noteService.editNote(newNote, 'testid').subscribe(
+        id => expect(id).toBe('testid')
+      );
+
+      const req = httpTestingController.expectOne(noteService.noteUrl + '/edit/testid');
+
+      expect(req.request.method).toEqual('POST');
+      expect(req.request.body).toEqual(newNote);
+
+      req.flush({id: 'testid'});
+    });
+  });
 });
