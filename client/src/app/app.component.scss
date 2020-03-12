@@ -1,25 +1,13 @@
-.sidenav-container {
-  height: 100%;
-}
-
-.sidenav {
-  width: 256px;
-}
-
-.sidenav .mat-toolbar {
-  background: inherit;
-}
-
 .mat-toolbar.mat-primary {
-  position: sticky;
-  top: 0;
   z-index: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 .app-title {
-  padding-left: 20px;
+  font-size: larger;
 }
-
 
 .main-content {
   margin: 24px;
