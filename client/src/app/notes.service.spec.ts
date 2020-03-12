@@ -56,6 +56,19 @@ describe('Note service:', () => {
     });
   });
 
+  describe('The getNoteById() method:', () => {
+    it('calls api/notes/:id', () => {
+      noteService.getNoteById('testid').subscribe(
+        note => expect(note).toBe(testNotes[2])
+      );
+
+      const req = httpTestingController.expectOne(noteService.noteUrl + '/testid');
+      expect(req.request.method).toEqual('GET');
+      req.flush(testNotes[2]);
+    });
+  });
+
+
   describe('The addNote() method:', () => {
     it('calls api/notes/new', () => {
 
@@ -102,6 +115,25 @@ describe('Note service:', () => {
 
       const req = httpTestingController.expectOne(noteService.noteUrl + '/' + encodeURI(id));
       req.flush('nothing deleted');
+    });
+  });
+
+  describe('The editNote() method:', () => {
+    it('calls api/notes/edit/:id', () => {
+      const newNote = {
+        body: 'We sailed on the Sloop John B / My grandfather and me'
+      } as Note;
+
+      noteService.editNote(newNote, 'testid').subscribe(
+        id => expect(id).toBe('testid')
+      );
+
+      const req = httpTestingController.expectOne(noteService.noteUrl + '/edit/testid');
+
+      expect(req.request.method).toEqual('POST');
+      expect(req.request.body).toEqual(newNote);
+
+      req.flush({id: 'testid'});
     });
   });
 });

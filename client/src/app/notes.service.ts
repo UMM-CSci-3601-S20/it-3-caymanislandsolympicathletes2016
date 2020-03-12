@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { Note } from './note';
 import { Observable } from 'rxjs';
@@ -45,4 +45,15 @@ export class NotesService {
 
     return response.pipe(map(theResponse => theResponse === 'deleted'));
   }
+
+  editNote(editNote: Note, id: string): Observable<string> {
+    let httpParams: HttpParams = new HttpParams();
+    httpParams = httpParams.set('body', editNote.body);
+    return this.httpClient.post<{id: string}>(this.noteUrl + '/edit/' + id, editNote).pipe(map(res => res.id));
+  }
+
+  getNoteById(id: string): Observable<Note> {
+    return this.httpClient.get<Note>(this.noteUrl + '/' + id);
+  }
+
 }

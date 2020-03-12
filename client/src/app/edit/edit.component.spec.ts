@@ -1,22 +1,25 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule, NgForm, ReactiveFormsModule, FormGroup, AbstractControl } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule, AbstractControl, FormGroup } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { By } from '@angular/platform-browser';
+import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MockNoteService } from 'src/testing/note.service.mock';
-import { AddNoteComponent } from './add-note.component';
 import { NotesService } from '../notes.service';
+import { MockNoteService } from 'src/testing/note.service.mock';
+import { EditComponent } from './edit.component';
+import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from 'src/testing/activated-route-stub';
+import { HttpParams } from '@angular/common/http';
 
-describe('AddNoteComponent:', () => {
-  let addNoteComponent: AddNoteComponent;
-  let addNoteForm: FormGroup;
+
+describe('EditComponent', () => {
+  let editComponent: EditComponent;
+  let editNoteForm: FormGroup;
   let calledClose: boolean;
-  let fixture: ComponentFixture<AddNoteComponent>;
+  let fixture: ComponentFixture<EditComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -31,38 +34,45 @@ describe('AddNoteComponent:', () => {
         BrowserAnimationsModule,
         RouterTestingModule
       ],
-      declarations: [AddNoteComponent],
-      providers: [{ provide: NotesService, useValue: new MockNoteService() }]
-    }).compileComponents().catch(error => {
-      expect(error).toBeNull();
-    });
+      declarations: [ EditComponent ],
+      providers: [
+        { provide: NotesService, useValue: new MockNoteService() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub(new HttpParams().set('id', 'foo')) },
+      ],
+    })
+    .compileComponents();
   }));
 
   beforeEach(() => {
     calledClose = false;
-    fixture = TestBed.createComponent(AddNoteComponent);
-    addNoteComponent = fixture.componentInstance;
-    addNoteComponent.ngOnInit();
+    fixture = TestBed.createComponent(EditComponent);
+    editComponent = fixture.componentInstance;
+    editComponent.ngOnInit();
     fixture.detectChanges();
-    addNoteForm = addNoteComponent.addNoteForm;
-    expect(addNoteForm).toBeDefined();
-    expect(addNoteForm.controls).toBeDefined();
+    editNoteForm = editComponent.editNoteForm;
+    expect(editNoteForm).toBeDefined();
+    expect(editNoteForm.controls).toBeDefined();
   });
 
   it('should create the component and form', () => {
-    expect(addNoteComponent).toBeTruthy();
-    expect(addNoteForm).toBeTruthy();
+    expect(editComponent).toBeTruthy();
+    expect(editNoteForm).toBeTruthy();
   });
 
-  it('form should be invalid when empty', () => {
-    expect(addNoteForm.valid).toBeFalsy();
+  it('form should auto-populate to a valid state', () => {
+    expect(editNoteForm.valid).toBeTruthy();
   });
 
   describe('The body field:', () => {
     let bodyControl: AbstractControl;
 
     beforeEach(() => {
-      bodyControl = addNoteComponent.addNoteForm.controls[`body`];
+      bodyControl = editComponent.editNoteForm.controls[`body`];
+    });
+
+    it('should auto-populate with the body of the appropriate note', () => {
+      // This is the value provided by MockNoteService
+      expect(bodyControl.value).toEqual(MockNoteService.FAKE_BODY);
     });
 
     it('should not allow empty bodies', () => {
@@ -87,5 +97,4 @@ describe('AddNoteComponent:', () => {
       expect(bodyControl.hasError('maxlength')).toBeTruthy();
     });
   });
-
 });

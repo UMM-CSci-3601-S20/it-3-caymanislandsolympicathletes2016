@@ -1,5 +1,6 @@
 import { HomePage } from "./home.po";
 import { browser, protractor } from 'protractor';
+import { E2EUtil } from './e2e.util';
 
 
 describe('The home page:', () => {
@@ -44,6 +45,25 @@ describe('The home page:', () => {
       // Since we've already run the previous two tests, all the notes should
       // be deleted now, even after we re-navigate to the page.
       expect(await page.getNumberOfNotes()).toBe(0);
-    })
+    });
+  });
+
+  describe('The edit button:', () => {
+    beforeEach(async () => {
+      await page.deleteAllNotes();
+      await E2EUtil.addNewNote('foo');
+    });
+
+    it('navigates to the correct page', async () => {
+      let url = await page.getUrl();
+      expect(url.includes('/edit')).toBe(false);
+
+      page.editFirstNote();
+
+      await browser.wait(EC.urlContains('/edit'), 10000);
+
+      url = await page.getUrl();
+      expect(url.includes('/edit')).toBe(true);
+    });
   });
 });

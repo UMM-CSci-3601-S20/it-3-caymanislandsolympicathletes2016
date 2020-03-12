@@ -37,6 +37,7 @@ import io.javalin.http.BadRequestResponse;
 import io.javalin.http.Context;
 import io.javalin.http.util.ContextUtil;
 import io.javalin.plugin.json.JavalinJson;
+import io.javalin.http.NotFoundResponse;
 
 import umm3601.notes.Note;
 import umm3601.notes.NoteController;
@@ -54,6 +55,7 @@ public class NoteControllerSpec {
   static ObjectMapper jsonMapper = new ObjectMapper();
 
   static ObjectId importantNoteId;
+  static BasicDBObject importantNote;
 
   @BeforeAll
   public static void setupAll() {
@@ -84,7 +86,7 @@ public class NoteControllerSpec {
     testNotes.add(Document.parse("{ body: \"This is the third body\" }"));
 
     importantNoteId = new ObjectId();
-    BasicDBObject importantNote = new BasicDBObject("_id", importantNoteId)
+    importantNote = new BasicDBObject("_id", importantNoteId)
         .append("body", "Frogs are pretty cool");
 
     noteDocuments.insertMany(testNotes);
@@ -111,6 +113,44 @@ public class NoteControllerSpec {
     assertEquals(db.getCollection("notes").countDocuments(), JavalinJson.fromJson(result, Note[].class).length);
   }
 
+ @Test
+  public void GetNoteWithExistentId() throws IOException {
+
+    mockReq.setMethod("GET");
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes/:id", ImmutableMap.of("id", importantNoteId.toHexString()));
+    noteController.getNoteByID(ctx);
+
+    assertEquals(200, mockRes.getStatus());
+
+    String result = ctx.resultString();
+    Note resultNote = JavalinJson.fromJson(result, Note.class);
+
+    assertEquals(resultNote._id, importantNoteId.toHexString());
+    assertEquals(resultNote.body, importantNote.get("body"));
+  }
+
+  @Test
+  public void GetNoteWithBadId() throws IOException {
+
+    mockReq.setMethod("GET");
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes/:id", ImmutableMap.of("id", "bad"));
+
+    assertThrows(BadRequestResponse.class, () -> {
+      noteController.getNoteByID(ctx);
+    });
+  }
+
+  @Test
+  public void GetNoteWithNonexistentId() throws IOException {
+
+    mockReq.setMethod("GET");
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes/:id", ImmutableMap.of("id", new ObjectId().toHexString()));
+
+    assertThrows(NotFoundResponse.class, () -> {
+      noteController.getNoteByID(ctx);
+    });
+  }
+
   @Test
   public void AddNote() throws IOException {
 
@@ -131,7 +171,6 @@ public class NoteControllerSpec {
 
     assertEquals(1, db.getCollection("notes").countDocuments(eq("_id", new ObjectId(id))));
 
-    //verify user was added to the database and the correct ID
     Document addedNote = db.getCollection("notes").find(eq("_id", new ObjectId(id))).first();
     assertNotNull(addedNote);
     assertEquals("Test Note", addedNote.getString("body"));
@@ -149,6 +188,7 @@ public class NoteControllerSpec {
     });
   }
 
+  @Test
   public void AddNoteWithTooLongBody() throws IOException {
     String testNewNote = "{\"body\":\"";
     for(int i = 0; i < 1000; i++) {
@@ -195,4 +235,39 @@ public class NoteControllerSpec {
     assertEquals(0, db.getCollection("notes").countDocuments(eq("_id", noSuchNoteId)));
   }
 
+
+  @Test
+  public void EditNote() throws IOException {
+    String testUpdateNote = "{\"body\": \"This is the new body\"}";
+    String id = importantNoteId.toHexString();
+
+    mockReq.setBodyContent(testUpdateNote);
+    mockReq.setMethod("POST");
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes/edit/:id", ImmutableMap.of("id", id));
+
+    noteController.editNote(ctx);
+
+    assertEquals(200, mockRes.getStatus());
+
+    String updatedBody = db.getCollection("notes").find(eq("_id", importantNoteId)).first().get("body").toString();
+    assertEquals("This is the new body", updatedBody);
+  }
+
+  @Test
+  public void EditNoteWithNonexistentID() throws IOException {
+    String testUpdateNote = "{\"body\": \"This is the new body\"}";
+    ObjectId wrongId = new ObjectId();
+
+    mockReq.setBodyContent(testUpdateNote);
+    mockReq.setMethod("POST");
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes/:id", ImmutableMap.of("id", wrongId.toHexString()));
+
+    assertThrows(NotFoundResponse.class, () -> {
+      noteController.editNote(ctx);
+    });
+    assertEquals(400, mockRes.getStatus());
+
+    assertEquals(0, db.getCollection("notes").countDocuments(eq("_id", wrongId)));
+
+  }
 }
