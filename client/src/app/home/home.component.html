@@ -19,7 +19,7 @@
       <button mat-button class="note-action delete" (click)="deleteNote(note._id);">
         <mat-icon aria-label="Delete note">delete</mat-icon>
       </button>
-      <button mat-button class="note-action edit" routerLink="/edit/{{ note._id }}">
+      <button mat-button class="note-action edit" [routerLink]="'/edit/' + note._id">
         <mat-icon aria-label="Edit note">create</mat-icon>
       </button>
     </mat-card-actions>

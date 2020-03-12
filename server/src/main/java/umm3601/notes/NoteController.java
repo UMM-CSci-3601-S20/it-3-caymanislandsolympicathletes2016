@@ -66,16 +66,20 @@ public class NoteController {
   }
 
   public void editNote(Context ctx) {
-    String id = ctx.pathParam("id");
-    String newBody = ctx.pathParam("body");
+    String id = ctx.pathParamMap().get("id");
 
-    Note oldNote = noteCollection.findOneAndUpdate(eq(new ObjectId(id)), set("body", newBody));
+    Note newNote= ctx.bodyValidator(Note.class)
+    .check((note) -> note.body.length() >= 2 && note.body.length() <= 300).get();
+    String newBody = newNote.body;
+
+    Note oldNote = noteCollection.findOneAndUpdate(eq("_id", new ObjectId(id)), set("body", newBody));
 
     if (oldNote == null) {
       ctx.status(400);
       throw new NotFoundResponse("The requested note was not found");
     } else {
-      ctx.status(204);
+      ctx.status(200);
+      ctx.json(ImmutableMap.of("id", id));
     }
   }
 

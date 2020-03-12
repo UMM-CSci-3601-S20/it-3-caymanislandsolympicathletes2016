@@ -44,14 +44,15 @@ export class EditComponent implements OnInit {
 
   }
 
-  ngOnInit() {
+   ngOnInit() {
     this.createForms();
     this.route.paramMap.subscribe((pmap) => {
       this.id = pmap.get('id');
       if (this.getNoteSub) {
         this.getNoteSub.unsubscribe();
       }
-      this.getNoteSub = this.noteService.getNoteById(this.id).subscribe(note => this.note = note);
+      this.getNoteSub = this.noteService.getNoteById(this.id).subscribe(retrievedNote => this.
+        editNoteForm.get('body').setValue(retrievedNote.body));
     });
   }
 
