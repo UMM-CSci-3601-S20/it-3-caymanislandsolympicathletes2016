@@ -18,6 +18,12 @@
   justify-content: flex-end;
 }
 
+#pdf-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
 .add-note-fab {
   position: fixed;
   bottom: 15px;
