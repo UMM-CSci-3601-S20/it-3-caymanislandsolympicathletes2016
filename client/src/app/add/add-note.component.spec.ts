@@ -86,7 +86,6 @@ describe('AddNoteComponent:', () => {
       expect(bodyControl.valid).toBeFalsy();
       expect(bodyControl.hasError('maxlength')).toBeTruthy();
     });
-
   });
 
 });

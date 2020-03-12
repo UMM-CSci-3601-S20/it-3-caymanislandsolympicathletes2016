@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule, AbstractControl, FormGroup } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -10,10 +10,15 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NotesService } from '../notes.service';
 import { MockNoteService } from 'src/testing/note.service.mock';
 import { EditComponent } from './edit.component';
+import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from 'src/testing/activated-route-stub';
+import { HttpParams } from '@angular/common/http';
 
 
 describe('EditComponent', () => {
-  let component: EditComponent;
+  let editComponent: EditComponent;
+  let editNoteForm: FormGroup;
+  let calledClose: boolean;
   let fixture: ComponentFixture<EditComponent>;
 
   beforeEach(async(() => {
@@ -30,18 +35,57 @@ describe('EditComponent', () => {
         RouterTestingModule
       ],
       declarations: [ EditComponent ],
-      providers: [{ provide: NotesService, useValue: new MockNoteService() }],
+      providers: [
+        { provide: NotesService, useValue: new MockNoteService() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub(new HttpParams().set('id', 'foo')) },
+      ],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
+    calledClose = false;
     fixture = TestBed.createComponent(EditComponent);
-    component = fixture.componentInstance;
+    editComponent = fixture.componentInstance;
+    editComponent.ngOnInit();
     fixture.detectChanges();
+    editNoteForm = editComponent.editNoteForm;
+    expect(editNoteForm).toBeDefined();
+    expect(editNoteForm.controls).toBeDefined();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should create the component and form', () => {
+    expect(editComponent).toBeTruthy();
+    expect(editNoteForm).toBeTruthy();
+  });
+
+  describe('The body field:', () => {
+    let bodyControl: AbstractControl;
+
+    beforeEach(() => {
+      bodyControl = editComponent.editNoteForm.controls[`body`];
+    });
+
+    it('should not allow empty bodies', () => {
+      bodyControl.setValue('');
+      expect(bodyControl.valid).toBeFalsy();
+    });
+
+    it('should be fine with "late to office hours"', () => {
+      bodyControl.setValue('late to office hours');
+      expect(bodyControl.valid).toBeTruthy();
+    });
+
+    it('should fail on single character bodies', () => {
+      bodyControl.setValue('x');
+      expect(bodyControl.valid).toBeFalsy();
+      expect(bodyControl.hasError('minlength')).toBeTruthy();
+    });
+
+    it('should fail on really long bodies', () => {
+      bodyControl.setValue('x'.repeat(1000));
+      expect(bodyControl.valid).toBeFalsy();
+      expect(bodyControl.hasError('maxlength')).toBeTruthy();
+    });
   });
 });
