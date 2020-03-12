@@ -56,6 +56,19 @@ describe('Note service:', () => {
     });
   });
 
+  describe('The getNoteById() method:', () => {
+    it('calls api/notes/:id', () => {
+      noteService.getNoteById('testid').subscribe(
+        note => expect(note).toBe(testNotes[2])
+      );
+
+      const req = httpTestingController.expectOne(noteService.noteUrl + '/testid');
+      expect(req.request.method).toEqual('GET');
+      req.flush(testNotes[2]);
+    });
+  });
+
+
   describe('The addNote() method:', () => {
     it('calls api/notes/new', () => {
 
