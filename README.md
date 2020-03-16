@@ -8,12 +8,31 @@ This is Team Nicolai Thärichen's iteration-one code for the DoorBoard web app,
 as part of The UMM CSCI Department's "Software Design and Development" class
 (Spring 2020).
 
-🐚🐚 **Teams considering using this code base for iteration two should read items
-marked with cute seashells.** 🐚🐚
+🐚🐚 **Teams considering using this code base for iteration two should read
+items marked with seashells.**
 
 DoorBoard is a virtual sticky-note board for office dwellers who need a way to
 remotely and conveniently post last minute scheduling announcements (or other
 information) to visitors.
+
+## Known Issues
+
+Almost all of the code in this repository is in a working state. However, there
+a couple of known issues with this project; if you use this code base, you
+should fix these for the next iteration.
+
+1. 🐚🐚 The website isn't very legible-looking if your browser is in dark
+   mode. To fix this, you may want to change the color of the text on the
+   sticky-notes so that it is always black, whether or not the user is in dark
+   mode. This change should probably go in the `client/src/app/notes.scss`
+   file. (You also probably want to change the background color so that it
+   isn't always `whitesmoke`; in dark mode, the background color should
+   probably be a dark grey. This change should probably go in
+   `client/src/app/app.component.scss`.)
+2. 🐚🐚 When the user clicks the `GENERATE PDF` button, a PDF file is saved to
+   their downloads folder. At the moment, this file does not have the `.pdf`
+   extension at the end. To fix this, you'll need to change the `savePDF()`
+   method in the `client/src/app/home/home.component.ts` file.
 
 ## Deployment
 
@@ -21,7 +40,7 @@ As always, instructions on how to crate a DigitalOcean Droplet and setup the pro
 
 🐚🐚 If you want to deploy this project on a new droplet, you will need to
 change the domain name in the file
-`it-1-nicolai-tharichen/client/src/environments/environment.prod.ts`.
-(Specifically, you need to change the value of `BASE_URL`.) This value is
-used to generate the link on the PDF; if you don't change it, the PDF will
-point to the webpage from iteration one. 🐚🐚
+`client/src/environments/environment.prod.ts`. (Specifically, you need to
+change the value of `BASE_URL`.) This value is used to generate the link on
+the PDF; if you don't change it, the PDF will point to the webpage from
+iteration one.
