@@ -33,6 +33,16 @@ should fix these for the next iteration.
    their downloads folder. At the moment, this file does not have the `.pdf`
    extension at the end. To fix this, you'll need to change the `savePDF()`
    method in the `client/src/app/home/home.component.ts` file.
+3. 🐚🐚 in `server/src/main/java/umm3601/notes/NoteController.java`, the
+   methods `editNote()` and `deleteNote()` will throw an exception if the
+   path parameter `:id` isn't formatted like a Mongo ID (for example, if
+   it isn't a hex string or if it's got the wrong number of digits). This will
+   cause a `500 Internal Server Error`.
+
+## API
+
+🐚🐚 The server's API is a bit weird in places. A full description of
+the API is can be found in [HTTP_API.md](HTTP_API.md).
 
 ## Deployment
 
