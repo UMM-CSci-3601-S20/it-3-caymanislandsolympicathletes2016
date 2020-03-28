@@ -3,8 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Owner } from './owner';
 import { OwnerService } from './owner.service';
 import { Subscription } from 'rxjs';
-import { NoteService } from '.././notes/note.service';
-import { Note } from '.././notes/note';
+import { NotesService } from '../notes.service';
+import { Note } from '../note';
 
 @Component({
   selector: 'app-owner',
@@ -15,7 +15,7 @@ import { Note } from '.././notes/note';
 
 // This class has access to the owner of the doorboard, and all the notes that said owner has made
 export class OwnerComponent implements OnInit, OnDestroy {
-  constructor(private route: ActivatedRoute, private noteService: NoteService,
+  constructor(private route: ActivatedRoute, private noteService: NotesService,
               private ownerService: OwnerService) { }
   notes: Note[];
   owner: Owner;
@@ -29,7 +29,7 @@ export class OwnerComponent implements OnInit, OnDestroy {
     this.route.paramMap.subscribe((pmap) => {
       this.id = pmap.get('id');
       this.getOwnerSub = this.ownerService.getOwnerById(this.id).subscribe(owner => this.owner = owner);
-      this.getNotesSub = this.noteService.getOwnerNotes({ owner_id: this.id }).subscribe(notes => this.notes = notes.reverse());
+      this.getNotesSub = this.noteService.getNotes().subscribe(notes => this.notes = notes.reverse());
 
     });
   }
