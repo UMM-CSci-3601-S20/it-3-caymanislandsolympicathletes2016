@@ -3,6 +3,7 @@ package umm3601.notes;
 import static com.mongodb.client.model.Filters.eq;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.google.common.collect.ImmutableMap;
 import com.mongodb.client.MongoCollection;
@@ -13,6 +14,7 @@ import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Updates.set;
 
 import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import org.mongojack.JacksonCodecRegistry;
 
@@ -81,6 +83,19 @@ public class NoteController {
       ctx.status(200);
       ctx.json(ImmutableMap.of("id", id));
     }
+  }
+
+  //get owner notes
+  public void getOwnerNotes(Context ctx) {
+
+    List<Bson> filters = new ArrayList<Bson>(); // start with a blank document
+
+    if (ctx.queryParamMap().containsKey("owner_id")) {
+      filters.add(eq("owner_id", ctx.queryParam("owner_id")));
+    }
+
+    ctx.json(noteCollection.find()
+    .into(new ArrayList<>()));
   }
 
   /**
