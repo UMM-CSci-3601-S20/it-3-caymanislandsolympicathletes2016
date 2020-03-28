@@ -12,7 +12,7 @@ const routes: Routes = [
   {path: 'new', component: AddNoteComponent},
   {path: 'viewers', component: ViewerPageComponent},
   {path: 'edit/:id', component: EditComponent},
-  {path: 'owner/:id/posts', component: OwnerComponent}
+  {path: 'owner/:id/notes', component: OwnerComponent}
 ];
 
 @NgModule({
