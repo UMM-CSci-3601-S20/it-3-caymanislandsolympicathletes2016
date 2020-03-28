@@ -32,6 +32,7 @@ import { NotesService } from './notes.service';
 import { ViewerPageComponent } from './viewer-page/viewer-page.component';
 import { AddNoteComponent } from './add/add-note.component';
 import { EditComponent } from './edit/edit.component';
+import { OwnerComponent } from './owner/owner.component';
 
 const MATERIAL_MODULES: any[] = [
   MatListModule,
@@ -59,6 +60,7 @@ const MATERIAL_MODULES: any[] = [
     ViewerPageComponent,
     AddNoteComponent,
     EditComponent,
+    OwnerComponent,
   ],
   imports: [
     BrowserModule,
