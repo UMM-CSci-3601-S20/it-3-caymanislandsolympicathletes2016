@@ -6,3 +6,5 @@ export interface Owner {
   building: string;
   x500: string;
 }
+
+// x500 is the part of an email address before the @
