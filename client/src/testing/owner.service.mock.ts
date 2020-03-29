@@ -11,7 +11,7 @@ import { OwnerService } from '../app/owner/owner.service';
 export class MockOwnerService extends OwnerService {
   static testOwners: Owner[] = [
     {
-      _id: 'racheljohnson_id',
+      _id: 'rachel_id',
       name: 'Rachel Johnson',
       officeNumber: '1310',
       email: 'rmjohns@morris.umn.edu',

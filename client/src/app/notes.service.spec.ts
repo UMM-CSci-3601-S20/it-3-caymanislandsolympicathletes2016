@@ -9,14 +9,17 @@ describe('Note service:', () => {
   const testNotes: Note[] = [
     {
       _id: 'first_id',
+      owner_id: 'rachel_id',
       body: 'This is the first note'
     },
     {
       _id: 'second_id',
+      owner_id: 'joe_id',
       body: 'This is the second note'
     },
     {
       _id: 'third_id',
+      owner_id: 'james_id',
       body: 'This is the third note'
     },
   ];
