@@ -26,7 +26,7 @@ describe('Owner service: ', () => {
     {
       _id: 'james_id',
       name: 'James Flegel',
-      officeNumber: '4512',
+      officeNumber: '9012',
       email: 'fleg0003@morris.umn.edu',
       building: 'HFA',
       x500: 'fleg0003'

@@ -13,7 +13,7 @@ export class MockOwnerService extends OwnerService {
     {
       _id: 'rachel_id',
       name: 'Rachel Johnson',
-      officeNumber: '1310',
+      officeNumber: '1234',
       email: 'rmjohns@morris.umn.edu',
       building: 'Science',
       x500: 'rmjohns'
@@ -29,7 +29,7 @@ export class MockOwnerService extends OwnerService {
     {
       _id: 'james_id',
       name: 'James Flegel',
-      officeNumber: '4512',
+      officeNumber: '9012',
       email: 'fleg0003@morris.umn.edu',
       building: 'HFA',
       x500: 'fleg0003'
