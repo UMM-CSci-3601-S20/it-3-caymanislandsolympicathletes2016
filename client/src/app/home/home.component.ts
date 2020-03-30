@@ -3,6 +3,7 @@ import {PDFService} from '../pdf.service';
 import { NotesService } from '../notes.service';
 import { Note } from '../note';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-home-component',
@@ -14,7 +15,7 @@ export class HomeComponent {
   public notes: Note[];
   getNotesSub: Subscription;
 
-  constructor(private pdfService: PDFService, private notesService: NotesService) {}
+  constructor(private pdfService: PDFService, private notesService: NotesService, public auth: AuthService) {}
 
   retrieveNotes(): void {
     this.unsub();

@@ -14,7 +14,8 @@ export class AuthService {
     createAuth0Client({
       domain: 'dev-h60mw6th.auth0.com',
       client_id: 'T2q1s6QPYWzErue4P7DjzjJDBc2mvZTK',
-      redirect_uri: `${window.location.origin}`
+      redirect_uri: 'http://localhost:4200'
+      // redirect_uri: `${window.location.origin}`
     })
   ) as Observable<Auth0Client>).pipe(
     shareReplay(1), // Every subscription receives the same shared value
@@ -78,7 +79,8 @@ export class AuthService {
     this.auth0Client$.subscribe((client: Auth0Client) => {
       // Call method to log in
       client.loginWithRedirect({
-        redirect_uri: `${window.location.origin}`,
+        redirect_uri: 'http://localhost:4200',
+        // redirect_uri: `${window.location.origin}`,
         appState: { target: redirectPath }
       });
     });
@@ -118,7 +120,8 @@ export class AuthService {
       // Call method to log out
       client.logout({
         client_id: "T2q1s6QPYWzErue4P7DjzjJDBc2mvZTK",
-        returnTo: `${window.location.origin}`
+        returnTo: 'http://localhost:4200'
+        // returnTo: `${window.location.origin}`
       });
     });
   }
