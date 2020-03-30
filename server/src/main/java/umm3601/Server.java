@@ -10,6 +10,8 @@ import com.mongodb.client.MongoDatabase;
 
 import io.javalin.Javalin;
 import umm3601.notes.NoteController;
+import umm3601.owners.OwnerController;
+
 
 public class Server {
 
@@ -34,6 +36,8 @@ public class Server {
 
     // Initialize dependencies here ...
     NoteController noteController = new NoteController(database);
+
+    OwnerController ownerController = new OwnerController(database);
 
     Javalin server = Javalin.create().start(4567);
 
