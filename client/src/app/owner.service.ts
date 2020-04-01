@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
+import { environment } from '../environments/environment';
 import { Owner } from './owner';
 import { map } from 'rxjs/operators';
 
@@ -13,6 +13,10 @@ export class OwnerService {
   }
   getOwnerById(id: string): Observable<Owner> {
     return this.httpClient.get<Owner>(this.ownerUrl + '/' + id);
+  }
+
+  getOwnerByx500(x500: string): Observable<Owner> {
+    return this.httpClient.get<Owner>(this.ownerUrl + '/' + x500);
   }
 
 

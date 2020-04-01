@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { Note } from './note';
 import { Observable } from 'rxjs';
@@ -18,6 +18,16 @@ export class NotesService {
 
   getNotes() {
     return this.httpClient.get<Note[]>(this.noteUrl);
+  }
+
+  getOwnerNotes(filters?: { owner_id?: string}): Observable<Note[]> {
+    let httpParams: HttpParams = new HttpParams();
+    if (filters.owner_id) {
+      httpParams = httpParams.set('owner_id', filters.owner_id);
+    }
+    return this.httpClient.get<Note[]>(this.noteUrl, {
+      params: httpParams,
+    });
   }
 
   addNote(newNote: Note): Observable<string> {
