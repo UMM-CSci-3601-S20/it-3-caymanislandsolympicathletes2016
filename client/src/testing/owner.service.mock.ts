@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Owner } from '../app/owner/owner';
-import { OwnerService } from '../app/owner/owner.service';
+import { Owner } from '../app/owner';
+import { OwnerService } from '../app/owner.service';
 
 /**
  * A "mock" version of the `OwnerService` that can be used to test components
@@ -50,6 +50,17 @@ export class MockOwnerService extends OwnerService {
     // return that owner, otherwise return `null` so
     // we can test illegal owner requests.
     if (id === MockOwnerService.testOwners[0]._id) {
+      return of(MockOwnerService.testOwners[0]);
+    } else {
+      return of(null);
+    }
+  }
+
+  getOwnerByx500(x500: string): Observable<Owner> {
+    // If the specified ID is for the first test owner,
+    // return that owner, otherwise return `null` so
+    // we can test illegal owner requests.
+    if (x500 === MockOwnerService.testOwners[0].x500) {
       return of(MockOwnerService.testOwners[0]);
     } else {
       return of(null);

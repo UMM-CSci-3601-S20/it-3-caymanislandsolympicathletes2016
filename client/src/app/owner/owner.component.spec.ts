@@ -1,83 +1,84 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {OwnerComponent} from './owner.component';
+import {DebugElement} from '@angular/core';
+import {By} from '@angular/platform-browser';
 import { MatCardModule } from '@angular/material/card';
-import { MatListModule } from '@angular/material/list';
-import { ActivatedRoute } from '@angular/router';
-import { ActivatedRouteStub } from '../../testing/activated-route-stub';
-import { MockOwnerService } from '../../testing/owner.service.mock';
-import { Owner } from './owner';
-import { OwnerComponent } from './owner.component';
-import { OwnerService } from './owner.service';
-import { NotesService } from '../notes.service';
+import { PDFService } from '../pdf.service';
+import { MockPDFService } from 'src/testing/pdf.service.mock';
 import { MockNoteService } from 'src/testing/note.service.mock';
-import { RouterTestingModule } from '@angular/router/testing';
+import { NotesService } from '../notes.service';
+import { Note } from '../note';
+import { of } from 'rxjs';
 
-describe('OwnerDoorBoardComponent', () => {
-  let doorBoardComponent: OwnerComponent;
+describe('Home:', () => {
+
+  let component: OwnerComponent;
   let fixture: ComponentFixture<OwnerComponent>;
-  const activatedRoute: ActivatedRouteStub = new ActivatedRouteStub();
+  let de: DebugElement;
+  let el: HTMLElement;
+  let mockPDFService: MockPDFService;
+  let mockNoteService: MockNoteService;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
+    mockPDFService = new MockPDFService();
+    mockNoteService = new MockNoteService();
+
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        MatCardModule,
-        MatListModule
-      ],
-      declarations: [OwnerComponent],
-      providers: [
-        { provide: OwnerService, useValue: new MockOwnerService() },
-        { provide: NotesService, useValue: new MockNoteService() },
-        { provide: ActivatedRoute, useValue: activatedRoute }
-      ]
-    })
-      .compileComponents();
-  }));
+      imports: [MatCardModule],
+      declarations: [OwnerComponent], // declare the test component
+      providers: [{provide: PDFService, useValue: mockPDFService}, {provide: NotesService, useValue: mockNoteService}],
+    });
 
-  beforeEach(async(() => {
     fixture = TestBed.createComponent(OwnerComponent);
-    doorBoardComponent = fixture.componentInstance;
-    fixture.detectChanges();
-  }));
 
-  it('should create the component', () => {
-    expect(doorBoardComponent).toBeTruthy();
+    component = fixture.componentInstance; // BannerComponent test instance
+
+    // query for the link (<a> tag) by CSS element selector
+    de = fixture.debugElement.query(By.css('#generate-pdf-button'));
+    el = de.nativeElement;
   });
 
-  it('should navigate to a specific owner doorboard', () => {
-    const expectedOwner: Owner = MockOwnerService.testOwners[0];
-    // Setting this should cause anyone subscribing to the paramMap
-    // to update. Our `OwnerDoorBoardComponent` subscribes to that, so
-    // it should update right away.
-    activatedRoute.setParamMap({ id: expectedOwner._id });
-
-    expect(doorBoardComponent.id).toEqual(expectedOwner._id);
-    expect(doorBoardComponent.owner).toEqual(expectedOwner);
+  it('should create', () => {
+    expect(component).toBeTruthy();
   });
 
-  it('should navigate to correct owner when the id parameter changes', () => {
-    let expectedOwner: Owner = MockOwnerService.testOwners[0];
-    // Setting this should cause anyone subscribing to the paramMap
-    // to update. Our `OwnerDoorBoardComponent` subscribes to that, so
-    // it should update right away.
-    activatedRoute.setParamMap({ id: expectedOwner._id });
+  describe('The retrieveNotes() method:', () => {
 
-    expect(doorBoardComponent.id).toEqual(expectedOwner._id);
+    it('gets all the notes from the server', () =>{
+      component.retrieveNotes();
 
-    // Changing the paramMap should update the displayed owner doorboard.
-    expectedOwner = MockOwnerService.testOwners[1];
-    activatedRoute.setParamMap({ id: expectedOwner._id });
+      expect(component.notes.length).toBe(3);
+    });
 
-    expect(doorBoardComponent.id).toEqual(expectedOwner._id);
+    it('contains a note with body \'This is the first note\'', () => {
+      component.retrieveNotes();
+
+      expect(component.notes.some((note: Note) => note.body === 'This is the first note')).toBe(true);
+    });
   });
 
-  it('should have `null` for the owner for a bad ID', () => {
-    activatedRoute.setParamMap({ id: 'badID' });
+  describe('The deleteNote() method:', () => {
+    it('calls notesService.deleteNote', () => {
+      const id = 'Hey everyone, I\'m an ID!';
+      spyOn(MockNoteService.prototype, 'deleteNote').and.returnValue(of(true));
 
-    // If the given ID doesn't map to a owner, we expect the service
-    // to return `null`, so we would expect the component's owner
-    // to also be `null`.
-    expect(doorBoardComponent.id).toEqual('badID');
-    expect(doorBoardComponent.owner).toBeNull();
+      component.deleteNote(id);
+      expect(MockNoteService.prototype.deleteNote).toHaveBeenCalledWith(id);
+    });
+  });
+
+  describe('The savePDF() method:', () => {
+    it('gets a pdf document from PDFService and calls .save() on it', () => {
+      component.savePDF();
+      expect(mockPDFService.doc.save).toHaveBeenCalled();
+    });
+  });
+
+  describe('The GENERATE PDF button:', () => {
+    it('gets a pdf document from PDFService and calls .save() on it', () => {
+      el.click();
+      expect(mockPDFService.doc.save).toHaveBeenCalled();
+    });
   });
 
 });
