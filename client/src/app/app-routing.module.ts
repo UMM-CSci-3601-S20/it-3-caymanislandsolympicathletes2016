@@ -10,6 +10,11 @@ import { OwnerComponent } from './owner/owner.component';
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'new', component: AddNoteComponent},
+  // {path: '', component: LoginComponent}
+  // {path: ':owner', component: OwnerComponent}
+  // {path: ':owner/edit', component: EditComponent}
+  // {path: ':owner/new', component: AddNoteComponent}
+  // {path: ':owner/viewers', component: ViewerPageComponent}
   {path: 'viewers', component: ViewerPageComponent},
   {path: 'edit/:id', component: EditComponent},
   {path: ':owner', component: OwnerComponent}
