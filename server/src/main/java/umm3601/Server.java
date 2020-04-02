@@ -56,6 +56,15 @@ public class Server {
     // Delete a note
     server.delete("api/notes/:id", noteController::deleteNote);
 
+    server.get("api/:owner", noteController::getOwnerNotes);
+
+    server.post("api/:owner/edit", noteController::editNote);
+
+    server.post("api/:owner/new", noteController::addNote);
+
+    //id is the id of the note
+    server.delete("api/:owner/:id", noteController::deleteNote);
+
     server.exception(Exception.class, (e, ctx) -> {
       ctx.status(500);
       ctx.json(e); // you probably want to remove this in production
