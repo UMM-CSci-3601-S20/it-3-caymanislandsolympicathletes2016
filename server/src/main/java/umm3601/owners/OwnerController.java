@@ -54,6 +54,22 @@ public class OwnerController {
     }
   }
 
+  public void getOwnerByx500(Context ctx) {
+    String x500 = ctx.pathParam("x500");
+    Owner owner;
+
+    try {
+      owner = ownerCollection.find(eq("x500", new ObjectId(x500))).first();
+    } catch(IllegalArgumentException e) {
+      throw new BadRequestResponse("The requested owner x500 wasn't a legal Mongo Object.");
+    }
+    if (owner == null) {
+      throw new NotFoundResponse("The requested owner was not found");
+    } else {
+      ctx.json(owner);
+    }
+  }
+
 
   public void getOwners(Context ctx) {
     ctx.json(ownerCollection.find(new Document()).into(new ArrayList<>()));
