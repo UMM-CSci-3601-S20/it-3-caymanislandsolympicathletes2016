@@ -57,7 +57,7 @@ describe('Owner service: ', () => {
     httpTestingController.verify();
   });
 
-  it('getOwnerById() calls api/:owner/id', () => {
+  it('getOwnerById() calls api/owner/:id', () => {
     // grab an owner from our test array
     const targetOwner: Owner = testOwners[1];
     // pull the id from that owner

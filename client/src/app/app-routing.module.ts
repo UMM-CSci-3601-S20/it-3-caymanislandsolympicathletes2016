@@ -8,11 +8,11 @@ import { OwnerComponent } from './owner/owner.component';
 
 
 const routes: Routes = [
-  //{path: '', component: LoginComponent}
-  {path: ':owner', component: OwnerComponent},
-  {path: ':owner/edit', component: EditComponent},
-  {path: ':owner/new', component: AddNoteComponent},
-  {path: ':owner/viewers', component: ViewerPageComponent}
+  // {path: '', component: LoginComponent},
+  {path: 'owner/:id', component: OwnerComponent},
+  {path: 'owner/:id/edit', component: EditComponent},
+  {path: 'owner/:id/new', component: AddNoteComponent},
+  {path: 'owner/:id/viewers', component: ViewerPageComponent}
 ];
 
 @NgModule({
