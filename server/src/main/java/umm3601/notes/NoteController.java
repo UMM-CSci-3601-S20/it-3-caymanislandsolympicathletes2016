@@ -21,11 +21,13 @@ import org.mongojack.JacksonCodecRegistry;
 import io.javalin.http.BadRequestResponse;
 import io.javalin.http.Context;
 import io.javalin.http.NotFoundResponse;
+import umm3601.owners.Owner;
 
 public class NoteController {
 
   JacksonCodecRegistry jacksonCodecRegistry = JacksonCodecRegistry.withDefaultObjectMapper();
 
+  private MongoCollection<Owner> ownerCollection;
   private final MongoCollection<Note> noteCollection;
 
   public static final String DELETED_RESPONSE = "deleted";
@@ -51,6 +53,22 @@ public class NoteController {
     } else {
       ctx.json(note);
     }
+  }
+
+  public void getOwnerNotes(Context ctx) {
+
+    List<Bson> filters = new ArrayList<Bson>(); // start with a blank document
+
+    if (ctx.queryParamMap().containsKey("owner_id")) {
+      filters.add(eq("owner_id", ctx.queryParam("owner_id")));
+    }
+
+    ctx.json(noteCollection.find(filters.isEmpty() ? new Document() : and(filters))
+    .into(new ArrayList<>()));
+  }
+
+  private Document and(List<Bson> filters) {
+    return null;
   }
 
   public void getNotes(Context ctx) {
@@ -83,19 +101,6 @@ public class NoteController {
       ctx.status(200);
       ctx.json(ImmutableMap.of("id", id));
     }
-  }
-
-  //get owner notes
-  public void getOwnerNotes(Context ctx) {
-
-    List<Bson> filters = new ArrayList<Bson>(); // start with a blank document
-
-    if (ctx.queryParamMap().containsKey("owner_id")) {
-      filters.add(eq("owner_id", ctx.queryParam("owner_id")));
-    }
-
-    ctx.json(noteCollection.find()
-    .into(new ArrayList<>()));
   }
 
   /**
