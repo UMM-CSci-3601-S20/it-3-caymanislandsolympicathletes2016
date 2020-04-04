@@ -33,6 +33,7 @@ import { ViewerPageComponent } from './viewer-page/viewer-page.component';
 import { AddNoteComponent } from './add/add-note.component';
 import { EditComponent } from './edit/edit.component';
 import { OwnerComponent } from './owner/owner.component';
+import { OwnerService } from './owner.service';
 
 const MATERIAL_MODULES: any[] = [
   MatListModule,
@@ -75,6 +76,7 @@ const MATERIAL_MODULES: any[] = [
   providers: [
     PDFService,
     NotesService,
+    OwnerService,
   ],
   bootstrap: [AppComponent]
 })
