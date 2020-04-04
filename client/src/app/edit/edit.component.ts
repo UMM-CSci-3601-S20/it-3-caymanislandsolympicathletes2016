@@ -6,6 +6,7 @@ import { Note } from '../note';
 import { NotesService } from '../notes.service';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-edit',
@@ -20,7 +21,7 @@ export class EditComponent implements OnInit {
   id: string;
   getNoteSub: Subscription;
 
-  constructor(private fb: FormBuilder, private noteService: NotesService, private snackBar: MatSnackBar, private router: Router, private route: ActivatedRoute) {
+  constructor(private fb: FormBuilder, private _location: Location, private noteService: NotesService, private snackBar: MatSnackBar, private router: Router, private route: ActivatedRoute) {
   }
 
   editNoteValidationMessages = {
@@ -61,7 +62,7 @@ export class EditComponent implements OnInit {
       this.snackBar.open('Successfully edited note', null, {
         duration: 2000,
       });
-      this.router.navigate(['']);
+      this._location.back();
     }, err => {
       this.snackBar.open('Failed to edit the note', null, {
         duration: 2000,

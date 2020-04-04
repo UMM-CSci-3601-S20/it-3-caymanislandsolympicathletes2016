@@ -8,9 +8,10 @@ import { map } from 'rxjs/operators';
 @Injectable()
 export class OwnerService {
   // what the url will start with
-  readonly ownerUrl: string = environment.API_URL;
+  readonly ownerUrl: string = environment.API_URL + 'owner';
 
   constructor(private httpClient: HttpClient) {
+    console.log("Constructing Owner Service");
   }
 
   getOwnerById(id: string): Observable<Owner> {
@@ -19,6 +20,10 @@ export class OwnerService {
 
   getOwnerByx500(x500: string): Observable<Owner> {
     return this.httpClient.get<Owner>(this.ownerUrl + '/' + x500);
+  }
+
+  getOwnerByName(name: string): Observable<Owner> {
+    return this.httpClient.get<Owner>(this.ownerUrl + '/' + name);
   }
 
   // Adds an owner to the collection
