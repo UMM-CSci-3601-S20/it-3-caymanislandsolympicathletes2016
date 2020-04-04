@@ -4,6 +4,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Note } from '../note';
 import { NotesService } from '../notes.service';
+import { Owner } from '../owner';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-add-note',
@@ -14,9 +16,12 @@ export class AddNoteComponent implements OnInit {
 
   addNoteForm: FormGroup;
 
+  owner: Owner;
+
   note: Note;
 
-  constructor(private fb: FormBuilder, private noteService: NotesService, private snackBar: MatSnackBar, private router: Router) {
+  constructor(private fb: FormBuilder, private _location: Location, private noteService: NotesService,
+  private snackBar: MatSnackBar, private router: Router) {
   }
 
   addNoteValidationMessages = {
@@ -49,7 +54,7 @@ export class AddNoteComponent implements OnInit {
       this.snackBar.open('Successfully added note', null, {
         duration: 2000,
       });
-      this.router.navigate(['']);
+      this._location.back();
     }, err => {
       this.snackBar.open('Failed to add the note', null, {
         duration: 2000,
