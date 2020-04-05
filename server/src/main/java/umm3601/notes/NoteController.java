@@ -1,5 +1,6 @@
 package umm3601.notes;
 
+import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
 
 import java.util.ArrayList;
@@ -65,10 +66,6 @@ public class NoteController {
 
     ctx.json(noteCollection.find(filters.isEmpty() ? new Document() : and(filters))
     .into(new ArrayList<>()));
-  }
-
-  private Document and(List<Bson> filters) {
-    return null;
   }
 
   public void getNotes(Context ctx) {

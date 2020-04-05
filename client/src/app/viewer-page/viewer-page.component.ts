@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { NotesService } from '../notes.service';
 import { Note } from '../note';
 import { Subscription } from 'rxjs';
+import { OwnerService } from '../owner.service';
+import { Owner } from '../owner';
+import { OwnerComponent } from '../owner/owner.component';
+import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-viewer-page',
@@ -12,13 +17,29 @@ import { Subscription } from 'rxjs';
 export class ViewerPageComponent implements OnInit {
 
   public notes: Note[];
+  public urlId: string;
   getNotesSub: Subscription;
+  getOwnerSub: Subscription;
+  owner: Owner;
 
-  constructor(private notesService: NotesService) {}
+  constructor(private notesService: NotesService, private ownerService: OwnerService, private router: Router, private route: ActivatedRoute) {}
+
+  //  retrieveUrlId(): void {
+  //   this.route.paramMap.subscribe((pmap) => {
+  //     this.urlId = pmap.get('id');
+  //   });
+  // }
+
+  retrieveOwner(): void {
+    this.getOwnerSub = this.ownerService.getOwnerById(this.urlId).subscribe(returnedOwner => {
+      this.owner = returnedOwner;
+    }, err => {
+      console.log(err);
+    });
+  }
 
   retrieveNotes(): void {
-    this.unsub();
-    this.getNotesSub = this.notesService.getNotes().subscribe(returnedNotes =>{
+    this.getNotesSub = this.notesService.getOwnerNotes({owner_id: this.urlId}).subscribe(returnedNotes =>{
       this.notes = returnedNotes;
     }, err => {
       console.log(err);
@@ -26,7 +47,11 @@ export class ViewerPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.retrieveNotes();
+    this.route.paramMap.subscribe((pmap) => {
+      this.urlId = pmap.get('id');
+      this.retrieveNotes();
+    });
+    this.retrieveOwner();
   }
 
   ngOnDestroy(): void {
@@ -36,6 +61,9 @@ export class ViewerPageComponent implements OnInit {
   unsub(): void {
     if (this.getNotesSub) {
       this.getNotesSub.unsubscribe();
+    }
+    if (this.getOwnerSub) {
+      this.getOwnerSub.unsubscribe();
     }
   }
 

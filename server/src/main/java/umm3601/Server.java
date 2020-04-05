@@ -41,8 +41,9 @@ public class Server {
 
     Javalin server = Javalin.create().start(4567);
 
+    // Note endpoints
     // List notes
-    server.get("api/notes", noteController::getNotes);
+    server.get("api/notes", noteController::getOwnerNotes);
 
     // Add new note
     server.post("api/notes/new", noteController::addNote);
@@ -56,11 +57,9 @@ public class Server {
     // Delete a note
     server.delete("api/notes/:id", noteController::deleteNote);
 
-    server.get("api/owner/:id", noteController::getOwnerNotes);
+    // Owner endpoints
+    server.get("api/owner/:id", ownerController::getOwnerByID);
 
-    server.post("api/owner/:id/edit", noteController::editNote);
-
-    server.post("api/owner/:id/new", noteController::addNote);
 
     server.exception(Exception.class, (e, ctx) -> {
       ctx.status(500);

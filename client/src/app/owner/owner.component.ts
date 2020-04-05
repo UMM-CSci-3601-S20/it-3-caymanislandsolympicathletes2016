@@ -27,6 +27,15 @@ export class OwnerComponent implements OnInit, OnDestroy {
   getNotesSub: Subscription;
   getOwnerSub: Subscription;
 
+
+  retrieveOwner(): void {
+    this.getOwnerSub = this.ownerService.getOwnerById(this.id).subscribe(returnedOwner => {
+      this.owner = returnedOwner;
+    }, err => {
+      console.log(err);
+    });
+  }
+
   retrieveNotes(): void {
     this.unsub();
     this.getNotesSub = this.notesService.getOwnerNotes().subscribe(returnedNotes => {
@@ -51,8 +60,8 @@ export class OwnerComponent implements OnInit, OnDestroy {
       this. id = pmap.get('id');
      // this.getOwnerSub = this.ownerService.getOwnerById(this.id).subscribe(owner => this.owner = owner);
       this.getNotesSub = this.notesService.getOwnerNotes({ owner_id: this.id }).subscribe(notes => this.notes = notes.reverse());
-
     });
+    this.retrieveOwner();
   }
 
   /*

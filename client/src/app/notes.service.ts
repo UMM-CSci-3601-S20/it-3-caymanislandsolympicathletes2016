@@ -16,9 +16,9 @@ export class NotesService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getNotes() {
-    return this.httpClient.get<Note[]>(this.noteUrl);
-  }
+  // getNotes() {
+  //   return this.httpClient.get<Note[]>(this.noteUrl);
+  // }
 
   getOwnerNotes(filters?: { owner_id?: string}): Observable<Note[]> {
     let httpParams: HttpParams = new HttpParams();
