@@ -5,14 +5,14 @@ import { ViewerPageComponent } from './viewer-page/viewer-page.component';
 import { AddNoteComponent } from './add/add-note.component';
 import { EditComponent } from './edit/edit.component';
 import { OwnerComponent } from './owner/owner.component';
+import { AuthGuard } from './authentication/auth.guard';
 
 
 const routes: Routes = [
-  // {path: '', component: LoginComponent},
-  {path: 'owner/:id', component: OwnerComponent},
-  {path: 'owner/:id/edit', component: EditComponent},
-  {path: 'owner/:id/new', component: AddNoteComponent},
-  {path: 'owner/:id/viewers', component: ViewerPageComponent}
+  {path: '', component: HomeComponent, canActivate: [AuthGuard]},
+  {path: 'new', component: AddNoteComponent},
+  {path: 'viewers', component: ViewerPageComponent},
+  {path: 'edit/:id', component: EditComponent}
 ];
 
 @NgModule({

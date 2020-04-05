@@ -8,6 +8,11 @@
   </button>
 </div>
 
+<div>
+  <button (click)="auth.login()" *ngIf="!auth.loggedIn">Log In</button>
+  <button (click)="auth.logout()" *ngIf="auth.loggedIn">Log Out</button>
+</div>
+
 <div *ngIf="notes; else notesError">
 <ul class= "note-container">
   <mat-card class="note-card" *ngFor="let note of this.notes">
