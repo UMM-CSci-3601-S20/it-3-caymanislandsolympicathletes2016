@@ -40,7 +40,7 @@ export class ViewerPageComponent implements OnInit {
 
   retrieveNotes(): void {
     this.getNotesSub = this.notesService.getOwnerNotes({owner_id: this.urlId}).subscribe(returnedNotes =>{
-      this.notes = returnedNotes;
+      this.notes = returnedNotes.reverse();
     }, err => {
       console.log(err);
     });

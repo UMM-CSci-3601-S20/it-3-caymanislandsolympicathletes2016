@@ -38,8 +38,8 @@ export class OwnerComponent implements OnInit, OnDestroy {
 
   retrieveNotes(): void {
     this.unsub();
-    this.getNotesSub = this.notesService.getOwnerNotes().subscribe(returnedNotes => {
-      this.notes = returnedNotes;
+    this.getNotesSub = this.notesService.getOwnerNotes({owner_id: this.id}).subscribe(returnedNotes => {
+      this.notes = returnedNotes.reverse();
     }, err => {
       console.log(err);
     });
@@ -57,7 +57,7 @@ export class OwnerComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((pmap) => {
-      this. id = pmap.get('id');
+      this.id = pmap.get('id');
      // this.getOwnerSub = this.ownerService.getOwnerById(this.id).subscribe(owner => this.owner = owner);
       this.getNotesSub = this.notesService.getOwnerNotes({ owner_id: this.id }).subscribe(notes => this.notes = notes.reverse());
     });
