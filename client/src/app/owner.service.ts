@@ -19,7 +19,7 @@ export class OwnerService {
   }
 
   getOwnerByx500(x500: string): Observable<Owner> {
-    return this.httpClient.get<Owner>(this.ownerUrl + '/' + x500);
+    return this.httpClient.get<Owner>(this.ownerUrl + '/x500/' + x500);
   }
 
   getOwnerByName(name: string): Observable<Owner> {

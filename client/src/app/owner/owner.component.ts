@@ -8,6 +8,7 @@ import { NotesService } from '../notes.service';
 import { Note } from '../note';
 import { switchMap } from 'rxjs/operators';
 import {Location} from '@angular/common';
+import { AuthService } from '../authentication/auth.service';
 
 @Component({
   selector: 'app-owner',
@@ -16,7 +17,8 @@ import {Location} from '@angular/common';
 })
 // This class has access to the owner of the doorboard, and all the posts that said owner has made
 export class OwnerComponent implements OnInit, OnDestroy {
-  constructor(private route: ActivatedRoute, private _location: Location, private pdfService: PDFService, private notesService: NotesService,
+  constructor(private route: ActivatedRoute, private auth: AuthService,
+              private _location: Location, private pdfService: PDFService, private notesService: NotesService,
               private ownerService: OwnerService) {
                 console.log("Constructing Owner Component");
               }
@@ -26,19 +28,24 @@ export class OwnerComponent implements OnInit, OnDestroy {
   name: string;
   getNotesSub: Subscription;
   getOwnerSub: Subscription;
+  getx500Sub: Subscription;
+  x500: string;
 
 
   retrieveOwner(): void {
-    this.getOwnerSub = this.ownerService.getOwnerById(this.id).subscribe(returnedOwner => {
+    this.getx500Sub = this.auth.userProfile$.subscribe(returned => {
+      this.x500 = returned.nickname;
+    });
+    this.getOwnerSub = this.ownerService.getOwnerByx500(this.x500).subscribe(returnedOwner => {
       this.owner = returnedOwner;
+      this.retrieveNotes();
     }, err => {
       console.log(err);
     });
   }
 
   retrieveNotes(): void {
-    this.unsub();
-    this.getNotesSub = this.notesService.getOwnerNotes({owner_id: this.id}).subscribe(returnedNotes => {
+    this.getNotesSub = this.notesService.getOwnerNotes({owner_id: this.owner._id}).subscribe(returnedNotes => {
       this.notes = returnedNotes.reverse();
     }, err => {
       console.log(err);
@@ -56,11 +63,6 @@ export class OwnerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe((pmap) => {
-      this.id = pmap.get('id');
-     // this.getOwnerSub = this.ownerService.getOwnerById(this.id).subscribe(owner => this.owner = owner);
-      this.getNotesSub = this.notesService.getOwnerNotes({ owner_id: this.id }).subscribe(notes => this.notes = notes.reverse());
-    });
     this.retrieveOwner();
   }
 

@@ -60,6 +60,9 @@ public class Server {
     // Owner endpoints
     server.get("api/owner/:id", ownerController::getOwnerByID);
 
+    // Get owner by x500
+    server.get("api/owner/x500/:x500", ownerController::getOwnerByx500);
+
 
     server.exception(Exception.class, (e, ctx) -> {
       ctx.status(500);

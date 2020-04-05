@@ -59,7 +59,7 @@ public class OwnerController {
     Owner owner;
 
     try {
-      owner = ownerCollection.find(eq("x500", new ObjectId(x500))).first();
+      owner = ownerCollection.find(eq("x500", x500)).first();
     } catch(IllegalArgumentException e) {
       throw new BadRequestResponse("The requested owner x500 wasn't a legal Mongo Object.");
     }
