@@ -18,6 +18,7 @@ export class ViewerPageComponent implements OnInit {
 
   public notes: Note[];
   public urlId: string;
+  public urlx500: string;
   getNotesSub: Subscription;
   getOwnerSub: Subscription;
   owner: Owner;
@@ -31,15 +32,16 @@ export class ViewerPageComponent implements OnInit {
   // }
 
   retrieveOwner(): void {
-    this.getOwnerSub = this.ownerService.getOwnerById(this.urlId).subscribe(returnedOwner => {
+    this.getOwnerSub = this.ownerService.getOwnerByx500(this.urlx500).subscribe(returnedOwner => {
       this.owner = returnedOwner;
+      this.retrieveNotes();
     }, err => {
       console.log(err);
     });
   }
 
   retrieveNotes(): void {
-    this.getNotesSub = this.notesService.getOwnerNotes({owner_id: this.urlId}).subscribe(returnedNotes =>{
+    this.getNotesSub = this.notesService.getOwnerNotes({owner_id: this.owner._id}).subscribe(returnedNotes =>{
       this.notes = returnedNotes.reverse();
     }, err => {
       console.log(err);
@@ -48,10 +50,10 @@ export class ViewerPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((pmap) => {
-      this.urlId = pmap.get('id');
-      this.retrieveNotes();
+      this.urlx500 = pmap.get('x500');
+      this.retrieveOwner();
     });
-    this.retrieveOwner();
+
   }
 
   ngOnDestroy(): void {

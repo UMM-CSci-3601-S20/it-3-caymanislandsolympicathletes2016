@@ -56,7 +56,6 @@ export class OwnerComponent implements OnInit, OnDestroy {
     this.notesService.deleteNote(id).subscribe(result => {
       // Ignore the result for now.
       this.retrieveNotes();
-      this._location.back();
     }, err => {
       console.log(err);
     });

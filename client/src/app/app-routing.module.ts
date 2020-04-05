@@ -9,9 +9,10 @@ import { OwnerComponent } from './owner/owner.component';
 
 const routes: Routes = [
   {path: '', component: OwnerComponent, canActivate: [AuthGuard]},
-  {path: 'new', component: AddNoteComponent},
-  {path: 'viewers', component: ViewerPageComponent},
-  {path: 'edit/:id', component: EditComponent}
+  {path: 'new', component: AddNoteComponent, canActivate: [AuthGuard]},
+  {path: ':x500', component: ViewerPageComponent},
+  {path: 'edit/:id', component: EditComponent},
+  {path: ':id/edit', component: EditComponent}
 ];
 
 @NgModule({
