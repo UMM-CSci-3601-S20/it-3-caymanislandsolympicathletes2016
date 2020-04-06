@@ -36,7 +36,6 @@ public class Server {
 
     // Initialize dependencies here ...
     NoteController noteController = new NoteController(database);
-
     OwnerController ownerController = new OwnerController(database);
 
     Javalin server = Javalin.create().start(4567);
@@ -46,6 +45,7 @@ public class Server {
     server.get("api/notes", noteController::getOwnerNotes);
 
     // Add new note
+    server.before("api/notes/new", noteController::verifyHttpRequest);
     server.post("api/notes/new", noteController::addNote);
 
     // Get a single note

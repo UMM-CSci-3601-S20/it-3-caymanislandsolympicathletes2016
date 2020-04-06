@@ -22,6 +22,7 @@ import org.mongojack.JacksonCodecRegistry;
 import io.javalin.http.BadRequestResponse;
 import io.javalin.http.Context;
 import io.javalin.http.NotFoundResponse;
+import umm3601.TokenVerifier;
 import umm3601.owners.Owner;
 
 public class NoteController {
@@ -30,6 +31,7 @@ public class NoteController {
 
   private MongoCollection<Owner> ownerCollection;
   private final MongoCollection<Note> noteCollection;
+  private final TokenVerifier tokenVerifier;
 
   public static final String DELETED_RESPONSE = "deleted";
   public static final String NOT_DELETED_RESPONSE = "nothing deleted";
@@ -38,6 +40,16 @@ public class NoteController {
     jacksonCodecRegistry.addCodecForClass(Note.class);
     noteCollection = database.getCollection("notes").withDocumentClass(Note.class)
         .withCodecRegistry(jacksonCodecRegistry);
+    tokenVerifier = new TokenVerifier();
+  }
+
+  public boolean verifyHttpRequest(Context ctx) {
+    if (!this.tokenVerifier.verifyToken(ctx)) {
+      ctx.status(400);
+      return false;
+    } else {
+      return true;
+    }
   }
 
   public void getNoteByID(Context ctx) {
