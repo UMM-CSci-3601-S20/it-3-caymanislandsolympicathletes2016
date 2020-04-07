@@ -21,12 +21,14 @@ import org.mongojack.JacksonCodecRegistry;
 import io.javalin.http.BadRequestResponse;
 import io.javalin.http.Context;
 import io.javalin.http.NotFoundResponse;
+import umm3601.TokenVerifier;
 
 public class OwnerController {
 
   JacksonCodecRegistry jacksonCodecRegistry = JacksonCodecRegistry.withDefaultObjectMapper();
 
   private final MongoCollection<Owner> ownerCollection;
+  private final TokenVerifier tokenVerifier;
 
   public static final String DELETED_RESPONSE = "deleted";
   public static final String NOT_DELETED_RESPONSE = "nothing deleted";
@@ -35,8 +37,16 @@ public class OwnerController {
     jacksonCodecRegistry.addCodecForClass(Owner.class);
     ownerCollection = database.getCollection("owners").withDocumentClass(Owner.class)
         .withCodecRegistry(jacksonCodecRegistry);
+    tokenVerifier = new TokenVerifier();
   }
 
+  public boolean verifyHttpRequest(Context ctx) throws Exception {
+    if (!this.tokenVerifier.verifyToken(ctx)) {
+      throw new BadRequestResponse("Invalid header token. The request is not authorized.");
+    } else {
+      return true;
+    }
+  }
 
   public void getOwnerByID(Context ctx) {
     String id = ctx.pathParam("id");
