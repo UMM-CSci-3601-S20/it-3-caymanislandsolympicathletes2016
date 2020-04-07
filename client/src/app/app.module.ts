@@ -35,6 +35,7 @@ import { EditComponent } from './edit/edit.component';
 import { InterceptorService } from './authentication/interceptor.service';
 import { OwnerComponent } from './owner/owner.component';
 import { OwnerService } from './owner.service';
+import { AuthService } from './authentication/auth.service';
 
 const MATERIAL_MODULES: any[] = [
   MatListModule,
@@ -77,6 +78,7 @@ const MATERIAL_MODULES: any[] = [
   providers: [
     NotesService,
     OwnerService,
+    AuthService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorService,
