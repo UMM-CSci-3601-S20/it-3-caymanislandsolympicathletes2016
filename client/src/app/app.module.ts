@@ -28,7 +28,6 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from '@angular/cdk/layout';
-import { PDFService } from './pdf.service';
 import { NotesService } from './notes.service';
 import { ViewerPageComponent } from './viewer-page/viewer-page.component';
 import { AddNoteComponent } from './add/add-note.component';
@@ -76,7 +75,6 @@ const MATERIAL_MODULES: any[] = [
     LayoutModule,
   ],
   providers: [
-    PDFService,
     NotesService,
     OwnerService,
     {

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../environments/environment';
 import { Owner } from './owner';
 import { map } from 'rxjs/operators';
+import * as jsPDF from 'jspdf';
 
 @Injectable()
 export class OwnerService {
@@ -11,7 +12,7 @@ export class OwnerService {
   readonly ownerUrl: string = environment.API_URL + 'owner';
 
   constructor(private httpClient: HttpClient) {
-    console.log("Constructing Owner Service");
+    console.log('Constructing Owner Service');
   }
 
   getOwnerById(id: string): Observable<Owner> {
@@ -30,5 +31,20 @@ export class OwnerService {
   addOwner(newOwner: Owner): Observable<string> {
     // Send post request to add a new owner with the owner data as the body.
     return this.httpClient.post<{ id: string }>(this.ownerUrl + '/new', newOwner).pipe(map(res => res.id));
+  }
+
+  getPDF(name: string, x500: string): jsPDF {
+    const url: string = environment.BASE_URL + '/' + x500;
+    const doc = new jsPDF({
+      orientation: 'portrait',
+      unit: 'in',
+      format: 'letter',
+    });
+
+    doc.setFontSize(18);
+    doc.text(name + '\'s DoorBoard', (8.5 / 2), 4, { align: 'center' });
+    doc.text(url, (8.5 / 2), 4.5, { align: 'center' });
+
+    return doc;
   }
 }

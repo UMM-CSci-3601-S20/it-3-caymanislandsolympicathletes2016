@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy} from '@angular/core';
-import {PDFService} from '../pdf.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Owner } from '../owner';
 import { OwnerService } from '../owner.service';
@@ -18,7 +17,7 @@ import { AuthService } from '../authentication/auth.service';
 // This class has access to the owner of the doorboard, and all the posts that said owner has made
 export class OwnerComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute, private auth: AuthService,
-              private _location: Location, private pdfService: PDFService, private notesService: NotesService,
+              private _location: Location, private notesService: NotesService,
               private ownerService: OwnerService) {
                 console.log("Constructing Owner Component");
               }
@@ -65,14 +64,6 @@ export class OwnerComponent implements OnInit, OnDestroy {
     this.retrieveOwner();
   }
 
-  /*
-  ngOnInit() {
-  this. = this.route.paramMap.pipe(
-    switchMap((params: ParamMap) =>
-      this.notesService.getOwnerNotes(params.get('owner_id')))
-  );
-} */
-
   ngOnDestroy(): void {
     if (this.getNotesSub) {
       this.getNotesSub.unsubscribe();
@@ -89,73 +80,9 @@ export class OwnerComponent implements OnInit, OnDestroy {
   }
 
   savePDF(): void {
-    this.pdfService.getPDF().save('DoorBoard');
+
+    // get id of owner, and pass is as a parameter in getPDF
+    this.ownerService.getPDF(this.owner.name, this.x500).save('DoorBoard');
   }
 
 }
-
-
-
-
-
-
-/*
-import {Component} from '@angular/core';
-import {PDFService} from '../pdf.service';
-import { NotesService } from '../notes.service';
-import { Note } from '../note';
-import { OwnerService } from '../owner.service';
-import { Owner } from '../owner';
-import { Subscription } from 'rxjs';
-
-@Component({
-  selector: 'app-owner-component',
-  templateUrl: 'owner.component.html',
-  styleUrls: ['./owner.component.scss'],
-})
-export class OwnerComponent {
-
-  public notes: Note[];
-  getNotesSub: Subscription;
-
-  constructor(private pdfService: PDFService, private ownerService: OwnerService, private notesService: NotesService) {}
-
-  owner: Owner;
-
-  retrieveNotes(): void {
-    this.unsub();
-    this.getNotesSub = this.notesService.getOwnerNotes().subscribe(returnedNotes => {
-      this.notes = returnedNotes;
-    }, err => {
-      console.log(err);
-    });
-  }
-
-  deleteNote(id: string): void {
-    this.notesService.deleteNote(id).subscribe(result => {
-      // Ignore the result for now.
-      this.retrieveNotes();
-    }, err => {
-      console.log(err);
-    });
-  }
-
-  ngOnInit(): void {
-    this.retrieveNotes();
-  }
-
-  ngOnDestroy(): void {
-    this.unsub();
-  }
-
-  unsub(): void {
-    if (this.getNotesSub) {
-      this.getNotesSub.unsubscribe();
-    }
-  }
-
-  savePDF(): void {
-    this.pdfService.getPDF().save('DoorBoard');
-  }
-}
-*/

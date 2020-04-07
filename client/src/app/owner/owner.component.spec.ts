@@ -3,9 +3,8 @@ import {OwnerComponent} from './owner.component';
 import {DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import { MatCardModule } from '@angular/material/card';
-import { PDFService } from '../pdf.service';
-import { MockPDFService } from 'src/testing/pdf.service.mock';
 import { MockNoteService } from 'src/testing/note.service.mock';
+import { MockOwnerService } from 'src/testing/owner.service.mock';
 import { NotesService } from '../notes.service';
 import { Note } from '../note';
 import { of } from 'rxjs';
@@ -16,17 +15,17 @@ describe('Home:', () => {
   let fixture: ComponentFixture<OwnerComponent>;
   let de: DebugElement;
   let el: HTMLElement;
-  let mockPDFService: MockPDFService;
   let mockNoteService: MockNoteService;
+  let mockOwnerService: MockOwnerService;
 
   beforeEach(() => {
-    mockPDFService = new MockPDFService();
     mockNoteService = new MockNoteService();
+    mockOwnerService = new MockOwnerService();
 
     TestBed.configureTestingModule({
       imports: [MatCardModule],
       declarations: [OwnerComponent], // declare the test component
-      providers: [{provide: PDFService, useValue: mockPDFService}, {provide: NotesService, useValue: mockNoteService}],
+      providers: [{provide: NotesService, useValue: mockNoteService}],
     });
 
     fixture = TestBed.createComponent(OwnerComponent);
@@ -66,7 +65,7 @@ describe('Home:', () => {
       expect(MockNoteService.prototype.deleteNote).toHaveBeenCalledWith(id);
     });
   });
-
+/*
   describe('The savePDF() method:', () => {
     it('gets a pdf document from PDFService and calls .save() on it', () => {
       component.savePDF();
@@ -80,5 +79,6 @@ describe('Home:', () => {
       expect(mockPDFService.doc.save).toHaveBeenCalled();
     });
   });
+  */
 
 });
