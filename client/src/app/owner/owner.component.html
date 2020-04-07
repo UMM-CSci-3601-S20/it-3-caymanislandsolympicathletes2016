@@ -2,6 +2,10 @@
   <h2>{{this.owner.name}}</h2>
 </nav>
 
+<div class="logoutCheck" *ngIf="this.auth.loggedIn == true">
+  <button class="logoutButton" type="button" color="primary" (click)="this.auth.logout()"> Logout </button>
+</div>
+
 <div fxLayout="row" id="pdf-div">
   <button mat-button id="generate-pdf-button" type="button" color="primary" (click)="savePDF()">
     GENERATE PDF

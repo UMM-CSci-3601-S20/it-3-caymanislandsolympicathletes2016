@@ -16,7 +16,7 @@ import { AuthService } from '../authentication/auth.service';
 })
 // This class has access to the owner of the doorboard, and all the posts that said owner has made
 export class OwnerComponent implements OnInit, OnDestroy {
-  constructor(private route: ActivatedRoute, private auth: AuthService,
+  constructor(private route: ActivatedRoute, public auth: AuthService,
               private _location: Location, private notesService: NotesService,
               private ownerService: OwnerService) {
                 console.log("Constructing Owner Component");
