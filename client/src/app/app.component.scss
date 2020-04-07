@@ -1,4 +1,15 @@
+.sidenav-container {
+  height: 200%;
+  background-image: url(/assets/doorboard.jpg);
+  background-repeat: no-repeat;
+  background-position: left;
+  background-size: cover;/*Fills in the background for
+  multiple different browser sizes, while still looking sharp*/
+  background-attachment: fixed;
+}
+
 body{
+  background-image: url(/assets/doorboard.jpg);
   background-color: whitesmoke;
 }
 
@@ -7,7 +18,7 @@ body{
   display: flex;
   flex-direction: row;
   justify-content: center;
-  background-color: #7c90a9;
+  background-color: #606f81;
 }
 
 .app-title {
@@ -15,8 +26,12 @@ body{
 }
 
 .main-content {
-  margin: 24px;
+  background-image: url(/assets/doorboard.jpg);
+  height: 100%;
+  //margin: 24px;
   @media (max-width: 599px) {
-    margin: 16px;
+    //margin: 16px;
   }
 }
+
+
