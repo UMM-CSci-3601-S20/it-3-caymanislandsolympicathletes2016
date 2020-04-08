@@ -31,7 +31,7 @@ export class NotesService {
   }
 
   addNote(newNote: Note): Observable<string> {
-    return this.httpClient.post<{id: string}>(this.noteUrl + '/new', newNote).pipe(map(res => res.id));
+    return this.httpClient.post<{id: string}>(environment.API_URL + 'new/notes', newNote).pipe(map(res => res.id));
   }
 
   /**

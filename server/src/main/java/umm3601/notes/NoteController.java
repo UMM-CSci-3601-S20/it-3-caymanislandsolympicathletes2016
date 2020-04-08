@@ -22,8 +22,10 @@ import org.mongojack.JacksonCodecRegistry;
 import io.javalin.http.BadRequestResponse;
 import io.javalin.http.Context;
 import io.javalin.http.NotFoundResponse;
+import io.javalin.http.UnauthorizedResponse;
 import umm3601.TokenVerifier;
 import umm3601.owners.Owner;
+import umm3601.owners.OwnerController;
 
 public class NoteController {
 
@@ -32,6 +34,7 @@ public class NoteController {
   private MongoCollection<Owner> ownerCollection;
   private final MongoCollection<Note> noteCollection;
   private final TokenVerifier tokenVerifier;
+  private final OwnerController ownerController;
 
   public static final String DELETED_RESPONSE = "deleted";
   public static final String NOT_DELETED_RESPONSE = "nothing deleted";
@@ -40,6 +43,8 @@ public class NoteController {
     jacksonCodecRegistry.addCodecForClass(Note.class);
     noteCollection = database.getCollection("notes").withDocumentClass(Note.class)
         .withCodecRegistry(jacksonCodecRegistry);
+
+    ownerController = new OwnerController(database);
     tokenVerifier = new TokenVerifier();
   }
 
@@ -48,6 +53,39 @@ public class NoteController {
       throw new BadRequestResponse("Invalid header token. The request is not authorized.");
     } else {
       return true;
+    }
+  }
+
+  public void checkOwnerForNewNote(Context ctx) {
+    String x500 = tokenVerifier.getOwnerx500(ctx);
+    String ownerID = ownerController.getOwnerIDByx500(x500);
+
+    Note newNote = ctx.bodyAsClass(Note.class);
+
+    if(!ownerID.equals(newNote.owner_id)) {
+      ctx.status(401);
+      throw new UnauthorizedResponse("You do not have permission to perform this action.");
+    }
+  }
+
+  public void checkOwnerForGivenNote(Context ctx) {
+    String x500 = tokenVerifier.getOwnerx500(ctx);
+    String ownerID = ownerController.getOwnerIDByx500(x500);
+
+    String noteID = ctx.pathParam("id");
+    Note note;
+
+    try {
+    note = noteCollection.find(eq("_id", new ObjectId(noteID))).first();
+    }  catch(IllegalArgumentException e) {
+      throw new BadRequestResponse("The requested note id wasn't a legal Mongo Object ID.");
+    }
+
+    if (note == null) {
+      throw new NotFoundResponse("The requested note was not found");
+    } else if (!ownerID.equals(note.owner_id)) {
+      ctx.status(401);
+      throw new UnauthorizedResponse("You do not have permission to perform this action.");
     }
   }
 

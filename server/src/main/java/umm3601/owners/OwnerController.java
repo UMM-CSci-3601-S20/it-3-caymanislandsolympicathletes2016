@@ -37,6 +37,7 @@ public class OwnerController {
     jacksonCodecRegistry.addCodecForClass(Owner.class);
     ownerCollection = database.getCollection("owners").withDocumentClass(Owner.class)
         .withCodecRegistry(jacksonCodecRegistry);
+
     tokenVerifier = new TokenVerifier();
   }
 
@@ -95,4 +96,20 @@ public class OwnerController {
     ctx.json(ImmutableMap.of("id", newOwner._id));
   }
 
+
+  public String getOwnerIDByx500(String x500) {
+    Owner owner;
+
+    try {
+      owner = ownerCollection.find(eq("x500", x500)).first();
+    } catch(IllegalArgumentException e) {
+      throw new BadRequestResponse("The requested owner x500 wasn't a legal Mongo Object.");
+    }
+
+    if(owner== null) {
+      throw new NotFoundResponse("The requested owner was not found");
+    } else {
+      return owner._id;
+    }
+  }
 }

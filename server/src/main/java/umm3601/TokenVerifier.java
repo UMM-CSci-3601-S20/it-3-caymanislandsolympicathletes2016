@@ -11,40 +11,60 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.github.kevinsawicki.http.HttpRequest;
 
 import io.javalin.http.Context;
 
 public class TokenVerifier {
 
-    public TokenVerifier() {}
 
+  public TokenVerifier() {
+  }
 
-    // https://community.auth0.com/t/verify-jwt-token-received-from-auth0/35581/4
-    public boolean verifyToken(Context ctx) {
-        String token = ctx.header("Authorization").replace("Bearer ", "");
-        JwkProvider provider = new UrlJwkProvider("https://dev-h60mw6th.auth0.com/");
-        try {
-            DecodedJWT jwt = JWT.decode(token);
-            Jwk jwk = provider.get(jwt.getKeyId());
+  // https://community.auth0.com/t/verify-jwt-token-received-from-auth0/35581/4
+  public boolean verifyToken(Context ctx) {
+    String token = ctx.header("Authorization").replace("Bearer ", "");
+    JwkProvider provider = new UrlJwkProvider("https://dev-h60mw6th.auth0.com/");
+    try {
+      DecodedJWT jwt = JWT.decode(token);
+      Jwk jwk = provider.get(jwt.getKeyId());
 
-            Algorithm algorithm = Algorithm.RSA256((RSAPublicKey) jwk.getPublicKey(), null);
+      Algorithm algorithm = Algorithm.RSA256((RSAPublicKey) jwk.getPublicKey(), null);
 
-            JWTVerifier verifier = JWT.require(algorithm)
-            .withIssuer("https://dev-h60mw6th.auth0.com/")
-            .build();
+      JWTVerifier verifier = JWT.require(algorithm).withIssuer("https://dev-h60mw6th.auth0.com/").build();
 
-            jwt = verifier.verify(token);
-            System.err.println("Token was valid");
-            return true;
-        } catch (JWTVerificationException e) {
-            // Invalid signature/claims
-            ctx.status(400);
-            e.printStackTrace();
-        } catch (JwkException e) {
-            ctx.status(400);
-            e.printStackTrace();
-        }
+      jwt = verifier.verify(token);
 
-        return false;
+      return true;
+
+    } catch (JWTVerificationException e) {
+      // Invalid signature/claims
+      ctx.status(400);
+      e.printStackTrace();
+    } catch (JwkException e) {
+      ctx.status(400);
+      e.printStackTrace();
     }
+
+    return false;
+  }
+
+  public String getOwnerx500(Context ctx) {
+
+    String token = ctx.header("Authorization");
+
+    String userInfo = HttpRequest.get("https://dev-h60mw6th.auth0.com/userinfo").authorization(token).body();
+
+    // Pull the x500 out of the body, there's definitely a better way to do this, but idk how
+    System.err.println(userInfo);
+    int startIndex = userInfo.indexOf("\"nickname\":\"");
+    System.err.println(startIndex);
+    String temp = userInfo.substring(startIndex + 12);
+    System.err.println(temp);
+    int endIndex = temp.indexOf('"');
+    System.err.println(endIndex);
+    String x500 = temp.substring(0, endIndex);
+
+    return x500;
+  }
 }

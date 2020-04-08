@@ -45,19 +45,23 @@ public class Server {
     server.get("api/notes", noteController::getOwnerNotes);
 
     // Add new note
-    server.before("api/notes/new", noteController::verifyHttpRequest);
-    server.post("api/notes/new", noteController::addNote);
+    server.before("api/new/notes/", noteController::verifyHttpRequest);
+    server.before("api/new/notes/", noteController::checkOwnerForNewNote);
+    server.post("api/new/notes/", noteController::addNote);
 
     // Get a single note
     server.before("api/notes/:id", noteController::verifyHttpRequest);
+    server.before("api/notes/:id", noteController::checkOwnerForGivenNote);
     server.get("api/notes/:id", noteController::getNoteByID);
 
     // Edit an existing note
     server.before("api/notes/edit/:id", noteController::verifyHttpRequest);
+    server.before("api/notes/edit/:id", noteController::checkOwnerForGivenNote);
     server.post("api/notes/edit/:id", noteController::editNote);
 
     // Delete a note
     server.before("api/notes/:id", noteController::verifyHttpRequest);
+    server.before("api/notes/:id", noteController::checkOwnerForGivenNote);
     server.delete("api/notes/:id", noteController::deleteNote);
 
     // Owner endpoints
