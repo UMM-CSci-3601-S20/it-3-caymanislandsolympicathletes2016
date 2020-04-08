@@ -11,8 +11,8 @@ const routes: Routes = [
   {path: '', component: OwnerComponent, canActivate: [AuthGuard]},
   {path: 'new', component: AddNoteComponent, canActivate: [AuthGuard]},
   {path: ':x500', component: ViewerPageComponent},
-  {path: 'edit/:id', component: EditComponent},
-  {path: ':id/edit', component: EditComponent}
+  {path: 'edit/:id', component: EditComponent, canActivate: [AuthGuard]},
+  {path: ':id/edit', component: EditComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({
