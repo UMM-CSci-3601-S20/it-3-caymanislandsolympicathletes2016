@@ -56,9 +56,13 @@ public class Server {
     server.before("api/notes/edit/:id", noteController::verifyHttpRequest);
     server.post("api/notes/edit/:id", noteController::editNote);
 
-    // Delete a note
+    // Trash a note
     server.before("api/notes/:id", noteController::verifyHttpRequest);
     server.delete("api/notes/:id", noteController::deleteNote);
+
+    // Delete a note
+    server.before("api/notes/delete/:id", noteController::verifyHttpRequest);
+    server.delete("api/notes/delete/:id", noteController::permanentlyDeleteNote);
 
     // Restore a note
     server.before("api/notes/:id", noteController::verifyHttpRequest);

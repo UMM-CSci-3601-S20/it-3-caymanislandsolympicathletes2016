@@ -138,6 +138,19 @@ public class NoteController {
     }
   }
 
+  public void permanentlyDeleteNote(Context ctx) {
+    String id = ctx.pathParamMap().get("id");
+
+    Note noteToDelete = noteCollection.findOneAndDelete(eq("_id", new ObjectId(id)));
+
+    if (noteToDelete == null) {
+      throw new NotFoundResponse("The requested note was not found");
+    } else {
+      ctx.status(200);
+      ctx.json(ImmutableMap.of("id", id));
+    }
+  }
+
   public void restoreNote(Context ctx) {
     String id = ctx.pathParamMap().get("id");
     // check if owner id of a note, matches logged in user's id

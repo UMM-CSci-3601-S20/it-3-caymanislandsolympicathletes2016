@@ -10,6 +10,9 @@
       <button mat-button class="note-action restore" matToolTip="Restore note" matToolTipPosition="right" (click)="this.restoreNote(note._id);">
         <mat-icon aria-label="Restore note">restore</mat-icon>
       </button>
+      <button mat-button class="note-action delete" (click)="this.permanentlyDeleteNote(note._id);">
+        <mat-icon aria-label="Delete note">delete</mat-icon>
+      </button>
     </mat-card-actions>
   </mat-card>
 </ul>

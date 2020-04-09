@@ -13,6 +13,7 @@ import { map } from 'rxjs/operators';
 export class NotesService {
 
   readonly noteUrl: string = environment.API_URL + 'notes';
+  readonly deleteNoteUrl: string = environment.API_URL + 'notes/delete'
 
   constructor(private httpClient: HttpClient) {}
 
@@ -57,6 +58,19 @@ export class NotesService {
     ) as Observable<DeleteResponse>;
 
     return response.pipe(map(theResponse => theResponse === 'moved to trash'));
+  }
+
+  permanentlyDeleteNote(id: string): Observable<boolean> {
+    type PermDeleteResponse = 'removed from trash' | 'failed to remove from trash';
+
+    const response = this.httpClient.delete(
+      this.deleteNoteUrl + '/' + encodeURI(id),
+      {
+        responseType: 'text',
+      },
+    ) as Observable<PermDeleteResponse>;
+
+    return response.pipe(map(theResponse => theResponse === 'removed from trash'));
   }
 
   restoreNote(id: string): Observable<boolean> {

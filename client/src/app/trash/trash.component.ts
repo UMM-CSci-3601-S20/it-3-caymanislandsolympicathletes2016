@@ -50,6 +50,14 @@ export class TrashComponent implements OnInit, OnDestroy  {
     });
   }
 
+  permanentlyDeleteNote(id: string): void {
+    this.noteService.permanentlyDeleteNote(id).subscribe(result => {
+      this.retrieveNotes();
+    }, err => {
+      console.log(err);
+    });
+  }
+
   retrieveOwner(): void {
     this.getx500Sub = this.auth.userProfile$.subscribe(returned => {
       this.x500 = returned.nickname;
