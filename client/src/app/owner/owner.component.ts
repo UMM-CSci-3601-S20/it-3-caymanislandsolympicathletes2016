@@ -99,7 +99,7 @@ export class OwnerComponent implements OnInit, OnDestroy {
         _id: null,
         officeNumber: null,
         building: null
-      }
+      };
     });
 
     this.ownerService.addOwner(newOwner).subscribe(newID => {

@@ -12,7 +12,7 @@ const routes: Routes = [
   {path: '', component: OwnerComponent, canActivate: [AuthGuard]},
   {path: 'new', component: AddNoteComponent, canActivate: [AuthGuard]},
   {path: 'trash', component: TrashComponent, canActivate: [AuthGuard]},
-  {path: ':x500', component: ViewerPageComponent},
+  {path: ':x500', component: ViewerPageComponent, canActivate: [AuthGuard]},
   {path: 'edit/:id', component: EditComponent, canActivate: [AuthGuard]},
   {path: ':id/edit', component: EditComponent, canActivate: [AuthGuard]}
 ];
