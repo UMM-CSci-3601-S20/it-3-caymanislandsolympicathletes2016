@@ -49,7 +49,6 @@ public class OwnerControllerSpec {
   MockHttpServletResponse mockRes = new MockHttpServletResponse();
 
   private OwnerController ownerController;
-  //private String myx500;
 
   static MongoClient mongoClient;
   static MongoDatabase db;
@@ -57,7 +56,7 @@ public class OwnerControllerSpec {
   static ObjectMapper jsonMapper = new ObjectMapper();
 
   static ObjectId importantOwnerId;
-  static ObjectId myx500;
+  static String myx500;
   static BasicDBObject importantOwner;
 
 @BeforeAll
@@ -93,6 +92,8 @@ public class OwnerControllerSpec {
 
     importantOwnerId = new ObjectId();
     importantOwner = new BasicDBObject("_id", importantOwnerId);
+    myx500 = "smallOwner";
+    importantOwner.append("x500", myx500);
 
     noteDocuments.insertMany(testNotes);
     noteDocuments.insertOne(Document.parse(importantOwner.toJson()));
@@ -142,7 +143,8 @@ public class OwnerControllerSpec {
   @Test
   public void GetOwnerByx500() throws IOException {
     mockReq.setMethod("GET");
-    Context ctx = ContextUtil.init(mockReq, mockRes, "api/owner/x500/:x500", ImmutableMap.of("x500", myx500.toHexString()));
+    String testx500 = "x500_3";
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/owner/x500/:x500", ImmutableMap.of("x500", testx500.toString()));
     ownerController.getOwnerByx500(ctx);
 
     assertEquals(200, mockRes.getStatus());
@@ -150,8 +152,7 @@ public class OwnerControllerSpec {
     String result = ctx.resultString();
     Owner resultOwner = JavalinJson.fromJson(result, Owner.class);
 
-    assertEquals(resultOwner._id, importantOwnerId.toHexString());
-    assertEquals(resultOwner.name, importantOwner.get("name"));
+    assertEquals("person3", resultOwner.name);
   }
 
   @Test
@@ -177,26 +178,18 @@ public class OwnerControllerSpec {
   }
 
   @Test
-  public void GetOwnerIdByx500(String x500_1) throws IOException {
-    mockReq.setMethod("GET");
-    //Context ctx = ContextUtil.init(mockReq, mockRes, "api/owner/:id", ImmutableMap.of("id", importantOwnerId.toHexString()));
-    //ownerController.getOwnerIDByx500(x500_1);
+  public void GetOwnerIdByx500() throws IOException {
+    String result = ownerController.getOwnerIDByx500(myx500);
+    assertEquals(result, importantOwnerId.toHexString());
 
-    assertEquals(200, mockRes.getStatus());
-
-    String result = ownerController.getOwnerIDByx500(x500_1);
-    Owner resultOwner = JavalinJson.fromJson(result, Owner.class);
-
-    assertEquals(resultOwner._id, importantOwnerId.toHexString());
-    assertEquals(resultOwner.name, importantOwner.get("name"));
   }
 
 
   @Test
   public void AddOwner() throws IOException {
 
-    String testNewOwner = "{ name: \"Guy Fieri\", " + "officeNumber: \"777\", " + "email: \"guy@flavortown\", "+
-    "building: \"Flavortown\", " + "x500: \"guyF\"}";
+    String testNewOwner = "{ \"name\": \"Guy Fieri\", " + "\"officeNumber\": \"777\", " + "\"email\": \"guy@flavortown\", "+
+    "\"building\": \"Flavortown\", " + "\"x500\": \"guyF\" }";
 
     mockReq.setBodyContent(testNewOwner);
     mockReq.setMethod("POST");
