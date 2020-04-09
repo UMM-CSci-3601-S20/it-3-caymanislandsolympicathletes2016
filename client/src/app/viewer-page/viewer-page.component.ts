@@ -7,7 +7,6 @@ import { Owner } from '../owner';
 import { OwnerComponent } from '../owner/owner.component';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-import { AuthService } from '../authentication/auth.service';
 
 @Component({
   selector: 'app-viewer-page',
@@ -17,27 +16,28 @@ import { AuthService } from '../authentication/auth.service';
 
 export class ViewerPageComponent implements OnInit {
 
-  constructor(public auth: AuthService, private notesService: NotesService, private ownerService: OwnerService,
-    private router: Router, private route: ActivatedRoute) {}
-
-  notes: Note[];
-  owner: Owner;
-  id: string;
-  name: string;
+  public notes: Note[];
+  public urlId: string;
+  public urlx500: string;
   getNotesSub: Subscription;
   getOwnerSub: Subscription;
-  getx500Sub: Subscription;
-  x500: string;
-  logins: number;
+  owner: Owner;
 
+  constructor(private notesService: NotesService, private ownerService: OwnerService,
+              private router: Router, private route: ActivatedRoute) {}
+
+  //  retrieveUrlId(): void {
+  //   this.route.paramMap.subscribe((pmap) => {
+  //     this.urlId = pmap.get('id');
+  //   });
+  // }
 
   retrieveOwner(): void {
-    this.getx500Sub = this.auth.userProfile$.subscribe(returned => {
-      this.x500 = returned.nickname;
-    });
-    this.getOwnerSub = this.ownerService.getOwnerByx500(this.x500).subscribe(returnedOwner => {
+    this.getOwnerSub = this.ownerService.getOwnerByx500(this.urlx500).subscribe(returnedOwner => {
       this.owner = returnedOwner;
       this.retrieveNotes();
+    }, err => {
+      console.log(err);
     });
   }
 
@@ -50,8 +50,12 @@ export class ViewerPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe((pmap) => {
+      this.urlx500 = pmap.get('x500');
       this.retrieveOwner();
-    }
+    });
+
+  }
 
   ngOnDestroy(): void {
     this.unsub();
