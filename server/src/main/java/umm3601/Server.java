@@ -74,10 +74,6 @@ public class Server {
     server.before("api/notes/delete/:id", noteController::checkOwnerForGivenNote);
     server.delete("api/notes/delete/:id", noteController::permanentlyDeleteNote);
 
-    // View owner notes
-    server.before("api/:x500", noteController::verifyHttpRequest);
-    server.get("api/:x500", noteController::getOwnerNotes);
-
     // Owner Endpoints
     // Add a new owner
     server.before("api/owner/new", ownerController::verifyHttpRequest);
@@ -88,7 +84,7 @@ public class Server {
     server.get("api/owner/:id", ownerController::getOwnerByID);
 
     // Get owner by x500
-    server.before("api/owner/x500/:x500", ownerController::verifyHttpRequest);
+    // server.before("api/owner/x500/:x500", ownerController::verifyHttpRequest);
     server.get("api/owner/x500/:x500", ownerController::getOwnerByx500);
 
 
