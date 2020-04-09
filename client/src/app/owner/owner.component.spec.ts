@@ -7,6 +7,7 @@ import { MockNoteService } from 'src/testing/note.service.mock';
 import { MockOwnerService } from 'src/testing/owner.service.mock';
 import { NotesService } from '../notes.service';
 import { AuthService } from '../authentication/auth.service';
+import { OwnerService } from '../owner.service';
 import { Note } from '../note';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
@@ -25,14 +26,14 @@ describe('Component: Owner page:', () => {
 
 
   beforeEach(() => {
-    mockNoteService = new MockNoteService();
-    mockOwnerService = new MockOwnerService();
     spyedAuthService = new AuthService(router);
+    mockNoteService = new MockNoteService();
+    mockOwnerService = new MockOwnerService(spyedAuthService);
 
     TestBed.configureTestingModule({
       imports: [MatCardModule],
       declarations: [OwnerComponent], // declare the test component
-      providers: [{provide: NotesService, useValue: mockNoteService}],
+      providers: [{provide: NotesService, useValue: mockNoteService}, {provide: OwnerService, useValue: mockOwnerService}],
     });
 
     fixture = TestBed.createComponent(OwnerComponent);

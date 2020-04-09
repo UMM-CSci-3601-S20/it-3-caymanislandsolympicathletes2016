@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Owner } from '../app/owner';
 import { OwnerService } from '../app/owner.service';
+import { AuthService } from 'src/app/authentication/auth.service';
 
 /**
  * A "mock" version of the `OwnerService` that can be used to test components
@@ -44,7 +45,7 @@ export class MockOwnerService extends OwnerService {
     }
   ];
 
-  constructor() {
+  constructor(auth: AuthService) {
     super(null);
   }
   // no filters here yet, don't know what we want to have the database filter for us
