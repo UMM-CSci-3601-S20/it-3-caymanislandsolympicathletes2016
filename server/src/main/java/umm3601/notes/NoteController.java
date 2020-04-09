@@ -6,6 +6,8 @@ import static com.mongodb.client.model.Filters.eq;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.CheckReturnValue;
+
 import com.google.common.collect.ImmutableMap;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -111,11 +113,17 @@ public class NoteController {
 
     if (ctx.queryParamMap().containsKey("owner_id")) {
       filters.add(eq("owner_id", ctx.queryParam("owner_id")));
+    if (ctx.queryParamMap().containsKey("posted")) {
+      filters.add(eq("posted", Boolean.parseBoolean(ctx.queryParam("posted"))));
+    }
+    }else{
+      throw new NotFoundResponse("The requested owner was not found");
     }
 
     ctx.json(noteCollection.find(filters.isEmpty() ? new Document() : and(filters))
     .into(new ArrayList<>()));
   }
+
 
   public void getNotes(Context ctx) {
     ctx.json(noteCollection.find(new Document()).into(new ArrayList<>()));
@@ -150,19 +158,47 @@ public class NoteController {
   }
 
   /**
-   * Delete a note with a given id, if the id exists.
+   * Move a note with a given id to the trash, if the id exists.
    *
    * If the id does not exist, do nothing.
    */
+  // need to verify that owner is correct owner
   public void deleteNote(Context ctx) {
-    String id = ctx.pathParam("id");
-    DeleteResult result = noteCollection.deleteOne(eq("_id", new ObjectId(id)));
+    String id = ctx.pathParamMap().get("id");
+    // check if owner id of a note, matches logged in user's id
+    Note oldNote = noteCollection.findOneAndUpdate(eq("_id", new ObjectId(id)), set("posted", false));
 
-    if (result.getDeletedCount() > 0) {
-      ctx.result(DELETED_RESPONSE);
+    if (oldNote == null) {
+      throw new NotFoundResponse("The requested note was not found");
     } else {
-      // Deleting a non-existent id is still considered a success.
-      ctx.result(NOT_DELETED_RESPONSE);
+      ctx.status(200);
+      ctx.json(ImmutableMap.of("id", id));
+    }
+  }
+
+  public void permanentlyDeleteNote(Context ctx) {
+    String id = ctx.pathParamMap().get("id");
+
+    Note noteToDelete = noteCollection.findOneAndDelete(eq("_id", new ObjectId(id)));
+
+    if (noteToDelete == null) {
+      throw new NotFoundResponse("The requested note was not found");
+    } else {
+      ctx.status(200);
+      ctx.json(ImmutableMap.of("id", id));
+    }
+  }
+
+  public void restoreNote(Context ctx) {
+    String id = ctx.pathParamMap().get("id");
+    // check if owner id of a note, matches logged in user's id
+    Note oldNote = noteCollection.findOneAndUpdate(eq("_id", new ObjectId(id)), set("posted", true));
+
+    if (oldNote == null) {
+      throw new NotFoundResponse("The requested note was not found");
+    } else {
+      ctx.status(200);
+      ctx.json(ImmutableMap.of("id", id));
     }
   }
 }
