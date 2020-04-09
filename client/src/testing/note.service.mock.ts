@@ -29,23 +29,29 @@ export class MockNoteService extends NotesService {
 
     // Trashed Notes
     {
-      _id: 'first_id',
+      _id: 'fourth_id',
       owner_id: 'rachel_id',
       body: 'This is the fourth note',
       posted: false
     },
     {
-      _id: 'second_id',
+      _id: 'fifth_id',
       owner_id: 'joe_id',
       body: 'This is the fifth note',
       posted: false
     },
     {
-      _id: 'third_id',
+      _id: 'sixth_id',
       owner_id: 'james_id',
       body: 'This is the 6th note',
       posted: false
     },
+    {
+      _id: 'seventh_id',
+      owner_id: 'kyle_id',
+      body: 'This is the 7th note',
+      posted: false
+    }
   ];
 
   public static FAKE_BODY = 'This is definitely the note you wanted';

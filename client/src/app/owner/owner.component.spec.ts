@@ -20,20 +20,17 @@ describe('Component: Owner page:', () => {
   let el: HTMLElement;
   let mockNoteService: MockNoteService;
   let mockOwnerService: MockOwnerService;
-  let spyedAuthService: AuthService;
   let spy: any;
-  let router: Router;
 
 
   beforeEach(() => {
-    spyedAuthService = new AuthService(router);
     mockNoteService = new MockNoteService();
-    mockOwnerService = new MockOwnerService(spyedAuthService);
-
+    mockOwnerService = new MockOwnerService();
     TestBed.configureTestingModule({
       imports: [MatCardModule],
       declarations: [OwnerComponent], // declare the test component
-      providers: [{provide: NotesService, useValue: mockNoteService}, {provide: OwnerService, useValue: mockOwnerService}],
+      providers: [{provide: NotesService, useValue: mockNoteService},
+        {provide: OwnerService, useValue: mockOwnerService},]
     });
 
     fixture = TestBed.createComponent(OwnerComponent);
@@ -51,7 +48,11 @@ describe('Component: Owner page:', () => {
 
   describe('The retrieveOwner() method:', () => {
     it('gets the owner Kyle Fluto', () => {
-
+      const spyOnX500 = spyOnProperty(component, 'x500').and.returnValue('fluto006');
+      component.retrieveOwner();
+      expect(spyOnX500).toHaveBeenCalled();
+      expect(component.retrieveOwner).toHaveBeenCalled();
+      expect(component.x500).toBe('fluto006');
     });
 
     it('gets the owner Rachel Johnson', () => {
