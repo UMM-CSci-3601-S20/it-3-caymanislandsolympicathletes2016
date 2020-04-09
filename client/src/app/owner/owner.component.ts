@@ -41,7 +41,8 @@ export class OwnerComponent implements OnInit, OnDestroy {
       this.owner = returnedOwner;
       this.retrieveNotes();
     }, err => {
-      if (err.status === 404) {
+      let errorTitle = "The requested owner was not found"
+      if (err.status === 404 && err.error.title === errorTitle) {
         this.addOwner();
       }
       console.log(err);
