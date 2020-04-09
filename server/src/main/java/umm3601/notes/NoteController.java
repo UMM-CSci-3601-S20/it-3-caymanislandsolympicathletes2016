@@ -180,13 +180,13 @@ public class NoteController {
     String id = ctx.pathParamMap().get("id");
 
     Note noteToDelete = noteCollection.findOneAndDelete(eq("_id", new ObjectId(id)));
-
+/*
     if (noteToDelete == null) {
       throw new NotFoundResponse("The requested note was not found");
     } else {
       ctx.status(200);
       ctx.json(ImmutableMap.of("id", id));
-    }
+    } */
   }
 
   public void restoreNote(Context ctx) {

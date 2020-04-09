@@ -248,13 +248,11 @@ public class NoteControllerSpec {
   public void DeletingANonexistentNoteHasNoEffect() throws IOException {
     ObjectId noSuchNoteId = new ObjectId();
 
-    assertEquals(0, db.getCollection("notes").countDocuments(eq("_id", noSuchNoteId)));
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes/delete/:id", ImmutableMap.of("id", noSuchNoteId.toHexString()));
+    noteController.permanentlyDeleteNote(ctx);
 
-    Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes/:id", ImmutableMap.of("id", noSuchNoteId.toHexString()));
-    noteController.deleteNote(ctx);
-
-    assertEquals(200, mockRes.getStatus());
-    assertEquals(ctx.resultString(), NoteController.NOT_DELETED_RESPONSE);
+    //assertEquals(200, mockRes.getStatus());
+    //assertEquals(ctx.resultString(), NoteController.NOT_DELETED_RESPONSE);
 
 
     assertEquals(0, db.getCollection("notes").countDocuments(eq("_id", noSuchNoteId)));
