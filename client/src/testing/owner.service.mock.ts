@@ -33,6 +33,14 @@ export class MockOwnerService extends OwnerService {
       email: 'fleg0003@morris.umn.edu',
       building: 'HFA',
       x500: 'fleg0003'
+    },
+    {
+      _id: 'kyle_id',
+      name: 'Kyle Fluto',
+      officeNumber: '2716',
+      email: 'fluto006@umn.edu',
+      building: 'Science',
+      x500: 'fluto006'
     }
   ];
 

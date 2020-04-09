@@ -7,20 +7,44 @@ import { of } from 'rxjs';
 export class MockNoteService extends NotesService {
 
   static testNotes: Note[] = [
+    // Posted Notes
     {
       _id: 'first_id',
       owner_id: 'rachel_id',
-      body: 'This is the first note'
+      body: 'This is the first note',
+      posted: true
     },
     {
       _id: 'second_id',
       owner_id: 'joe_id',
-      body: 'This is the second note'
+      body: 'This is the second note',
+      posted: true
     },
     {
       _id: 'third_id',
       owner_id: 'james_id',
-      body: 'This is the third note'
+      body: 'This is the third note',
+      posted: true
+    },
+
+    // Trashed Notes
+    {
+      _id: 'first_id',
+      owner_id: 'rachel_id',
+      body: 'This is the fourth note',
+      posted: false
+    },
+    {
+      _id: 'second_id',
+      owner_id: 'joe_id',
+      body: 'This is the fifth note',
+      posted: false
+    },
+    {
+      _id: 'third_id',
+      owner_id: 'james_id',
+      body: 'This is the 6th note',
+      posted: false
     },
   ];
 

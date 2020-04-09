@@ -6,10 +6,12 @@ import { MatCardModule } from '@angular/material/card';
 import { MockNoteService } from 'src/testing/note.service.mock';
 import { MockOwnerService } from 'src/testing/owner.service.mock';
 import { NotesService } from '../notes.service';
+import { AuthService } from '../authentication/auth.service';
 import { Note } from '../note';
 import { of } from 'rxjs';
+import { Router } from '@angular/router';
 
-describe('Home:', () => {
+describe('Component: Owner page:', () => {
 
   let component: OwnerComponent;
   let fixture: ComponentFixture<OwnerComponent>;
@@ -17,10 +19,15 @@ describe('Home:', () => {
   let el: HTMLElement;
   let mockNoteService: MockNoteService;
   let mockOwnerService: MockOwnerService;
+  let spyedAuthService: AuthService;
+  let spy: any;
+  let router: Router;
+
 
   beforeEach(() => {
     mockNoteService = new MockNoteService();
     mockOwnerService = new MockOwnerService();
+    spyedAuthService = new AuthService(router);
 
     TestBed.configureTestingModule({
       imports: [MatCardModule],
@@ -41,9 +48,30 @@ describe('Home:', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('The retrieveNotes() method:', () => {
+  describe('The retrieveOwner() method:', () => {
+    it('gets the owner Kyle Fluto', () => {
 
-    it('gets all the notes from the server', () =>{
+    });
+
+    it('gets the owner Rachel Johnson', () => {
+
+    });
+
+    it('gets the owner Joe Beaver', () => {
+
+    });
+
+    it('gets the owner James Flegel', () => {
+
+    });
+
+    it('does not get the owner Jack Black', () => {
+
+    });
+  });
+
+  describe('The retrieveNotes() method:', () => {
+    it('gets all the notes from the server', () => {
       component.retrieveNotes();
 
       expect(component.notes.length).toBe(3);
@@ -65,7 +93,8 @@ describe('Home:', () => {
       expect(MockNoteService.prototype.deleteNote).toHaveBeenCalledWith(id);
     });
   });
-/*
+
+  /*
   describe('The savePDF() method:', () => {
     it('gets a pdf document from PDFService and calls .save() on it', () => {
       component.savePDF();
