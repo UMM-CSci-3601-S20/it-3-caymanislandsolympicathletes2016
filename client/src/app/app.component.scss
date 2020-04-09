@@ -1,12 +1,12 @@
-.sidenav-container {
-  height: 200%;
-  background-image: url(/assets/doorboard.jpg);
-  background-repeat: no-repeat;
-  background-position: left;
-  background-size: cover;/*Fills in the background for
-  multiple different browser sizes, while still looking sharp*/
-  background-attachment: fixed;
-}
+// .sidenav-container {
+//   height: 200%;
+//   background-image: url(/assets/doorboard.jpg);
+//   background-repeat: no-repeat;
+//   background-position: left;
+//   background-size: cover;/*Fills in the background for
+//   multiple different browser sizes, while still looking sharp*/
+//   background-attachment: fixed;
+// }
 
 body{
   background-image: url(/assets/doorboard.jpg);
@@ -25,14 +25,14 @@ body{
   font-size: larger;
 }
 
-.main-content {
-  background-image: url(/assets/doorboard.jpg);
-  background-size: cover;
-  background-attachment: fixed;
-  //margin: 24px;
-  @media (max-width: 599px) {
-    //margin: 16px;
-  }
-}
+// .main-content {
+//   background-image: url(/assets/doorboard.jpg);
+//   background-size: cover;
+//   background-attachment: fixed;
+//   //margin: 24px;
+//   @media (max-width: 599px) {
+//     //margin: 16px;
+//   }
+// }
 
 
