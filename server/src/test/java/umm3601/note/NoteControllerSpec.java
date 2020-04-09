@@ -1,6 +1,7 @@
 package umm3601.note;
 
 import static com.mongodb.client.model.Filters.eq;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -81,9 +82,9 @@ public class NoteControllerSpec {
     MongoCollection<Document> noteDocuments = db.getCollection("notes");
     noteDocuments.drop();
     List<Document> testNotes = new ArrayList<>();
-    testNotes.add(Document.parse("{ body: \"This is the first body\" }"));
-    testNotes.add(Document.parse("{ body: \"This is the second body\" }"));
-    testNotes.add(Document.parse("{ body: \"This is the third body\" }"));
+    testNotes.add(Document.parse("{ owner_id: \"owner1ID\", " + "body: \"First body\", " + "posted: \"true\"}"));
+    testNotes.add(Document.parse("{ owner_id: \"owner2ID\", " + "body: \"Second body\", " + "posted: \"true\"}"));
+    testNotes.add(Document.parse("{ owner_id: \"owner3ID\", " + "body: \"Third body\", " + "posted: \"true\"}"));
 
     importantNoteId = new ObjectId();
     importantNote = new BasicDBObject("_id", importantNoteId)
@@ -111,6 +112,23 @@ public class NoteControllerSpec {
 
     String result = ctx.resultString();
     assertEquals(db.getCollection("notes").countDocuments(), JavalinJson.fromJson(result, Note[].class).length);
+  }
+
+  @Test
+  public void GetOwnerNotes() throws IOException {
+    mockReq.setQueryString("owner_id=owner1ID");
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes");
+    noteController.getOwnerNotes(ctx);
+
+    assertEquals(200, mockRes.getStatus());
+
+    String result = ctx.resultString();
+    Note[] resultNotes = JavalinJson.fromJson(result, Note[].class);
+
+    assertEquals(1, resultNotes.length);
+    for (Note note : resultNotes) {
+      assertEquals("owner1ID", note.owner_id, "Incorrect ID");
+    }
   }
 
  @Test
@@ -207,15 +225,22 @@ public class NoteControllerSpec {
 
   @Test
   public void DeleteNote() throws IOException {
-    assertEquals(1, db.getCollection("notes").countDocuments(eq("_id", importantNoteId)));
 
     Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes/:id", ImmutableMap.of("id", importantNoteId.toHexString()));
     noteController.deleteNote(ctx);
 
-    assertEquals(200, mockRes.getStatus());
-    assertEquals(ctx.resultString(), NoteController.DELETED_RESPONSE);
+    assertEquals(1, db.getCollection("notes").countDocuments(eq("_id", importantNoteId)));
+    Document trashNote = db.getCollection("notes").find(eq("_id", importantNoteId)).first();
+    assertNotNull(trashNote);
 
-    // Note is no longer in the database
+    assertTrue(false == trashNote.getBoolean("posted"));
+  }
+
+  @Test
+  public void PermanentlyDeleteNote() throws IOException {
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes/delete/:id", ImmutableMap.of("id", importantNoteId.toHexString()));
+    noteController.permanentlyDeleteNote(ctx);
+
     assertEquals(0, db.getCollection("notes").countDocuments(eq("_id", importantNoteId)));
   }
 
