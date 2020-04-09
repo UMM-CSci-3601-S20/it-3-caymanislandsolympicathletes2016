@@ -20,10 +20,13 @@ export class NotesService {
   //   return this.httpClient.get<Note[]>(this.noteUrl);
   // }
 
-  getOwnerNotes(filters?: { owner_id?: string}): Observable<Note[]> {
+  getOwnerNotes(filters?: { owner_id?: string, posted?: boolean}): Observable<Note[]> {
     let httpParams: HttpParams = new HttpParams();
     if (filters.owner_id) {
       httpParams = httpParams.set('owner_id', filters.owner_id);
+    }
+    if (filters.posted === true || filters.posted === false) {
+      httpParams = httpParams.set('posted', filters.posted.toString());
     }
     return this.httpClient.get<Note[]>(this.noteUrl, {
       params: httpParams,
@@ -44,7 +47,7 @@ export class NotesService {
    * Usually, you can just ignore the return value.
    */
   deleteNote(id: string): Observable<boolean> {
-    type DeleteResponse = 'deleted' | 'nothing deleted';
+    type DeleteResponse = 'moved to trash' | 'failed to move to trash';
 
     const response = this.httpClient.delete(
       this.noteUrl + '/' + encodeURI(id),
@@ -53,8 +56,23 @@ export class NotesService {
       },
     ) as Observable<DeleteResponse>;
 
-    return response.pipe(map(theResponse => theResponse === 'deleted'));
+    return response.pipe(map(theResponse => theResponse === 'moved to trash'));
   }
+
+  restoreNote(id: string): Observable<boolean> {
+    type RestoreResponse = 'restored note' | 'failed to restore note';
+
+    const response = this.httpClient.post(
+      this.noteUrl + '/' + encodeURI(id),
+      {
+        responseType: 'text',
+      },
+    ) as Observable<RestoreResponse>;
+
+    return response.pipe(map(theResponse => theResponse === 'restored note'));
+  }
+
+
 
   editNote(editNote: Note, id: string): Observable<string> {
     return this.httpClient.post<{id: string}>(this.noteUrl + '/edit/' + id, editNote).pipe(map(res => res.id));
@@ -64,4 +82,17 @@ export class NotesService {
     return this.httpClient.get<Note>(this.noteUrl + '/' + id);
   }
 
+  filterNotes(notes: Note[], filters: {
+    posted?: boolean
+  }): Note[] {
+    // Filter by trash field
+    if (filters.posted === true) {
+      console.log('posted notes');
+
+      notes = notes.filter(note => {
+        return note.posted.valueOf() === true;
+      });
+    }
+    return notes;
+  }
 }
