@@ -44,7 +44,7 @@ export class OwnerComponent implements OnInit, OnDestroy {
   }
 
   retrieveNotes(): void {
-    this.getNotesSub = this.notesService.getOwnerNotes({owner_id: this.owner._id}).subscribe(returnedNotes => {
+    this.getNotesSub = this.notesService.getOwnerNotes({owner_id: this.owner._id, posted: true}).subscribe(returnedNotes => {
       this.notes = returnedNotes.reverse();
     }, err => {
       console.log(err);
@@ -65,17 +65,15 @@ export class OwnerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.getNotesSub) {
-      this.getNotesSub.unsubscribe();
-    }
-    if (this.getOwnerSub) {
-      this.getOwnerSub.unsubscribe();
-    }
+    this.unsub();
   }
 
   unsub(): void {
     if (this.getNotesSub) {
       this.getNotesSub.unsubscribe();
+    }
+    if (this.getOwnerSub) {
+      this.getOwnerSub.unsubscribe();
     }
   }
 
