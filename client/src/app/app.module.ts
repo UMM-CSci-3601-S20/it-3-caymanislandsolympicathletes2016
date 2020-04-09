@@ -34,6 +34,7 @@ import { AddNoteComponent } from './add/add-note.component';
 import { EditComponent } from './edit/edit.component';
 import { InterceptorService } from './authentication/interceptor.service';
 import { OwnerComponent } from './owner/owner.component';
+import { TrashComponent } from './trash/trash.component';
 import { OwnerService } from './owner.service';
 
 const MATERIAL_MODULES: any[] = [
@@ -62,6 +63,7 @@ const MATERIAL_MODULES: any[] = [
     AddNoteComponent,
     EditComponent,
     OwnerComponent,
+    TrashComponent,
   ],
   imports: [
     BrowserModule,
