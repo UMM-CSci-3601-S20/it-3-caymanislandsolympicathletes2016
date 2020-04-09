@@ -79,6 +79,8 @@ public class Server {
     server.get("api/:x500", noteController::getOwnerNotes);
 
     // Owner Endpoints
+
+    server.get("api/owner", ownerController::getOwners);
     // Add a new owner
     server.before("api/owner/new", ownerController::verifyHttpRequest);
     server.post("api/owner/new", ownerController::addOwner);
