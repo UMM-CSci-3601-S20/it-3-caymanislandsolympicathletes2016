@@ -60,6 +60,10 @@ public class Server {
     server.before("api/notes/:id", noteController::verifyHttpRequest);
     server.delete("api/notes/:id", noteController::deleteNote);
 
+    // Restore a note
+    server.before("api/notes/:id", noteController::verifyHttpRequest);
+    server.post("api/notes/:id", noteController::restoreNote);
+
     // Owner endpoints
     server.before("api/owner/:id", ownerController::verifyHttpRequest);
     server.get("api/owner/:id", ownerController::getOwnerByID);
