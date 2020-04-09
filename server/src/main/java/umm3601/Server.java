@@ -64,7 +64,12 @@ public class Server {
     server.before("api/notes/:id", noteController::checkOwnerForGivenNote);
     server.delete("api/notes/:id", noteController::deleteNote);
 
-    // Owner endpoints
+    // Owner Endpoints
+    // Add a new owner
+    server.before("api/owner/new", ownerController::verifyHttpRequest);
+    server.post("api/owner/new", ownerController::addOwner);
+
+    // Get owner by id
     server.before("api/owner/:id", ownerController::verifyHttpRequest);
     server.get("api/owner/:id", ownerController::getOwnerByID);
 

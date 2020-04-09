@@ -8,6 +8,7 @@ import { Note } from '../note';
 import { switchMap } from 'rxjs/operators';
 import {Location} from '@angular/common';
 import { AuthService } from '../authentication/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-owner',
@@ -18,7 +19,7 @@ import { AuthService } from '../authentication/auth.service';
 export class OwnerComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute, public auth: AuthService,
               private _location: Location, private notesService: NotesService,
-              private ownerService: OwnerService) {
+              private ownerService: OwnerService, private snackBar: MatSnackBar) {
                 console.log("Constructing Owner Component");
               }
   notes: Note[];
@@ -29,6 +30,7 @@ export class OwnerComponent implements OnInit, OnDestroy {
   getOwnerSub: Subscription;
   getx500Sub: Subscription;
   x500: string;
+  logins: number;
 
 
   retrieveOwner(): void {
@@ -39,6 +41,9 @@ export class OwnerComponent implements OnInit, OnDestroy {
       this.owner = returnedOwner;
       this.retrieveNotes();
     }, err => {
+      if (err.status = 404) {
+        this.addOwner();
+      }
       console.log(err);
     });
   }
@@ -85,4 +90,29 @@ export class OwnerComponent implements OnInit, OnDestroy {
     this.ownerService.getPDF(this.owner.name, this.x500).save('DoorBoard');
   }
 
+  addOwner(): void {
+    let newOwner: Owner;
+
+    this.getx500Sub = this.auth.userProfile$.subscribe(returned => {
+      newOwner = {
+        x500: this.x500,
+        email: returned.email,
+        name: returned.name,
+        _id: null,
+        officeNumber: null,
+        building: null
+      }
+    });
+
+    this.ownerService.addOwner(newOwner).subscribe(newID => {
+      this.snackBar.open('Successfully created a new owner', null, {
+        duration: 2000,
+      });
+      location.reload();
+    }, err => {
+      this.snackBar.open('Failed to create a new owner', null, {
+        duration: 2000,
+      });
+    });
+  }
 }
