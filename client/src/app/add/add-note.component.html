@@ -21,6 +21,10 @@
         </mat-card-content>
         <mat-card-actions align="end">
           <button mat-button id="confirmAddNoteButton" type="button" color="primary"
+            [routerLink] = "''">
+                    CANCEL
+            </button>
+          <button mat-button id="confirmAddNoteButton" type="button" color="primary"
                   [disabled]="!addNoteForm.valid" type="submit">
                   ADD NOTE
           </button>

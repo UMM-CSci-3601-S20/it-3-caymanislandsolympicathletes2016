@@ -1,6 +1,7 @@
 package umm3601;
 
 import java.security.interfaces.RSAPublicKey;
+import java.util.concurrent.TimeUnit;
 
 import com.auth0.jwk.Jwk;
 import com.auth0.jwk.JwkException;
@@ -22,7 +23,7 @@ public class TokenVerifier {
   }
 
   // https://community.auth0.com/t/verify-jwt-token-received-from-auth0/35581/4
-  public boolean verifyToken(Context ctx) {
+  public boolean verifyToken(Context ctx) throws InterruptedException {
     String token = ctx.header("Authorization").replace("Bearer ", "");
     JwkProvider provider = new UrlJwkProvider("https://dev-h60mw6th.auth0.com/");
     try {
@@ -33,6 +34,7 @@ public class TokenVerifier {
 
       JWTVerifier verifier = JWT.require(algorithm).withIssuer("https://dev-h60mw6th.auth0.com/").build();
 
+      TimeUnit.SECONDS.sleep(1);
       jwt = verifier.verify(token);
 
       return true;

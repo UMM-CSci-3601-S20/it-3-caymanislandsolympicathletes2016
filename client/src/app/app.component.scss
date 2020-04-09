@@ -1,18 +1,3 @@
-// .sidenav-container {
-//   height: 200%;
-//   background-image: url(/assets/doorboard.jpg);
-//   background-repeat: no-repeat;
-//   background-position: left;
-//   background-size: cover;/*Fills in the background for
-//   multiple different browser sizes, while still looking sharp*/
-//   background-attachment: fixed;
-// }
-
-body{
-  background-image: url(/assets/doorboard.jpg);
-  background-color: whitesmoke;
-}
-
 .mat-toolbar.mat-primary {
   z-index: 1;
   display: flex;
@@ -25,14 +10,18 @@ body{
   font-size: larger;
 }
 
-// .main-content {
-//   background-image: url(/assets/doorboard.jpg);
-//   background-size: cover;
-//   background-attachment: fixed;
-//   //margin: 24px;
-//   @media (max-width: 599px) {
-//     //margin: 16px;
-//   }
-// }
+.sidenav-container {
+  height: 100%;
+  background-image: url(/assets/doorboard.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+
+
+
+
 
 
