@@ -4,6 +4,7 @@ import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
 import { from, of, Observable, BehaviorSubject, combineLatest, throwError } from 'rxjs';
 import { tap, catchError, concatMap, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +14,11 @@ export class AuthService {
   auth0Client$ = (from(
     createAuth0Client({
       //This is all specific to our Auth0 application
-      domain: 'dev-h60mw6th.auth0.com',
-      client_id: 'T2q1s6QPYWzErue4P7DjzjJDBc2mvZTK',
-      redirect_uri: 'http://localhost:4200', //TODO: Changebefore deployment
+      domain: environment.AUTH_DOMAIN,
+      client_id: environment.AUTH_CLIENT_ID,
+      redirect_uri: environment.BASE_URL,
       // redirect_uri: `${window.location.origin}`
-      audience: 'https://doorboard.com/api/owners'
+      audience: environment.AUTH_API_DOMAIN
     })
   ) as Observable<Auth0Client>).pipe(
     shareReplay(1), // Every subscription receives the same shared value
@@ -87,7 +88,7 @@ export class AuthService {
     this.auth0Client$.subscribe((client: Auth0Client) => {
       // Call method to log in
       client.loginWithRedirect({
-        redirect_uri: 'http://localhost:4200',
+        redirect_uri: environment.BASE_URL,
         // redirect_uri: `${window.location.origin}`,
         appState: { target: redirectPath }
       });
@@ -127,8 +128,8 @@ export class AuthService {
     this.auth0Client$.subscribe((client: Auth0Client) => {
       // Call method to log out
       client.logout({
-        client_id: "T2q1s6QPYWzErue4P7DjzjJDBc2mvZTK",
-        returnTo: 'http://localhost:4200'
+        client_id: environment.AUTH_CLIENT_ID,
+        returnTo: environment.BASE_URL
         // returnTo: `${window.location.origin}`
       });
     });
