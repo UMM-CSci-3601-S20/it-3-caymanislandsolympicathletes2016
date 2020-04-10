@@ -75,12 +75,13 @@ export class MockNoteService extends NotesService {
   editNote(note: Note, id: string) {
     return of(id);
   }
-/*
+
   getNoteById(id: string) {
     return of({
       _id: id,
-      owner: 'rachel_id',
+      owner_id: 'rachel_id',
       body: MockNoteService.FAKE_BODY,
+      posted: true,
     });
-  } */
+  }
 }
