@@ -3,7 +3,12 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Note } from '../note';
+import { Owner } from '../owner';
 import { NotesService } from '../notes.service';
+import { OwnerService } from '../owner.service';
+import { AuthService } from '../authentication/auth.service';
+import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-add-note',
@@ -16,7 +21,13 @@ export class AddNoteComponent implements OnInit {
 
   note: Note;
 
-  constructor(private fb: FormBuilder, private noteService: NotesService, private snackBar: MatSnackBar, private router: Router) {
+  owner: Owner;
+  getOwnerSub: Subscription;
+  getx500Sub: Subscription;
+  x500: string;
+
+  constructor(private fb: FormBuilder, private noteService: NotesService, private snackBar: MatSnackBar,
+      private router: Router, private ownerService: OwnerService, private auth: AuthService) {
   }
 
   addNoteValidationMessages = {
@@ -37,15 +48,30 @@ export class AddNoteComponent implements OnInit {
         Validators.maxLength(300),
       ])),
     });
+  }
 
+
+  retrieveOwner(): void {
+    this.getx500Sub = this.auth.userProfile$.subscribe(returned => {
+      this.x500 = returned.nickname;
+    });
+    this.getOwnerSub = this.ownerService.getOwnerByx500(this.x500).subscribe(returnedOwner => {
+      this.owner = returnedOwner;
+    }, err => {
+      console.log(err);
+    });
   }
 
   ngOnInit() {
     this.createForms();
+    this.retrieveOwner();
   }
 
   submitForm() {
-    this.noteService.addNote(this.addNoteForm.value).subscribe(newID => {
+    let newNote: Note = this.addNoteForm.value;
+    newNote.owner_id = this.owner._id;
+    newNote.posted = true;
+    this.noteService.addNote(newNote).subscribe(newID => {
       this.snackBar.open('Successfully added note', null, {
         duration: 2000,
       });

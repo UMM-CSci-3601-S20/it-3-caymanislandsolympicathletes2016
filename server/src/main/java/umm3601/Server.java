@@ -10,6 +10,8 @@ import com.mongodb.client.MongoDatabase;
 
 import io.javalin.Javalin;
 import umm3601.notes.NoteController;
+import umm3601.owners.OwnerController;
+
 
 public class Server {
 
@@ -34,23 +36,59 @@ public class Server {
 
     // Initialize dependencies here ...
     NoteController noteController = new NoteController(database);
+    OwnerController ownerController = new OwnerController(database);
 
     Javalin server = Javalin.create().start(4567);
 
+    // Note endpoints
     // List notes
-    server.get("api/notes", noteController::getNotes);
+    server.get("api/notes", noteController::getOwnerNotes);
 
     // Add new note
-    server.post("api/notes/new", noteController::addNote);
+    server.before("api/new/notes/", noteController::verifyHttpRequest);
+    server.before("api/new/notes/", noteController::checkOwnerForNewNote);
+    server.post("api/new/notes/", noteController::addNote);
 
     // Get a single note
+    server.before("api/notes/:id", noteController::verifyHttpRequest);
+    server.before("api/notes/:id", noteController::checkOwnerForGivenNote);
     server.get("api/notes/:id", noteController::getNoteByID);
 
     // Edit an existing note
+    server.before("api/notes/edit/:id", noteController::verifyHttpRequest);
+    server.before("api/notes/edit/:id", noteController::checkOwnerForGivenNote);
     server.post("api/notes/edit/:id", noteController::editNote);
 
-    // Delete a note
+    // Trash a note
+    server.before("api/notes/:id", noteController::verifyHttpRequest);
+    server.before("api/notes/:id", noteController::checkOwnerForGivenNote);
     server.delete("api/notes/:id", noteController::deleteNote);
+
+    // Restore a note
+    server.before("api/notes/:id", noteController::verifyHttpRequest);
+    server.before("api/notes/:id", noteController::checkOwnerForGivenNote);
+    server.post("api/notes/:id", noteController::restoreNote);
+
+    // Delete a note
+    server.before("api/notes/delete/:id", noteController::verifyHttpRequest);
+    server.before("api/notes/delete/:id", noteController::checkOwnerForGivenNote);
+    server.delete("api/notes/delete/:id", noteController::permanentlyDeleteNote);
+
+    // Owner Endpoints
+    server.get("api/owner", ownerController::getOwners);
+    
+    // Add a new owner
+    server.before("api/owner/new", ownerController::verifyHttpRequest);
+    server.post("api/owner/new", ownerController::addOwner);
+
+    // Get owner by id
+    server.before("api/owner/:id", ownerController::verifyHttpRequest);
+    server.get("api/owner/:id", ownerController::getOwnerByID);
+
+    // Get owner by x500
+    // server.before("api/owner/x500/:x500", ownerController::verifyHttpRequest);
+    server.get("api/owner/x500/:x500", ownerController::getOwnerByx500);
+
 
     server.exception(Exception.class, (e, ctx) -> {
       ctx.status(500);

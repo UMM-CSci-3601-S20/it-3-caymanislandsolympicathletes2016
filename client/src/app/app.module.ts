@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import {MatButtonModule} from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -24,14 +25,18 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 
-import { HomeComponent } from './home/home.component';
+
 import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from '@angular/cdk/layout';
-import { PDFService } from './pdf.service';
 import { NotesService } from './notes.service';
 import { ViewerPageComponent } from './viewer-page/viewer-page.component';
 import { AddNoteComponent } from './add/add-note.component';
 import { EditComponent } from './edit/edit.component';
+import { InterceptorService } from './authentication/interceptor.service';
+import { OwnerComponent } from './owner/owner.component';
+import { TrashComponent } from './trash/trash.component';
+import { OwnerService } from './owner.service';
+import { AuthService } from './authentication/auth.service';
 
 const MATERIAL_MODULES: any[] = [
   MatListModule,
@@ -55,10 +60,11 @@ const MATERIAL_MODULES: any[] = [
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     ViewerPageComponent,
     AddNoteComponent,
     EditComponent,
+    OwnerComponent,
+    TrashComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,8 +78,14 @@ const MATERIAL_MODULES: any[] = [
     LayoutModule,
   ],
   providers: [
-    PDFService,
     NotesService,
+    OwnerService,
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

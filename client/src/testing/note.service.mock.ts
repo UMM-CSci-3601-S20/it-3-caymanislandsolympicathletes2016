@@ -7,17 +7,50 @@ import { of } from 'rxjs';
 export class MockNoteService extends NotesService {
 
   static testNotes: Note[] = [
+    // Posted Notes
     {
       _id: 'first_id',
-      body: 'This is the first note'
+      owner_id: 'rachel_id',
+      body: 'This is the first note',
+      posted: true
     },
     {
       _id: 'second_id',
-      body: 'This is the second note'
+      owner_id: 'joe_id',
+      body: 'This is the second note',
+      posted: true
     },
     {
       _id: 'third_id',
-      body: 'This is the third note'
+      owner_id: 'james_id',
+      body: 'This is the third note',
+      posted: true
+    },
+
+    // Trashed Notes
+    {
+      _id: 'fourth_id',
+      owner_id: 'rachel_id',
+      body: 'This is the fourth note',
+      posted: false
+    },
+    {
+      _id: 'fifth_id',
+      owner_id: 'joe_id',
+      body: 'This is the fifth note',
+      posted: false
+    },
+    {
+      _id: 'sixth_id',
+      owner_id: 'james_id',
+      body: 'This is the 6th note',
+      posted: false
+    },
+    {
+      _id: 'seventh_id',
+      owner_id: 'kyle_id',
+      body: 'This is the 7th note',
+      posted: false
     }
   ];
 
@@ -46,7 +79,9 @@ export class MockNoteService extends NotesService {
   getNoteById(id: string) {
     return of({
       _id: id,
+      owner_id: 'rachel_id',
       body: MockNoteService.FAKE_BODY,
+      posted: true,
     });
   }
 }
