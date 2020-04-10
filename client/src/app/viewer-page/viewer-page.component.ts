@@ -4,7 +4,6 @@ import { Note } from '../note';
 import { Subscription } from 'rxjs';
 import { OwnerService } from '../owner.service';
 import { Owner } from '../owner';
-import { OwnerComponent } from '../owner/owner.component';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 

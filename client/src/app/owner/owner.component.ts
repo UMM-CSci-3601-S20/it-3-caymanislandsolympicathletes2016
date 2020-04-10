@@ -1,11 +1,10 @@
 import { Component, OnInit, OnDestroy} from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Owner } from '../owner';
 import { OwnerService } from '../owner.service';
 import { Subscription } from 'rxjs';
 import { NotesService } from '../notes.service';
 import { Note } from '../note';
-import { switchMap } from 'rxjs/operators';
 import {Location} from '@angular/common';
 import { AuthService } from '../authentication/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
