@@ -75,8 +75,8 @@ public class Server {
     server.delete("api/notes/delete/:id", noteController::permanentlyDeleteNote);
 
     // Owner Endpoints
-
     server.get("api/owner", ownerController::getOwners);
+    
     // Add a new owner
     server.before("api/owner/new", ownerController::verifyHttpRequest);
     server.post("api/owner/new", ownerController::addOwner);
