@@ -32,23 +32,11 @@ export class OwnerComponent implements OnInit, OnDestroy {
   logins: number;
 
 
-  retrieveOwner(): void {
-    this.getx500Sub = this.auth.userProfile$.subscribe(returned => {
-      this.x500 = returned.nickname;
-    });
-    this.getOwnerSub = this.ownerService.getOwnerByx500(this.x500).subscribe(returnedOwner => {
-      this.owner = returnedOwner;
-      this.retrieveNotes();
-    }, err => {
-      let errorTitle = "The requested owner was not found"
-      if (err.status === 404 && err.error.title === errorTitle) {
-        this.addOwner();
-      }
-      console.log(err);
-    });
-  }
-
-  retrieveNotes(): void {
+  async retrieveNotes() {
+    if (this.ownerService.owner == null) {
+      await this.ownerService.retrieveOwner();
+    }
+    this.owner = this.ownerService.owner;
     this.getNotesSub = this.notesService.getOwnerNotes({owner_id: this.owner._id, posted: true}).subscribe(returnedNotes => {
       this.notes = returnedNotes.reverse();
     }, err => {
@@ -66,7 +54,7 @@ export class OwnerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.retrieveOwner();
+    this.retrieveNotes();
   }
 
   ngOnDestroy(): void {
@@ -86,31 +74,5 @@ export class OwnerComponent implements OnInit, OnDestroy {
 
     // get id of owner, and pass is as a parameter in getPDF
     this.ownerService.getPDF(this.owner.name, this.x500).save('DoorBoard');
-  }
-
-  addOwner(): void {
-    let newOwner: Owner;
-
-    this.getx500Sub = this.auth.userProfile$.subscribe(returned => {
-      newOwner = {
-        x500: this.x500,
-        email: returned.email,
-        name: returned.name,
-        _id: null,
-        officeNumber: null,
-        building: null
-      };
-    });
-
-    this.ownerService.addOwner(newOwner).subscribe(newID => {
-      this.snackBar.open('Successfully created a new owner', null, {
-        duration: 2000,
-      });
-      location.reload();
-    }, err => {
-      this.snackBar.open('Failed to create a new owner', null, {
-        duration: 2000,
-      });
-    });
   }
 }
