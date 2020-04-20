@@ -1,28 +1,30 @@
-// import { HomePage } from "./home.po";
-// import { browser, protractor } from 'protractor';
-// import { E2EUtil } from './e2e.util';
+import { HomePage } from "./home.po";
+import { browser, protractor } from 'protractor';
+import { E2EUtil } from './e2e.util';
 
 
-// describe('The home page:', () => {
-//   let page: HomePage;
-//   const EC = protractor.ExpectedConditions;
+describe('The home page:', () => {
+  let page: HomePage;
+  const EC = protractor.ExpectedConditions;
 
-//   beforeEach(() => {
-//     page = new HomePage();
-//     page.navigateTo();
-//   });
+  beforeEach(() => {
+    browser.waitForAngularEnabled(false);
+    page = new HomePage();
+    page.navigateTo();
+    E2EUtil.login();
+  });
 
-//   it('Should click the add note button and navigate to the correct page', async () => {
-//     let url = await page.getUrl();
-//     expect(url.endsWith('/new')).toBe(false);
+  it('Should click the add note button and navigate to the correct page', async () => {
+    let url = await page.getUrl();
+    expect(url.endsWith('/new')).toBe(false);
 
-//     await page.clickAddNewNote();
+    await page.clickAddNewNote();
 
-//     await browser.wait(EC.urlContains('/new'), 10000);
+    await browser.wait(EC.urlContains('/new'), 10000);
 
-//     url = await page.getUrl();
-//     expect(url.endsWith('/new')).toBe(true);
-//   });
+    url = await page.getUrl();
+    expect(url.endsWith('/new')).toBe(true);
+  });
 
 //   describe('The delete button:', () => {
 //     // Note: these tests depend on there being at least 2 notes seeded in the
@@ -66,4 +68,4 @@
 //       expect(url.includes('/edit')).toBe(true);
 //     });
 //   });
-// });
+});
