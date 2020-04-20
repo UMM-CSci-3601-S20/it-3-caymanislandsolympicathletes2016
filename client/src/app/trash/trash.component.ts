@@ -60,7 +60,7 @@ export class TrashComponent implements OnInit, OnDestroy  {
 
   async retrieveNotes() {
     if (this.ownerService.owner == null) {
-      let foundOwner = await this.ownerService.retrieveOwner();
+      await this.ownerService.retrieveOwner();
     }
     this.owner = this.ownerService.owner;
     this.getNotesSub = this.noteService.getOwnerNotes({owner_id: this.owner._id, posted: false}).subscribe(returnedNotes => {

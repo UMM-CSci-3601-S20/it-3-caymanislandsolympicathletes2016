@@ -34,7 +34,7 @@ export class OwnerComponent implements OnInit, OnDestroy {
 
   async retrieveNotes() {
     if (this.ownerService.owner == null) {
-      let foundOwner = await this.ownerService.retrieveOwner();
+      await this.ownerService.retrieveOwner();
     }
     this.owner = this.ownerService.owner;
     this.getNotesSub = this.notesService.getOwnerNotes({owner_id: this.owner._id, posted: true}).subscribe(returnedNotes => {

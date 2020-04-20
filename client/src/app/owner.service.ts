@@ -6,7 +6,6 @@ import { Owner } from './owner';
 import { map } from 'rxjs/operators';
 import * as jsPDF from 'jspdf';
 import { AuthService } from './authentication/auth.service';
-import { async } from '@angular/core/testing';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable()
