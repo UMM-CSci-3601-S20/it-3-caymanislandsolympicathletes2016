@@ -1,5 +1,7 @@
 package umm3601.notes;
 
+import java.util.Date;
+
 import org.mongojack.Id;
 import org.mongojack.ObjectId;
 
@@ -10,5 +12,6 @@ public class Note {
   public String owner_id;
   public String body;
   public boolean posted;
+  public Date timestamp;
 
 }
