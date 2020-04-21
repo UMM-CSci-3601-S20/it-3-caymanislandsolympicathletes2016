@@ -19,6 +19,17 @@
   background-attachment: fixed;
 }
 
+@media (prefers-color-scheme: dark) {
+  .sidenav-container{
+    background-color: #74869e;
+  }
+
+  .mat-toolbar.mat-primary{
+    background-color: #606f81;
+  }
+
+}
+
 
 
 
