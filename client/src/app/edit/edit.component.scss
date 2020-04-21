@@ -1,0 +1,12 @@
+.edit-note-card{
+  margin-left: 10px;
+  margin-right: 10px;
+  background-color: palegoldenrod;
+}
+
+@media (prefers-color-scheme: dark) {
+  .edit-note-card{
+    background-color: #606f81;
+  }
+
+}
