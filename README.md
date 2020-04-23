@@ -11,10 +11,10 @@ as part of The UMM CSCI Department's "Software Design and Development" class
 ## Features
 
 Features provided by this new code base are as follows:
-Pinning notes
-GCAL redirect
-QR Code
-Time stamps
+* Pinning notes
+* GCAL redirect
+* QR Code
+* Time stamps
 
 ## API
 
