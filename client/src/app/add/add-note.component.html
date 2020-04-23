@@ -8,8 +8,8 @@
         <mat-card-content fxLayout="column">
           <mat-form-field>
             <mat-label>Body</mat-label>
-              <input matInput id="bodyField" placeholder="Body" formControlName="body"
-                  required>
+              <textarea id="bodyField" placeholder="Body" formControlName="body" row="5"
+                  required></textarea>
             <mat-error *ngFor="let validation of addNoteValidationMessages.body">
               <mat-error class="error-message" id="body-error"
                         *ngIf="addNoteForm.get('body').hasError(validation.type) && (addNoteForm.get('body').dirty || addNoteForm.get('body').touched)">
@@ -17,7 +17,6 @@
               </mat-error>
             </mat-error>
           </mat-form-field>
-
         </mat-card-content>
         <mat-card-actions align="end">
           <button mat-button id="cancelAddNoteButton" type="button" color="primary"
@@ -32,4 +31,5 @@
       </mat-card>
     </form>
   </div>
+  <!-- <label class="count"> Characters Remaining: {{body.length}}/300</label> -->
 </div>

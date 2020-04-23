@@ -4,6 +4,12 @@
   background-color: palegoldenrod;
 }
 
+#bodyField{
+  box-sizing: border-box;
+  width: 100%;
+  height: 100px;
+}
+
 @media (prefers-color-scheme: dark) {
   .add-note-card{
     background-color: #606f81;
