@@ -32,10 +32,10 @@ public class TokenVerifier {
 
       Algorithm algorithm = Algorithm.RSA256((RSAPublicKey) jwk.getPublicKey(), null);
 
-      JWTVerifier verifier = JWT.require(algorithm).withIssuer("https://dev-h60mw6th.auth0.com/").build();
+      JWTVerifier verifier = JWT.require(algorithm).withIssuer("https://dev-h60mw6th.auth0.com/").acceptLeeway(1).build();
 
-      TimeUnit.SECONDS.sleep(1);
       jwt = verifier.verify(token);
+      
 
       return true;
 
