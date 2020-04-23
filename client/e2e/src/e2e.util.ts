@@ -1,5 +1,5 @@
 import { AddNotePage } from './add-note.po';
-import { browser, protractor, by, element, until, By } from 'protractor';
+import { browser, protractor } from 'protractor';
 
 const EC = protractor.ExpectedConditions;
 
@@ -28,23 +28,5 @@ export class E2EUtil {
     addNotePage.clickAddNote();
 
     await browser.wait(EC.not(EC.urlContains('/new')), 10000);
-  }
-
-  public static login() {
-    browser.driver.sleep(3000);
-
-    const emailField = browser.driver.wait(until.elementLocated(By.id('1-email')), 10000);
-    emailField.click();
-    emailField.sendKeys('test@user.com');
-
-    const passwordField = element(By.name('password'));
-    passwordField.click();
-    passwordField.sendKeys('P4ssw0rd');
-
-    const accessButton = element(By.name('submit'));
-    accessButton.click();
-
-    browser.driver.sleep(3000);
-    browser.waitForAngularEnabled(true);
   }
 }
