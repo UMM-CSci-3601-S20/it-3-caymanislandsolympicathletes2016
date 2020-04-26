@@ -8,10 +8,10 @@
     <p> {{this.note.body}} </p>
     <mat-card-actions>
       <button mat-button class="note-action restore" matTooltip="Restore Note" matTooltipPosition="above" (click)="this.restoreNote(note._id);">
-        <mat-icon aria-label="Restore note">restore</mat-icon>
+        <mat-icon aria-label="Restore note">restore_from_trash</mat-icon>
       </button>
       <button mat-button class="note-action delete" matTooltip="Delete Note" matTooltipPosition="above" (click)="this.permanentlyDeleteNote(note._id);">
-        <mat-icon aria-label="Delete note">delete</mat-icon>
+        <mat-icon aria-label="Delete note">delete_forever</mat-icon>
       </button>
     </mat-card-actions>
   </mat-card>
