@@ -8,7 +8,7 @@
         <mat-card-content fxLayout="column">
           <mat-form-field>
             <mat-label>Body</mat-label>
-              <textarea id="bodyField" placeholder="Body" formControlName="body" row="5"
+              <textarea id="bodyField" placeholder="Body" formControlName="body" row="5" [(ngModel)] = "body"
                   required></textarea>
           </mat-form-field>
           <mat-error *ngFor="let validation of addNoteValidationMessages.body">
@@ -17,6 +17,7 @@
               {{validation.message}}
             </mat-error>
           </mat-error>
+          <label class="count"> Characters Remaining: {{body.length}}/300</label>
         </mat-card-content>
         <mat-card-actions align="end">
           <button mat-button id="cancelAddNoteButton" type="button" color="primary"
@@ -31,5 +32,4 @@
       </mat-card>
     </form>
   </div>
-  <!-- <label class="count"> Characters Remaining: {{body.length}}/300</label> -->
 </div>

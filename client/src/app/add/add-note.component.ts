@@ -20,6 +20,7 @@ export class AddNoteComponent implements OnInit {
   addNoteForm: FormGroup;
 
   note: Note;
+  body = '';
 
   owner: Owner;
   getOwnerSub: Subscription;
