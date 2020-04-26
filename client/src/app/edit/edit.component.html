@@ -8,16 +8,16 @@
         <mat-card-content fxLayout="column">
           <mat-form-field>
             <mat-label>Body</mat-label>
-              <input matInput id="bodyField" placeholder="Body" formControlName="body"
-                  required>
-            <mat-error *ngFor="let validation of editNoteValidationMessages.body">
-              <mat-error class="error-message" id="body-error"
-                        *ngIf="editNoteForm.get('body').hasError(validation.type) && (editNoteForm.get('body').dirty || editNoteForm.get('body').touched)">
-                {{validation.message}}
-              </mat-error>
-            </mat-error>
+              <textarea id="bodyField" placeholder="Body" formControlName="body" row="5" [(ngModel)] = "body"
+              required></textarea>
           </mat-form-field>
-
+          <mat-error *ngFor="let validation of editNoteValidationMessages.body">
+            <mat-error class="error-message" id="body-error"
+                      *ngIf="editNoteForm.get('body').hasError(validation.type) && (editNoteForm.get('body').dirty || editNoteForm.get('body').touched)">
+              {{validation.message}}
+            </mat-error>
+          </mat-error>
+          <label class="count"> Characters Remaining: {{body.length}}/300</label>
         </mat-card-content>
         <mat-card-actions align="end">
           <button mat-button id="confirmAddNoteButton" type="button" color="primary"
