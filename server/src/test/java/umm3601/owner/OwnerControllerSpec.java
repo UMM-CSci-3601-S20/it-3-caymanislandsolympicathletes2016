@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -40,6 +41,12 @@ import io.javalin.http.util.ContextUtil;
 import io.javalin.plugin.json.JavalinJson;
 import io.javalin.http.NotFoundResponse;
 
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+
+import umm3601.TokenVerifier;
 import umm3601.owners.Owner;
 import umm3601.owners.OwnerController;
 
@@ -58,6 +65,9 @@ public class OwnerControllerSpec {
   static ObjectId importantOwnerId;
   static String myx500;
   static BasicDBObject importantOwner;
+
+  @Mock
+  TokenVerifier mockTokenVerifier;
 
 @BeforeAll
   public static void setupAll() {
@@ -79,6 +89,8 @@ public class OwnerControllerSpec {
     mockReq.resetAll();
     mockRes.resetAll();
 
+    MockitoAnnotations.initMocks(this);
+
     // Setup database
     MongoCollection<Document> noteDocuments = db.getCollection("owners");
     noteDocuments.drop();
@@ -98,7 +110,7 @@ public class OwnerControllerSpec {
     noteDocuments.insertMany(testNotes);
     noteDocuments.insertOne(Document.parse(importantOwner.toJson()));
 
-    ownerController = new OwnerController(db);
+    ownerController = new OwnerController(db, mockTokenVerifier);
   }
 
   @AfterAll
@@ -196,6 +208,9 @@ public class OwnerControllerSpec {
 
     Context ctx = ContextUtil.init(mockReq, mockRes, "api/owner/new");
 
+    when(mockTokenVerifier.getUserInfo(ctx)).thenReturn("testUserInfo");
+    when(mockTokenVerifier.getNewOwnerSub("testUserInfo")).thenReturn("testSub");
+
     ownerController.addOwner(ctx);
 
     assertEquals(201, mockRes.getStatus());
@@ -214,6 +229,7 @@ public class OwnerControllerSpec {
     assertEquals("777", addedOwner.getString("officeNumber"));
     assertEquals("guy@flavortown", addedOwner.getString("email"));
     assertEquals("guyF", addedOwner.getString("x500"));
+    assertEquals("testSub", addedOwner.getString("sub"));
   }
 
 

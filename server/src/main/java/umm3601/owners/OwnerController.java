@@ -28,17 +28,21 @@ public class OwnerController {
   JacksonCodecRegistry jacksonCodecRegistry = JacksonCodecRegistry.withDefaultObjectMapper();
 
   private final MongoCollection<Owner> ownerCollection;
-  private final TokenVerifier tokenVerifier;
+  public final TokenVerifier tokenVerifier;
 
   public static final String DELETED_RESPONSE = "deleted";
   public static final String NOT_DELETED_RESPONSE = "nothing deleted";
 
   public OwnerController(MongoDatabase database) {
+    this(database, new TokenVerifier());
+  }
+
+  public OwnerController(MongoDatabase database, TokenVerifier tokenVerifier) {
     jacksonCodecRegistry.addCodecForClass(Owner.class);
     ownerCollection = database.getCollection("owners").withDocumentClass(Owner.class)
         .withCodecRegistry(jacksonCodecRegistry);
 
-    tokenVerifier = new TokenVerifier();
+    this.tokenVerifier = tokenVerifier;
   }
 
   public boolean verifyHttpRequest(Context ctx) throws Exception {
