@@ -35,7 +35,7 @@ public class TokenVerifier {
       JWTVerifier verifier = JWT.require(algorithm).withIssuer("https://dev-h60mw6th.auth0.com/").acceptLeeway(1).build();
 
       jwt = verifier.verify(token);
-      
+
 
       return true;
 
@@ -66,7 +66,28 @@ public class TokenVerifier {
     int endIndex = temp.indexOf('"');
     System.err.println(endIndex);
     String x500 = temp.substring(0, endIndex);
+    System.err.println(x500);
 
     return x500;
+  }
+
+  public String getNewOwnerSub(Context ctx) {
+
+    String token = ctx.header("Authorization");
+
+    String userInfo = HttpRequest.get("https://dev-h60mw6th.auth0.com/userinfo").authorization(token).body();
+
+    // Pull the x500 out of the body, there's definitely a better way to do this, but idk how
+    System.err.println(userInfo);
+    int startIndex = userInfo.indexOf("\"sub\":\"");
+    System.err.println(startIndex);
+    String temp = userInfo.substring(startIndex + 7);
+    System.err.println(temp);
+    int endIndex = temp.indexOf('"');
+    System.err.println(endIndex);
+    String sub = temp.substring(0, endIndex);
+    System.err.println(sub);
+
+    return sub;
   }
 }
