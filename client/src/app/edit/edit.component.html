@@ -8,15 +8,15 @@
         <mat-card-content fxLayout="column">
           <mat-form-field>
             <mat-label>Body</mat-label>
-              <textarea id="bodyField" placeholder="Body" formControlName="body" row="5" [(ngModel)] = "body"
-              required></textarea>
-          </mat-form-field>
-          <mat-error *ngFor="let validation of editNoteValidationMessages.body">
-            <mat-error class="error-message" id="body-error"
-                      *ngIf="editNoteForm.get('body').hasError(validation.type) && (editNoteForm.get('body').dirty || editNoteForm.get('body').touched)">
-              {{validation.message}}
+            <textarea matInput id="bodyField" placeholder="Body" formControlName="body" row="5" [(ngModel)] = "body"
+            required></textarea>
+            <mat-error *ngFor="let validation of editNoteValidationMessages.body">
+              <mat-error class="error-message" id="body-error"
+                        *ngIf="editNoteForm.get('body').hasError(validation.type) && (editNoteForm.get('body').dirty || editNoteForm.get('body').touched)">
+                {{validation.message}}
+              </mat-error>
             </mat-error>
-          </mat-error>
+          </mat-form-field>
         </mat-card-content>
         <mat-card-actions align="end">
           <label class="count"> Characters: {{body.length}}/300</label>
