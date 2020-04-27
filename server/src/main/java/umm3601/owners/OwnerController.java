@@ -91,6 +91,10 @@ public class OwnerController {
     Owner newOwner = ctx.bodyValidator(Owner.class)
     .check((owner) -> owner.name.length() >= 2 && owner.name.length() <= 300).get();
 
+    String userInfo = tokenVerifier.getUserInfo(ctx);
+    String ownerSub = tokenVerifier.getNewOwnerSub(userInfo);
+    newOwner.sub = ownerSub;
+
     ownerCollection.insertOne(newOwner);
     ctx.status(201);
     ctx.json(ImmutableMap.of("id", newOwner._id));
