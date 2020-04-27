@@ -51,11 +51,15 @@ public class TokenVerifier {
     return false;
   }
 
-  public String getOwnerx500(Context ctx) {
-
+  public String getUserInfo(Context ctx) {
     String token = ctx.header("Authorization");
 
     String userInfo = HttpRequest.get("https://dev-h60mw6th.auth0.com/userinfo").authorization(token).body();
+
+    return userInfo;
+  }
+
+  public String getNewOwnerx500(String userInfo) {
 
     // Pull the x500 out of the body, there's definitely a better way to do this, but idk how
     System.err.println(userInfo);
@@ -71,13 +75,8 @@ public class TokenVerifier {
     return x500;
   }
 
-  public String getNewOwnerSub(Context ctx) {
+  public String getNewOwnerSub(String userInfo) {
 
-    String token = ctx.header("Authorization");
-
-    String userInfo = HttpRequest.get("https://dev-h60mw6th.auth0.com/userinfo").authorization(token).body();
-
-    // Pull the x500 out of the body, there's definitely a better way to do this, but idk how
     System.err.println(userInfo);
     int startIndex = userInfo.indexOf("\"sub\":\"");
     System.err.println(startIndex);
