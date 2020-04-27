@@ -53,14 +53,10 @@ export class AddNoteComponent implements OnInit {
 
 
   retrieveOwner(): void {
-    this.getx500Sub = this.auth.userProfile$.subscribe(returned => {
-      this.x500 = returned.nickname;
-    });
-    this.getOwnerSub = this.ownerService.getOwnerByx500(this.x500).subscribe(returnedOwner => {
-      this.owner = returnedOwner;
-    }, err => {
-      console.log(err);
-    });
+    if (this.ownerService.owner == null) {
+      this.ownerService.retrieveOwner();
+    }
+    this.owner = this.ownerService.owner;
   }
 
   ngOnInit() {
