@@ -12,11 +12,26 @@
 
 .sidenav-container {
   height: 100%;
-  background-image: url(/assets/doorboard.jpg);
+  background-color: whitesmoke;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
   background-attachment: fixed;
+}
+
+.main-content-mat-typography{
+  padding-top: 25px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .sidenav-container{
+    background-color: #74869e;
+  }
+
+  .mat-toolbar.mat-primary{
+    background-color: #606f81;
+  }
+
 }
 
 

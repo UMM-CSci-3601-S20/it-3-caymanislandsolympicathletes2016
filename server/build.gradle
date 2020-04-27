@@ -62,6 +62,9 @@ dependencies {
   testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.0'
 
   testImplementation 'com.mockrunner:mockrunner-servlet:2.0.1'
+
+  // A general-purpose mocking library
+  testImplementation 'org.mockito:mockito-core:2.28.2'
 }
 
 application {

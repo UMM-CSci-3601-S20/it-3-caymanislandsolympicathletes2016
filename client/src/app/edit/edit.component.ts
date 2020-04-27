@@ -20,6 +20,7 @@ export class EditComponent implements OnInit {
   note: Note;
   id: string;
   getNoteSub: Subscription;
+  body = '';
 
   constructor(private fb: FormBuilder, private _location: Location, private noteService: NotesService, private snackBar: MatSnackBar, private router: Router, private route: ActivatedRoute) {
   }
