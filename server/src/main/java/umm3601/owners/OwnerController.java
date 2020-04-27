@@ -116,4 +116,20 @@ public class OwnerController {
       return owner._id;
     }
   }
+
+  public String getOwnerIDBySub(String sub) {
+    Owner owner;
+
+    try {
+      owner = ownerCollection.find(eq("sub", sub)).first();
+    } catch(IllegalArgumentException e) {
+      throw new BadRequestResponse("The requested owner sub wasn't a legal Mongo Object.");
+    }
+
+    if(owner== null) {
+      throw new NotFoundResponse("The requested owner was not found");
+    } else {
+      return owner._id;
+    }
+  }
 }
