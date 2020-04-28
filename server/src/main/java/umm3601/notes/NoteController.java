@@ -4,6 +4,7 @@ import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.CheckReturnValue;
@@ -11,6 +12,7 @@ import javax.annotation.CheckReturnValue;
 import com.google.common.collect.ImmutableMap;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 import com.mongodb.client.result.DeleteResult;
 
 import static com.mongodb.client.model.Filters.eq;
@@ -146,7 +148,7 @@ public class NoteController {
     .check((note) -> note.body.length() >= 2 && note.body.length() <= 300).get();
     String newBody = newNote.body;
 
-    Note oldNote = noteCollection.findOneAndUpdate(eq("_id", new ObjectId(id)), set("body", newBody));
+    Note oldNote = noteCollection.findOneAndUpdate(eq("_id", new ObjectId(id)), Filters.and(set("body", newBody), set("timestamp", new Date())));
 
     if (oldNote == null) {
       ctx.status(400);
@@ -192,7 +194,7 @@ public class NoteController {
   public void restoreNote(Context ctx) {
     String id = ctx.pathParamMap().get("id");
     // check if owner id of a note, matches logged in user's id
-    Note oldNote = noteCollection.findOneAndUpdate(eq("_id", new ObjectId(id)), set("posted", true));
+    Note oldNote = noteCollection.findOneAndUpdate(eq("_id", new ObjectId(id)), Filters.and(set("posted", true), set("timestamp", new Date())));
 
     if (oldNote == null) {
       throw new NotFoundResponse("The requested note was not found");
