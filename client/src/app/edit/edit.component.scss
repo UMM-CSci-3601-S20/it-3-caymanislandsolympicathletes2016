@@ -4,10 +4,24 @@
   background-color: palegoldenrod;
 }
 
+.edit-note-header{
+  pediting-bottom: 10px;
+}
+
 #bodyField{
   box-sizing: border-box;
   width: 100%;
   height: 100px;
+}
+
+.count{
+  padding-left: 6px;
+}
+
+.mat-card-actions{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 @media (prefers-color-scheme: dark) {
