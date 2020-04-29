@@ -12,23 +12,25 @@
                   required></textarea>
           </mat-form-field>
         </mat-card-content>
-        <mat-card-actions align="end">
-          <mat-error *ngFor="let validation of addNoteValidationMessages.body">
-            <mat-error class="error-message" id="body-error"
-                      *ngIf="addNoteForm.get('body').hasError(validation.type) && (addNoteForm.get('body').dirty || addNoteForm.get('body').touched)">
+        <mat-card-actions>
+          <div id="error-box">
+            <label class="count"> Characters: {{body.length}}/300</label>
+            <mat-error *ngFor="let validation of addNoteValidationMessages.body">
+              <mat-error class="error-message" id="body-error"
+              *ngIf="addNoteForm.get('body').hasError(validation.type) && (addNoteForm.get('body').dirty || addNoteForm.get('body').touched)">
               {{validation.message}}
+              </mat-error>
             </mat-error>
-          </mat-error>
-          <label class="count"> Characters: {{body.length}}/300</label>
-          <div>
-          <button mat-button id="cancelAddNoteButton" type="button" color="primary"
-            [routerLink] = "''">
-                    CANCEL
+          </div>
+          <div id="buttons">
+            <button mat-button id="cancelAddNoteButton" type="button" color="primary"
+              [routerLink] = "''">
+                      CANCEL
+              </button>
+            <button mat-button id="confirmAddNoteButton" type="button" color="primary"
+                    [disabled]="!addNoteForm.valid" type="submit">
+                    ADD NOTE
             </button>
-          <button mat-button id="confirmAddNoteButton" type="button" color="primary"
-                  [disabled]="!addNoteForm.valid" type="submit">
-                  ADD NOTE
-          </button>
           </div>
         </mat-card-actions>
       </mat-card>
