@@ -12,6 +12,12 @@
   flex-grow: 1;
 }
 
+#date{
+  text-align: right;
+  font-size: small;
+  font-style: italic;
+}
+
 .note-card .mat-card-actions {
   display: flex;
   flex-direction: row;

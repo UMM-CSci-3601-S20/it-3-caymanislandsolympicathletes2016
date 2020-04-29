@@ -5,8 +5,8 @@
 <div *ngIf="notes; else notesError">
   <ul class= "note-container">
     <mat-card class="note-card" *ngFor="let note of sortNotes">
+      <p id="date"> {{this.note.timestamp | date:'short'}} </p>
       <p> {{this.note.body}} </p>
-      <p> {{this.note.timestamp | date:'medium'}} </p>
     </mat-card>
   </ul>
 </div>
