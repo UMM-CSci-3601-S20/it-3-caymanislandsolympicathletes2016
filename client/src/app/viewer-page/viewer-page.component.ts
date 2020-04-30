@@ -7,6 +7,8 @@ import { Owner } from '../owner';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+
 @Component({
   selector: 'app-viewer-page',
   templateUrl: './viewer-page.component.html',
@@ -21,9 +23,11 @@ export class ViewerPageComponent implements OnInit {
   getNotesSub: Subscription;
   getOwnerSub: Subscription;
   owner: Owner;
+  public GcalURL: SafeResourceUrl;
+
 
   constructor(private notesService: NotesService, private ownerService: OwnerService,
-              private router: Router, private route: ActivatedRoute) {}
+              private router: Router, private route: ActivatedRoute, private sanitizer: DomSanitizer) {}
 
   //  retrieveUrlId(): void {
   //   this.route.paramMap.subscribe((pmap) => {
@@ -52,6 +56,7 @@ export class ViewerPageComponent implements OnInit {
     this.route.paramMap.subscribe((pmap) => {
       this.urlx500 = pmap.get('x500');
       this.retrieveOwner();
+      this.createGmailConnection(this.owner.email);
     });
 
   }
@@ -69,4 +74,11 @@ export class ViewerPageComponent implements OnInit {
     }
   }
 
+  public createGmailConnection(urlx500: string): void {
+    let gmailUrl = urlx500.replace('@', '%40'); // Convert owner e-mail to acceptable format for connection to gCalendar
+    console.log('BEING CALLED');
+    gmailUrl = 'https://calendar.google.com/calendar/embed?src=' + gmailUrl; // Connection string
+    //this.GcalURL = gmailUrl; // Set the global connection string
+    this.GcalURL = this.sanitizer.bypassSecurityTrustResourceUrl(gmailUrl);
+  }
 }
