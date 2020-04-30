@@ -13,7 +13,7 @@
 
 <div *ngIf="notes; else notesError">
 <ul class= "note-container">
-  <mat-card class="note-card" *ngFor="let note of sortNotes">
+  <mat-card class="note-card" *ngFor="let note of notes">
     <p id="date"> {{this.note.timestamp | date:'short'}} </p>
     <p> {{this.note.body}} </p>
     <mat-card-actions>
