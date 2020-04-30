@@ -4,18 +4,15 @@ import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
-import javax.annotation.CheckReturnValue;
 
 import com.google.common.collect.ImmutableMap;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
-import com.mongodb.client.result.DeleteResult;
 
-import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Updates.set;
 
 import org.bson.Document;
@@ -112,6 +109,7 @@ public class NoteController {
   public void getOwnerNotes(Context ctx) {
 
     List<Bson> filters = new ArrayList<Bson>(); // start with a blank document
+    List<Note> filteredNotes = new ArrayList<Note>();
 
     if (ctx.queryParamMap().containsKey("owner_id")) {
       filters.add(eq("owner_id", ctx.queryParam("owner_id")));
@@ -122,8 +120,11 @@ public class NoteController {
       throw new NotFoundResponse("The requested owner was not found");
     }
 
-    ctx.json(noteCollection.find(filters.isEmpty() ? new Document() : and(filters))
-    .into(new ArrayList<>()));
+    filteredNotes = noteCollection.find(filters.isEmpty() ? new Document() : and(filters))
+    .into(new ArrayList<>());
+    filteredNotes.sort((n1,n2) -> n1.timestamp.compareTo(n2.timestamp));
+
+    ctx.json(filteredNotes);
   }
 
 

@@ -57,12 +57,6 @@ export class OwnerComponent implements OnInit, OnDestroy {
     this.retrieveNotes();
   }
 
-  get sortNotes(){
-    return this.notes.sort((a, b) => {
-      return <any>b.timestamp - <any>a.timestamp;
-    });
-  }
-
   ngOnDestroy(): void {
     this.unsub();
   }
