@@ -58,7 +58,7 @@ export class AuthService {
     checkAuth$.subscribe();
   }
 
-  login(redirectPath: string = '/home/dashboard'): Observable<void> {
+  login(redirectPath: string = '/'): Observable<void> {
     return this.auth0Client$.pipe(
       concatMap((client: Auth0Client) =>
         client.loginWithRedirect({
