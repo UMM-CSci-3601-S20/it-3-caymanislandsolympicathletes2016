@@ -8,26 +8,30 @@
         <mat-card-content fxLayout="column">
           <mat-form-field>
             <mat-label>Body</mat-label>
-              <textarea id="bodyField" placeholder="Body" formControlName="body" row="5" [(ngModel)] = "body"
+              <textarea matInput id="bodyField" placeholder="Body" formControlName="body" row="5" [(ngModel)] = "body"
                   required></textarea>
           </mat-form-field>
-          <mat-error *ngFor="let validation of addNoteValidationMessages.body">
-            <mat-error class="error-message" id="body-error"
-                      *ngIf="addNoteForm.get('body').hasError(validation.type) && (addNoteForm.get('body').dirty || addNoteForm.get('body').touched)">
-              {{validation.message}}
-            </mat-error>
-          </mat-error>
         </mat-card-content>
-        <mat-card-actions align="end">
-          <label class="count"> Characters: {{body.length}}/300</label>
-          <button mat-button id="cancelAddNoteButton" type="button" color="primary"
-            [routerLink] = "''">
-                    CANCEL
+        <mat-card-actions>
+          <div id="error-box">
+            <label class="count"> Characters: {{body.length}}/300</label>
+            <mat-error *ngFor="let validation of addNoteValidationMessages.body">
+              <mat-error class="error-message" id="body-error"
+              *ngIf="addNoteForm.get('body').hasError(validation.type) && (addNoteForm.get('body').dirty || addNoteForm.get('body').touched)">
+              {{validation.message}}
+              </mat-error>
+            </mat-error>
+          </div>
+          <div id="buttons">
+            <button mat-button id="cancelAddNoteButton" type="button" color="primary"
+              [routerLink] = "''">
+                      CANCEL
+              </button>
+            <button mat-button id="confirmAddNoteButton" type="button" color="primary"
+                    [disabled]="!addNoteForm.valid" type="submit">
+                    ADD NOTE
             </button>
-          <button mat-button id="confirmAddNoteButton" type="button" color="primary"
-                  [disabled]="!addNoteForm.valid" type="submit">
-                  ADD NOTE
-          </button>
+          </div>
         </mat-card-actions>
       </mat-card>
     </form>
