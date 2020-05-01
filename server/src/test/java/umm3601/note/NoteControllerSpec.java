@@ -82,9 +82,9 @@ public class NoteControllerSpec {
     MongoCollection<Document> noteDocuments = db.getCollection("notes");
     noteDocuments.drop();
     List<Document> testNotes = new ArrayList<>();
-    testNotes.add(Document.parse("{ owner_id: \"owner1ID\", " + "body: \"First body\", " + "posted: \"true\"}"));
-    testNotes.add(Document.parse("{ owner_id: \"owner2ID\", " + "body: \"Second body\", " + "posted: \"true\"}"));
-    testNotes.add(Document.parse("{ owner_id: \"owner3ID\", " + "body: \"Third body\", " + "posted: \"true\"}"));
+    testNotes.add(Document.parse("{ owner_id: \"owner1ID\", " + "body: \"First body\", " + "posted: \"true\", " + "pinned: \"true\"}"));
+    testNotes.add(Document.parse("{ owner_id: \"owner2ID\", " + "body: \"Second body\", " + "posted: \"true\", " + "pinned: \"false\"}"));
+    testNotes.add(Document.parse("{ owner_id: \"owner3ID\", " + "body: \"Third body\", " + "posted: \"true\", " + "pinned: \"false\"}"));
 
     importantNoteId = new ObjectId();
     importantNote = new BasicDBObject("_id", importantNoteId)
@@ -242,6 +242,30 @@ public class NoteControllerSpec {
     noteController.permanentlyDeleteNote(ctx);
 
     assertEquals(0, db.getCollection("notes").countDocuments(eq("_id", importantNoteId)));
+  }
+
+  @Test
+  public void PinNote() throws IOException {
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes/pin/:id", ImmutableMap.of("id", importantNoteId.toHexString()));
+    noteController.PinNote(ctx);
+
+    assertEquals(1, db.getCollection("notes").countDocuments(eq("_id", importantNoteId)));
+    Document pinNote = db.getCollection("notes").find(eq("_id", importantNoteId)).first();
+    assertNotNull(pinNote);
+
+    assertTrue(true == trashNote.getBoolean("pinned"));
+  }
+
+  @Test
+  public void UnpinNote() throws IOException {
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes/pin/:id", ImmutableMap.of("id", importantNoteId.toHexString()));
+    noteController.UnpinNote(ctx);
+
+    assertEquals(1, db.getCollection("notes").countDocuments(eq("_id", importantNoteId)));
+    Document unpinNote = db.getCollection("notes").find(eq("_id", importantNoteId)).first();
+    assertNotNull(unpinNote);
+
+    assertTrue(false == trashNote.getBoolean("pinned"));
   }
 
   @Test
