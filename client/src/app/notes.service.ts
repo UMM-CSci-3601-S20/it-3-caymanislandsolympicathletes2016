@@ -14,7 +14,7 @@ export class NotesService {
 
   readonly noteUrl: string = environment.API_URL + 'notes';
   readonly deleteNoteUrl: string = environment.API_URL + 'notes/delete';
-  readonly pinNoteUrl: string = environment.API_URL + "notes/pin";
+  readonly pinNoteUrl: string = environment.API_URL + 'notes/pin';
 
   constructor(private httpClient: HttpClient) {}
 
