@@ -8,6 +8,8 @@ import { Note } from '../note';
 import {Location} from '@angular/common';
 import { AuthService } from '../authentication/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { environment } from 'src/environments/environment';
+import { browser } from 'protractor';
 
 @Component({
   selector: 'app-owner',
@@ -74,5 +76,9 @@ export class OwnerComponent implements OnInit, OnDestroy {
 
     // get id of owner, and pass is as a parameter in getPDF
     this.ownerService.getPDF(this.owner.name, this.x500).save('DoorBoard');
+  }
+
+  ngAfterViewInit(): void{
+    this._location.replaceState('/');
   }
 }

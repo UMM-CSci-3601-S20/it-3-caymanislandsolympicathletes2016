@@ -5,6 +5,8 @@ import { from, of, Observable, BehaviorSubject, throwError, Subscription, iif } 
 import { tap, catchError, concatMap, shareReplay, take, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
+import { CdkTextareaAutosize } from '@angular/cdk/text-field';
+import { CONTEXT_NAME } from '@angular/compiler/src/render3/view/util';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -68,15 +70,25 @@ export class AuthService {
   }
 
   handleAuthCallback(): Observable<{ loggedIn: boolean; targetUrl: string }> {
-     return of(window.location.search).pipe(
-      concatMap(params =>
-        iif(() => params.includes('code=') && params.includes('state='),
-           this.handleRedirectCallback$.pipe(concatMap(cbRes =>
-              this.isAuthenticated$.pipe(take(1),
-                map(loggedIn => ({ loggedIn,
-              targetUrl: cbRes.appState && cbRes.appState.target ? cbRes.appState.target : '/'
-            }))))),
-          this.isAuthenticated$.pipe(take(1), map(loggedIn => ({ loggedIn, targetUrl: null }))))));
+    return of(window.location.search).pipe(concatMap(params =>
+      iif(
+        () => params.includes('code=') && params.includes('state='),
+        this.handleRedirectCallback$.pipe(concatMap(redirectResult =>
+          this.isAuthenticated$.pipe(take(1), map(loggedIn => {
+            let targetUrl;
+            if (redirectResult.appState && redirectResult.appState.target) {
+              targetUrl = redirectResult.appState.target;
+            } else {
+              targetUrl = '/';
+            }
+            return { loggedIn, targetUrl };
+          }))
+        )),
+        this.isAuthenticated$.pipe(take(1), map(loggedIn =>
+          ({ loggedIn, targetUrl: null }),
+        )),
+      )
+    ));
   }
 
   logout() {
