@@ -13,7 +13,8 @@ import { map } from 'rxjs/operators';
 export class NotesService {
 
   readonly noteUrl: string = environment.API_URL + 'notes';
-  readonly deleteNoteUrl: string = environment.API_URL + 'notes/delete'
+  readonly deleteNoteUrl: string = environment.API_URL + 'notes/delete';
+  readonly pinNoteUrl: string = environment.API_URL + "notes/pin";
 
   constructor(private httpClient: HttpClient) {}
 
@@ -36,6 +37,32 @@ export class NotesService {
 
   addNote(newNote: Note): Observable<string> {
     return this.httpClient.post<{id: string}>(environment.API_URL + 'new/notes', newNote).pipe(map(res => res.id));
+  }
+
+  pinNote(id:string){
+    type PinResponse = 'pinned' | 'failed to pin note';
+
+    const response = this.httpClient.put(
+      this.pinNoteUrl + '/' + encodeURI(id),
+      {
+        responseType: 'text',
+      },
+    ) as Observable<PinResponse>;
+
+    return response.pipe(map(theResponse => theResponse === 'pinned'));
+  }
+
+  unpinNote(id:string){
+    type PinResponse = 'unpinned' | 'failed to unpin note';
+
+    const response = this.httpClient.delete(
+      this.pinNoteUrl + '/' + encodeURI(id),
+      {
+        responseType: 'text',
+      },
+    ) as Observable<PinResponse>;
+
+    return response.pipe(map(theResponse => theResponse === 'unpinned'));
   }
 
   /**

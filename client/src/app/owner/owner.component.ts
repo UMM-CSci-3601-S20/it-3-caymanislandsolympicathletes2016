@@ -44,6 +44,24 @@ export class OwnerComponent implements OnInit, OnDestroy {
     });
   }
 
+  pinNote(id: string): void {
+    this.notesService.pinNote(id).subscribe(result => {
+      // Ignore the result for now.
+      this.retrieveNotes();
+    }, err => {
+      console.log(err);
+    });
+  }
+
+  unpinNote(id: string): void {
+    this.notesService.unpinNote(id).subscribe(result => {
+      // Ignore the result for now.
+      this.retrieveNotes();
+    }, err => {
+      console.log(err);
+    });
+  }
+
   deleteNote(id: string): void {
     this.notesService.deleteNote(id).subscribe(result => {
       // Ignore the result for now.

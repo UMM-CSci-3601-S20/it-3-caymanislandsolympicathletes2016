@@ -247,25 +247,25 @@ public class NoteControllerSpec {
   @Test
   public void PinNote() throws IOException {
     Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes/pin/:id", ImmutableMap.of("id", importantNoteId.toHexString()));
-    noteController.PinNote(ctx);
+    noteController.pinNote(ctx);
 
     assertEquals(1, db.getCollection("notes").countDocuments(eq("_id", importantNoteId)));
     Document pinNote = db.getCollection("notes").find(eq("_id", importantNoteId)).first();
     assertNotNull(pinNote);
 
-    assertTrue(true == trashNote.getBoolean("pinned"));
+    assertTrue(true == pinNote.getBoolean("pinned"));
   }
 
   @Test
   public void UnpinNote() throws IOException {
     Context ctx = ContextUtil.init(mockReq, mockRes, "api/notes/pin/:id", ImmutableMap.of("id", importantNoteId.toHexString()));
-    noteController.UnpinNote(ctx);
+    noteController.unpinNote(ctx);
 
     assertEquals(1, db.getCollection("notes").countDocuments(eq("_id", importantNoteId)));
     Document unpinNote = db.getCollection("notes").find(eq("_id", importantNoteId)).first();
     assertNotNull(unpinNote);
 
-    assertTrue(false == trashNote.getBoolean("pinned"));
+    assertTrue(false == unpinNote.getBoolean("pinned"));
   }
 
   @Test
