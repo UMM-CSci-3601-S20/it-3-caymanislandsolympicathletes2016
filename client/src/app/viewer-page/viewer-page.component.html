@@ -4,9 +4,16 @@
 
 <div *ngIf="notes; else notesError">
   <ul class= "note-container">
-    <mat-card class="note-card" *ngFor="let note of this.notes">
-      <p> {{this.note.body}} </p>
-    </mat-card>
+    <div *ngFor="let note of this.notes" >
+      <mat-card class="pinned-note-card" *ngIf="note.pinned">
+        <p> {{this.note.body}} </p>
+      </mat-card>
+    </div>
+    <div *ngFor="let note of this.notes" >
+      <mat-card class="unpinned-note-card" *ngIf="!note.pinned">
+        <p> {{this.note.body}} </p>
+      </mat-card>
+    </div>
   </ul>
 </div>
 
