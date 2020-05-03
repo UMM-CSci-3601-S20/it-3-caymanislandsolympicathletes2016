@@ -5,6 +5,7 @@ import { environment } from '../environments/environment';
 import { Owner } from './owner';
 import { map } from 'rxjs/operators';
 import * as jsPDF from 'jspdf';
+import * as kjua from 'kjua-svg';
 import { AuthService } from './authentication/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -41,20 +42,47 @@ export class OwnerService {
   }
 
   getPDF(name: string, x500: string): jsPDF {
-    const url: string = environment.BASE_URL + '/' + x500;
+    const url: string = environment.BASE_URL + '/' + this.ownerx500;
+
     const doc = new jsPDF({
       orientation: 'portrait',
       unit: 'in',
       format: 'letter',
     });
 
+    const barcodeData = this.getBarcodeData(url);
+
+    doc.setFontSize(24);
+    doc.text(name + '\'s DoorBoard', (8.5 / 2), 3, { align: 'center' });
     doc.setFontSize(18);
-    doc.text(name + '\'s DoorBoard', (8.5 / 2), 4, { align: 'center' });
-    doc.text(url, (8.5 / 2), 4.5, { align: 'center' });
+    doc.text(url, (8.5 / 2), 3.5, { align: 'center' });
+    doc.addImage(barcodeData, "JPG", (8.5/2-2.5), 4, 5, 5);
 
     return doc;
   }
 
+  getBarcodeData(text: string, size = 200) {
+    return kjua({
+      render: "canvas",
+      crisp: true,
+      minVersion: 1,
+      ecLevel: "Q",
+      size: size,
+      ratio: undefined,
+      fill: "#333",
+      back: "#fff",
+      text,
+      rounded: 10,
+      quiet: 2,
+      mode: "plain",
+      mSize: 5,
+      mPosX: 50,
+      mPosY: 100,
+      fontname: "sans-serif",
+      fontcolor: "#3F51B5",
+      image: undefined
+    });
+  }
 
   async retrieveOwner() {
     this.getx500Sub = this.auth.userProfile$.subscribe(returned => {
