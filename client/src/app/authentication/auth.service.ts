@@ -5,8 +5,6 @@ import { from, of, Observable, BehaviorSubject, throwError, Subscription, iif } 
 import { tap, catchError, concatMap, shareReplay, take, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
-import { CdkTextareaAutosize } from '@angular/cdk/text-field';
-import { CONTEXT_NAME } from '@angular/compiler/src/render3/view/util';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, SystemJsNgModuleLoader} from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Owner } from '../owner';
 import { OwnerService } from '../owner.service';
@@ -8,8 +8,6 @@ import { Note } from '../note';
 import {Location} from '@angular/common';
 import { AuthService } from '../authentication/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { environment } from 'src/environments/environment';
-import { browser } from 'protractor';
 
 @Component({
   selector: 'app-owner',
@@ -21,7 +19,7 @@ export class OwnerComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute, public auth: AuthService,
               private _location: Location, private notesService: NotesService,
               private ownerService: OwnerService, private snackBar: MatSnackBar) {
-                console.log("Constructing Owner Component");
+                console.log('Constructing Owner Component');
               }
   notes: Note[];
   owner: Owner;
@@ -83,11 +81,5 @@ export class OwnerComponent implements OnInit, OnDestroy {
 
     // get id of owner, and pass is as a parameter in getPDF
     this.ownerService.getPDF(this.owner.name, this.x500).save('DoorBoard');
-  }
-
-  reloadIf(): void {
-    if (( document.documentElement.textContent || document.documentElement.innerText ).indexOf(this.owner.name) > -1) {
-      location.reload();
-    }
   }
 }
