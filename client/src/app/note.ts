@@ -3,5 +3,6 @@ export interface Note {
   owner_id: string;
   body: string;
   posted: boolean;
+  pinned: boolean;
   timestamp: Date;
 }
