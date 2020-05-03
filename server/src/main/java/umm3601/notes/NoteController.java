@@ -59,8 +59,8 @@ public class NoteController {
   }
 
   public void checkOwnerForNewNote(Context ctx) {
-    String x500 = tokenVerifier.getOwnerx500(ctx);
-    String ownerID = ownerController.getOwnerIDByx500(x500);
+    String sub = tokenVerifier.getSubFromToken(ctx);
+    String ownerID = ownerController.getOwnerIDBySub(sub);
 
     Note newNote = ctx.bodyAsClass(Note.class);
 
@@ -71,8 +71,8 @@ public class NoteController {
   }
 
   public void checkOwnerForGivenNote(Context ctx) {
-    String x500 = tokenVerifier.getOwnerx500(ctx);
-    String ownerID = ownerController.getOwnerIDByx500(x500);
+    String sub = tokenVerifier.getSubFromToken(ctx);
+    String ownerID = ownerController.getOwnerIDBySub(sub);
 
     String noteID = ctx.pathParam("id");
     Note note;
@@ -158,6 +158,42 @@ public class NoteController {
   }
 
   /**
+   * Pin a note with a given id, if the id exists.
+   *
+   * If the id does not exist, do nothing.
+   */
+  public void pinNote(Context ctx){
+    String id = ctx.pathParamMap().get("id");
+    // check if owner id of a note, matches logged in user's id
+    Note oldNote = noteCollection.findOneAndUpdate(eq("_id", new ObjectId(id)), set("pinned", true));
+
+    if (oldNote == null) {
+      throw new NotFoundResponse("The requested note was not found");
+    } else {
+      ctx.status(200);
+      ctx.json(ImmutableMap.of("id", id));
+    }
+  }
+
+  /**
+   * Unpin a note with a given id, if the id exists.
+   *
+   * If the id does not exist, do nothing.
+   */
+  public void unpinNote(Context ctx){
+    String id = ctx.pathParamMap().get("id");
+    // check if owner id of a note, matches logged in user's id
+    Note oldNote = noteCollection.findOneAndUpdate(eq("_id", new ObjectId(id)), set("pinned", false));
+
+    if (oldNote == null) {
+      throw new NotFoundResponse("The requested note was not found");
+    } else {
+      ctx.status(200);
+      ctx.json(ImmutableMap.of("id", id));
+    }
+  }
+
+  /**
    * Move a note with a given id to the trash, if the id exists.
    *
    * If the id does not exist, do nothing.
@@ -167,6 +203,7 @@ public class NoteController {
     String id = ctx.pathParamMap().get("id");
     // check if owner id of a note, matches logged in user's id
     Note oldNote = noteCollection.findOneAndUpdate(eq("_id", new ObjectId(id)), set("posted", false));
+    noteCollection.findOneAndUpdate(eq("_id", new ObjectId(id)), set("pinned", false));
 
     if (oldNote == null) {
       throw new NotFoundResponse("The requested note was not found");

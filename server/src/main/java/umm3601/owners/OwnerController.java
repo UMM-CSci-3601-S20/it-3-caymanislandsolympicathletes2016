@@ -28,17 +28,21 @@ public class OwnerController {
   JacksonCodecRegistry jacksonCodecRegistry = JacksonCodecRegistry.withDefaultObjectMapper();
 
   private final MongoCollection<Owner> ownerCollection;
-  private final TokenVerifier tokenVerifier;
+  public final TokenVerifier tokenVerifier;
 
   public static final String DELETED_RESPONSE = "deleted";
   public static final String NOT_DELETED_RESPONSE = "nothing deleted";
 
   public OwnerController(MongoDatabase database) {
+    this(database, new TokenVerifier());
+  }
+
+  public OwnerController(MongoDatabase database, TokenVerifier tokenVerifier) {
     jacksonCodecRegistry.addCodecForClass(Owner.class);
     ownerCollection = database.getCollection("owners").withDocumentClass(Owner.class)
         .withCodecRegistry(jacksonCodecRegistry);
 
-    tokenVerifier = new TokenVerifier();
+    this.tokenVerifier = tokenVerifier;
   }
 
   public boolean verifyHttpRequest(Context ctx) throws Exception {
@@ -91,6 +95,10 @@ public class OwnerController {
     Owner newOwner = ctx.bodyValidator(Owner.class)
     .check((owner) -> owner.name.length() >= 2 && owner.name.length() <= 300).get();
 
+    String userInfo = tokenVerifier.getUserInfo(ctx);
+    String ownerSub = tokenVerifier.getNewOwnerSub(userInfo);
+    newOwner.sub = ownerSub;
+
     ownerCollection.insertOne(newOwner);
     ctx.status(201);
     ctx.json(ImmutableMap.of("id", newOwner._id));
@@ -104,6 +112,22 @@ public class OwnerController {
       owner = ownerCollection.find(eq("x500", x500)).first();
     } catch(IllegalArgumentException e) {
       throw new BadRequestResponse("The requested owner x500 wasn't a legal Mongo Object.");
+    }
+
+    if(owner== null) {
+      throw new NotFoundResponse("The requested owner was not found");
+    } else {
+      return owner._id;
+    }
+  }
+
+  public String getOwnerIDBySub(String sub) {
+    Owner owner;
+
+    try {
+      owner = ownerCollection.find(eq("sub", sub)).first();
+    } catch(IllegalArgumentException e) {
+      throw new BadRequestResponse("The requested owner sub wasn't a legal Mongo Object.");
     }
 
     if(owner== null) {

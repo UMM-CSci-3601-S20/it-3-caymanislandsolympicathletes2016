@@ -58,20 +58,11 @@ export class TrashComponent implements OnInit, OnDestroy  {
     });
   }
 
-  retrieveOwner(): void {
-    this.getx500Sub = this.auth.userProfile$.subscribe(returned => {
-      this.x500 = returned.nickname;
-    });
-    console.log(this.x500);
-    this.getOwnerSub = this.ownerService.getOwnerByx500(this.x500).subscribe(returnedOwner => {
-      this.owner = returnedOwner;
-      this.retrieveNotes();
-    }, err => {
-      console.log(err);
-    });
-  }
-
-  retrieveNotes(): void {
+  async retrieveNotes() {
+    if (this.ownerService.owner == null) {
+      await this.ownerService.retrieveOwner();
+    }
+    this.owner = this.ownerService.owner;
     this.getNotesSub = this.noteService.getOwnerNotes({owner_id: this.owner._id, posted: false}).subscribe(returnedNotes => {
       this.notes = returnedNotes.reverse();
     }, err => {
@@ -84,7 +75,7 @@ export class TrashComponent implements OnInit, OnDestroy  {
    *
    */
   ngOnInit(): void {
-    this.retrieveOwner();
+    this.retrieveNotes();
   }
 
   ngOnDestroy(): void {

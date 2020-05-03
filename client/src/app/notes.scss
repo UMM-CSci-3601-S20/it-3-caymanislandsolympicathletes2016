@@ -11,16 +11,33 @@
   justify-content: center;
 }
 
-.note-card {
-  width: 200px;
-  min-height: 200px;
+.unpinned-note-card {
+  width: 225px;
   margin: 10px;
   position: relative;
   background-color: palegoldenrod;
   word-wrap: break-word;
 }
 
+.pinned-note-card{
+  width: 225px;
+  margin: 10px;
+  position: relative;
+  background-color: #606f81;
+  color: white;
+  word-wrap: break-word;
+}
+
 .note-error {
   text-align: center;
   padding: 10px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .pinned-note-card{
+    background-color: #4a5563;
+  }
+  .unpinned-note-card{
+    background-color: #606f81;
+  }
 }

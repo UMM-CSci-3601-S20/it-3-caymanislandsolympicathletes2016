@@ -59,6 +59,16 @@ public class Server {
     server.before("api/notes/edit/:id", noteController::checkOwnerForGivenNote);
     server.post("api/notes/edit/:id", noteController::editNote);
 
+    // Pin an existing note
+    server.before("api/notes/pin/:id", noteController::verifyHttpRequest);
+    server.before("api/notes/pin/:id", noteController::checkOwnerForGivenNote);
+    server.put("api/notes/pin/:id", noteController::pinNote);
+
+    // Unpin an existing note
+    server.before("api/notes/pin/:id", noteController::verifyHttpRequest);
+    server.before("api/notes/pin/:id", noteController::checkOwnerForGivenNote);
+    server.delete("api/notes/pin/:id", noteController::unpinNote);
+
     // Trash a note
     server.before("api/notes/:id", noteController::verifyHttpRequest);
     server.before("api/notes/:id", noteController::checkOwnerForGivenNote);
@@ -76,7 +86,7 @@ public class Server {
 
     // Owner Endpoints
     server.get("api/owner", ownerController::getOwners);
-    
+
     // Add a new owner
     server.before("api/owner/new", ownerController::verifyHttpRequest);
     server.post("api/owner/new", ownerController::addOwner);
