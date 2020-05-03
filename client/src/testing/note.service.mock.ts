@@ -9,22 +9,48 @@ export class MockNoteService extends NotesService {
   static testNotes: Note[] = [
     // Posted Notes
     {
-      _id: 'first_id',
+      _id: 'first_posted_id',
       owner_id: 'rachel_id',
-      body: 'This is the first note',
-      posted: true
+      body: 'This is the first "posted" note',
+      posted: true,
+      pinned: false
     },
     {
-      _id: 'second_id',
+      _id: 'second_posted_id',
+      owner_id: 'joe_id',
+      body: 'This is the second "posted" note',
+      posted: true,
+      pinned: false
+    },
+    {
+      _id: 'third_posted_id',
+      owner_id: 'james_id',
+      body: 'This is the third "posted" note',
+      posted: true,
+      pinned: false
+    },
+
+    // Pinned Notes
+    {
+      _id: 'fourth_id',
+      owner_id: 'rachel_id',
+      body: 'This is the first pinned note',
+      posted: true,
+      pinned: true
+    },
+    {
+      _id: 'fifth_id',
       owner_id: 'joe_id',
       body: 'This is the second note',
-      posted: true
+      posted: true,
+      pinned: true
     },
     {
-      _id: 'third_id',
+      _id: 'sixth_id',
       owner_id: 'james_id',
       body: 'This is the third note',
-      posted: true
+      posted: true,
+      pinned: true
     },
 
     // Trashed Notes
@@ -32,25 +58,29 @@ export class MockNoteService extends NotesService {
       _id: 'fourth_id',
       owner_id: 'rachel_id',
       body: 'This is the fourth note',
-      posted: false
+      posted: false,
+      pinned: false
     },
     {
       _id: 'fifth_id',
       owner_id: 'joe_id',
       body: 'This is the fifth note',
-      posted: false
+      posted: false,
+      pinned: false
     },
     {
       _id: 'sixth_id',
       owner_id: 'james_id',
       body: 'This is the 6th note',
-      posted: false
+      posted: false,
+      pinned: false
     },
     {
       _id: 'seventh_id',
       owner_id: 'kyle_id',
       body: 'This is the 7th note',
-      posted: false
+      posted: false,
+      pinned: false
     }
   ];
 
@@ -82,6 +112,7 @@ export class MockNoteService extends NotesService {
       owner_id: 'rachel_id',
       body: MockNoteService.FAKE_BODY,
       posted: true,
+      pinned: true
     });
   }
 }

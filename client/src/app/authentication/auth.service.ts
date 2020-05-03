@@ -13,7 +13,7 @@ export class AuthService {
   // Create an observable of Auth0 instance of client
   auth0Client$ = (from(
     createAuth0Client({
-      //This is all specific to our Auth0 application
+      // This is all specific to our Auth0 application
       domain: environment.AUTH_DOMAIN,
       client_id: environment.AUTH_CLIENT_ID,
       redirect_uri: environment.BASE_URL,
