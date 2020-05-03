@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy} from '@angular/core';
+import { Component, OnInit, OnDestroy, SystemJsNgModuleLoader} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Owner } from '../owner';
 import { OwnerService } from '../owner.service';
@@ -56,7 +56,14 @@ export class OwnerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.retrieveNotes();
+    this._location.replaceState('/');
+    if (!localStorage.getItem('foo')) {
+      localStorage.setItem('foo', 'no reload');
+      location.reload();
+    } else {
+      localStorage.removeItem('foo');
+      this.retrieveNotes();
+    }
   }
 
   ngOnDestroy(): void {
@@ -78,7 +85,9 @@ export class OwnerComponent implements OnInit, OnDestroy {
     this.ownerService.getPDF(this.owner.name, this.x500).save('DoorBoard');
   }
 
-  ngAfterViewInit(): void{
-    this._location.replaceState('/');
+  reloadIf(): void {
+    if (( document.documentElement.textContent || document.documentElement.innerText ).indexOf(this.owner.name) > -1) {
+      location.reload();
+    }
   }
 }
