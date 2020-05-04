@@ -1,5 +1,6 @@
 <nav class="navbar" *ngIf="owner">
   <h2> {{this.owner.name}} </h2>
+  <h3> {{this.owner.gcalLink}}</h3>
 </nav>
 
 <div *ngIf="notes; else notesError">

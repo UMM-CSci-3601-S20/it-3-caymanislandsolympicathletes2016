@@ -43,7 +43,7 @@ export class OwnerService {
 
   getPDF(name: string, x500: string): jsPDF {
     const url: string = environment.BASE_URL + '/' + this.ownerx500;
-
+    const gcalLink: string = 'https://calendar.google.com/calendar/embed?src=' + this.ownerx500 + '%40morris.umn.edu';
     const doc = new jsPDF({
       orientation: 'portrait',
       unit: 'in',
@@ -55,8 +55,8 @@ export class OwnerService {
     doc.setFontSize(24);
     doc.text(name + '\'s DoorBoard', (8.5 / 2), 3, { align: 'center' });
     doc.setFontSize(18);
-    doc.text(url, (8.5 / 2), 3.5, { align: 'center' });
-    doc.addImage(barcodeData, "JPG", (8.5/2-2.5), 4, 5, 5);
+    doc.text(name + '\'s DoorBoard', (8.5 / 2), 4, { align: 'center' });
+    doc.text(url, (8.5 / 2), 4.5, { align: 'center' });
 
     return doc;
   }
@@ -108,6 +108,7 @@ export class OwnerService {
       newOwner = {
         x500: returned.nickname,
         email: returned.email,
+        gcalLink: returned.gcalLink,
         name: returned.name,
         _id: null,
         officeNumber: null,
