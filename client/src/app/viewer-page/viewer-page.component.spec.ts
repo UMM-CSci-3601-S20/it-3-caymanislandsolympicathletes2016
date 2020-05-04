@@ -7,6 +7,7 @@ import { OwnerService } from '../owner.service';
 import { MockOwnerService } from 'src/testing/owner.service.mock';
 import { Note } from '../note';
 import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ViewerPageComponent:', () => {
   let component: ViewerPageComponent;
@@ -16,8 +17,9 @@ describe('ViewerPageComponent:', () => {
 
   beforeEach(() => {
     mockNoteService = new MockNoteService();
-
+    mockOwnerService = new MockOwnerService();
     TestBed.configureTestingModule({
+      imports: [RouterTestingModule],
       declarations: [ ViewerPageComponent ],
       providers: [{provide: NotesService, useValue: mockNoteService},
       {provide: OwnerService, useValue: mockOwnerService}]
@@ -33,23 +35,20 @@ describe('ViewerPageComponent:', () => {
 
   describe('The retrieveNotes() method:', () => {
 
-    it('gets all the notes from the server', () =>{
+    it('gets all the notes from the server', () => {
       component.retrieveNotes();
-
       expect(component.notes.length).toBe(3);
     });
 
-    it('contains a note with body \'This is the first note\'', () => {
+    it('contains a note with body \'This is the first "posted" note\'', () => {
       component.retrieveNotes();
-
-      expect(component.notes.some((note: Note) => note.body === 'This is the first note')).toBe(true);
+      expect(component.notes.some((note: Note) => note.body === 'This is the first "posted" note')).toBe(true);
     });
 
-    // it('notes are posted', () =>{
-    //   component.retrieveNotes();
-
-    //   expect(component.notes.forEach((note: Note) => note.posted === true)).toBe(true);
-    // })
+    it('notes are posted', () => {
+      component.retrieveNotes();
+      expect(component.notes.forEach((note: Note) => note.posted === true));
+    });
 
   });
 });

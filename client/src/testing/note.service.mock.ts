@@ -7,7 +7,7 @@ import { of } from 'rxjs';
 export class MockNoteService extends NotesService {
 
   static testNotes: Note[] = [
-    // Posted Notes
+    // Posted Notes -> posted notes
     {
       _id: 'first_posted_id',
       owner_id: 'rachel_id',
@@ -30,55 +30,48 @@ export class MockNoteService extends NotesService {
       pinned: false
     },
 
-    // Pinned Notes
+    // Pinned Notes -> saved on board until "unpinned" or moved to trash
     {
-      _id: 'fourth_id',
+      _id: 'first_pinned_id',
       owner_id: 'rachel_id',
-      body: 'This is the first pinned note',
+      body: 'This is the first "pinned" note',
       posted: true,
       pinned: true
     },
     {
-      _id: 'fifth_id',
+      _id: 'second_pinned_id',
       owner_id: 'joe_id',
-      body: 'This is the second note',
+      body: 'This is the second "pinned" note',
       posted: true,
       pinned: true
     },
     {
-      _id: 'sixth_id',
+      _id: 'third_pinned_id',
       owner_id: 'james_id',
-      body: 'This is the third note',
+      body: 'This is the third "pinned" note',
       posted: true,
       pinned: true
     },
 
-    // Trashed Notes
+    // Trashed Notes -> notes in the trash
     {
-      _id: 'fourth_id',
+      _id: 'first_trashed_id',
       owner_id: 'rachel_id',
-      body: 'This is the fourth note',
+      body: 'This is the first "trashed" note',
       posted: false,
       pinned: false
     },
     {
-      _id: 'fifth_id',
+      _id: 'second_trashed_id',
       owner_id: 'joe_id',
-      body: 'This is the fifth note',
+      body: 'This is the second "trashed" note',
       posted: false,
       pinned: false
     },
     {
-      _id: 'sixth_id',
+      _id: 'third_trashed_id',
       owner_id: 'james_id',
-      body: 'This is the 6th note',
-      posted: false,
-      pinned: false
-    },
-    {
-      _id: 'seventh_id',
-      owner_id: 'kyle_id',
-      body: 'This is the 7th note',
+      body: 'This is the third "trashed" note',
       posted: false,
       pinned: false
     }
@@ -98,7 +91,7 @@ export class MockNoteService extends NotesService {
     return of(true);
   }
 
-  addNote(note) {
+  addNote(note: Note) {
     return of('I just put your note in the database and this is its new ID');
   }
 

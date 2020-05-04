@@ -2,15 +2,16 @@ import { TestBed } from '@angular/core/testing';
 
 import { InterceptorService } from './interceptor.service';
 import { AuthService } from './auth.service';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('InterceptorService', () => {
   let service: InterceptorService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        {provide: AuthService}
-      ]
+      imports: [RouterTestingModule],
+      providers:
+        [{provide: AuthService}]
     });
     service = TestBed.inject(InterceptorService);
   });
