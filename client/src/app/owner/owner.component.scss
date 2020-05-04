@@ -20,7 +20,12 @@
 
 // For some reason, Angular gives margins to every button but the first.
 // So, we have to go back and add these margins manually.
-.note-card .mat-card-actions .mat-button:first-child {
+.pinned-note-card .mat-card-actions .mat-button:first-child {
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.unpinned-note-card .mat-card-actions .mat-button:first-child {
   margin-left: 8px;
   margin-right: 8px;
 }
