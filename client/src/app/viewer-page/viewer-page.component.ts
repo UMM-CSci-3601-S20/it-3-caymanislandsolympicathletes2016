@@ -18,6 +18,7 @@ export class ViewerPageComponent implements OnInit {
   public notes: Note[];
   public urlId: string;
   public urlx500: string;
+  public urlgcal: string;
   getNotesSub: Subscription;
   getOwnerSub: Subscription;
   owner: Owner;
@@ -36,6 +37,7 @@ export class ViewerPageComponent implements OnInit {
   retrieveOwner(): void {
     this.getOwnerSub = this.ownerService.getOwnerByx500(this.urlx500).subscribe(returnedOwner => {
       this.owner = returnedOwner;
+      this.owner.gcalLink = 'https://calendar.google.com/calendar/embed?src=' + this.urlx500 + '%40morris.umn.edu';
       this.retrieveNotes();
     }, err => {
       console.log(err);

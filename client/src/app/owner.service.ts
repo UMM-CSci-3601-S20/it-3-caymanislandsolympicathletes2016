@@ -44,6 +44,8 @@ export class OwnerService {
   getPDF(name: string, x500: string): jsPDF {
     const url: string = environment.BASE_URL + '/' + this.ownerx500;
     const gcalLink: string = 'https://calendar.google.com/calendar/embed?src=' + this.ownerx500 + '%40morris.umn.edu';
+    this.owner.gcalLink = gcalLink;
+
     const doc = new jsPDF({
       orientation: 'portrait',
       unit: 'in',
