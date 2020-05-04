@@ -54,9 +54,10 @@ export class OwnerService {
 
     doc.setFontSize(24);
     doc.text(name + '\'s DoorBoard', (8.5 / 2), 3, { align: 'center' });
-    doc.setFontSize(18);
-    doc.text(gcalLink, (8.5 / 2), 4.5, { align: 'center' });
-    doc.text(url, (8.5 / 2), 5, { align: 'center' });
+    doc.setFontSize(16);
+    doc.text(gcalLink, (8.5/2), 4.25, { align: 'center' });
+    doc.text(url, (8.5 / 2), 4.75, { align: 'center' });
+    doc.addImage(barcodeData, "JPG", (8.5/2-2.5), 5.25, 5, 5);
 
     return doc;
   }
