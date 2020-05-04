@@ -1,7 +1,7 @@
 <nav class="navbar" *ngIf="owner">
   <h2> {{this.owner.name}} </h2>
 
-  <a href= {{this.owner.gcalLink}} mat-fab class="gcal-fab" matTooltip={{this.gcalicon}} matTooltipPosition="left" ><mat-icon class="md-24" aria-label="Owner's Gcal">calendar_today</mat-icon></a>
+  <a href= {{this.owner.gcalLink}} target="_blank" mat-fab class="gcal-fab" matTooltip={{this.gcalicon}} matTooltipPosition="left" ><mat-icon class="md-24" aria-label="Owner's Gcal">calendar_today</mat-icon></a>
 
 </nav>
 
