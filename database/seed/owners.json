@@ -4,28 +4,32 @@
     "officeNumber": "1234",
     "email": "rmjohns@morris.umn.edu",
     "building": "Science",
-    "x500": "rmjohns"
+    "x500": "rmjohns",
+    "gcalLink":"rmjohns%40morris.umn.edu"
   },
   {
     "name": "Joe Beaver",
     "officeNumber": "5678",
     "email": "jbeaver@morris.umn.edu",
     "building": "Imholte",
-    "x500": "jbeaver"
+    "x500": "jbeaver",
+    "gcalLink": "jbeaver%40morris.umn.edu"
   },
   {
     "name": "James Flegel",
     "officeNumber": "9012",
     "email": "flege0003@morris.umn.edu",
     "building": "HFA",
-    "x500": "flege0003"
+    "x500": "flege0003",
+    "gcalLink": "flege0003%40morris.umn.edu"
   },
   {
     "name": "Cookie Vang",
     "officeNumber": "9012",
     "email": "vang2660@morris.umn.edu",
     "building": "HFA",
-    "x500": "vang2660"
+    "x500": "vang2660",
+    "gcalLink": "vang2660%40morris.umn.edu"
   }
 ]
 
