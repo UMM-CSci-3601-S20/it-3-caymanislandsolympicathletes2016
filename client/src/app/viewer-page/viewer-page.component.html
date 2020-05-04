@@ -1,20 +1,14 @@
 <nav class="navbar" *ngIf="owner">
   <h2> {{this.owner.name}} </h2>
-  <h3> {{this.owner.gcalLink}}</h3>
+  <a href= {{this.owner.gcalLink}} mat-fab class="gcal-fab" matTooltip="Owner's Gcal" matTooltipPosition="left" ><mat-icon class="md-24" aria-label="Owner's Gcal">calendar_today</mat-icon></a>
+
 </nav>
 
 <div *ngIf="notes; else notesError">
   <ul class= "note-container">
-    <div *ngFor="let note of this.notes" >
-      <mat-card class="pinned-note-card" *ngIf="note.pinned">
-        <p> {{this.note.body}} </p>
-      </mat-card>
-    </div>
-    <div *ngFor="let note of this.notes" >
-      <mat-card class="unpinned-note-card" *ngIf="!note.pinned">
-        <p> {{this.note.body}} </p>
-      </mat-card>
-    </div>
+    <mat-card class="note-card" *ngFor="let note of this.notes">
+      <p> {{this.note.body}} </p>
+    </mat-card>
   </ul>
 </div>
 
