@@ -5,7 +5,8 @@
     },
     "owner_id": "5e824f0130a2ad13bc2536f1",
     "body": "Need sleep, you guys are on your own",
-    "posted": true
+    "posted": true,
+    "pinned": true
   },
   {
     "_id": {
@@ -13,26 +14,31 @@
     },
     "owner_id": "5e824f0130a2ad13bc2536f1",
     "body": "Kid sick, office hours cancelled today",
-    "posted": false
+    "posted": false,
+    "pinned": true
   },
   {
     "owner_id": "5e824f0130a2ad13bc2536f1",
     "body": "The dining hall sucks",
-    "posted": true
+    "posted": true,
+    "pinned": false
   },
   {
     "owner_id": "5e8a4debbbe04f4c18fa0ebb",
     "body": "Kyle is tall",
-    "posted": false
+    "posted": false,
+    "pinned": true
   },
   {
     "owner_id": "5e8a4debbbe04f4c18fa0ebb",
-    "posted": true
+    "posted": true,
+    "pinned": false
   },
   {
     "owner_id": "5e8a4debbbe04f4c18fa0ebb",
     "body": "Cookie has a girlfriend",
-    "posted": true
+    "posted": true,
+    "pinned": false
   },
   {
     "owner_id": "5e8a4debbbe04f4c18fa0ebb",

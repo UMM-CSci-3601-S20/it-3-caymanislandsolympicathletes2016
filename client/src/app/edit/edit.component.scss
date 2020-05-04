@@ -10,9 +10,34 @@
   height: 100px;
 }
 
+.mat-card-actions{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-left: 10px;
+}
+
 @media (prefers-color-scheme: dark) {
+  /* For dark mode */
   .edit-note-card{
     background-color: #606f81;
   }
 
+}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  .mat-card-actions{
+    flex-direction: column;
+  }
+
+  #error-box{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    margin-bottom: 10px;
+  }
 }
