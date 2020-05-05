@@ -12,7 +12,7 @@ import { Owner } from '../owner';
 import { Observable } from 'rxjs';
 import { ActivatedRouteStub } from 'src/testing/activated-route-stub';
 
-describe('ViewerPageComponent: using Rachel Johnson data from MockOwnerService for valid requests', () => {
+fdescribe('ViewerPageComponent: using Rachel Johnson data from MockOwnerService for valid requests', () => {
   let component: ViewerPageComponent;
   let fixture: ComponentFixture<ViewerPageComponent>;
   let mockNoteService: MockNoteService;
@@ -37,7 +37,7 @@ describe('ViewerPageComponent: using Rachel Johnson data from MockOwnerService f
   beforeEach(() => {
 
     expectedOwner = MockOwnerService.testOwners[0];  // owner Rachel Johnson from mock owners
-    activatedRoute.setParamMap({ x500: expectedOwner.x500 });  // subscribe to Rachel Johnson and
+    activatedRoute.setParamMap({ x500: expectedOwner.x500 });  // subscribe to Rachel Johnson and initialize the component with her stuff
 
     // initialize the testing component
     fixture = TestBed.createComponent(ViewerPageComponent);
@@ -53,8 +53,12 @@ describe('ViewerPageComponent: using Rachel Johnson data from MockOwnerService f
 
   describe('The retrieveNotes() method:', () => {
 
-    it('gets all of Rachel\'s notes from the server', () => {
+    it('gets all of Rachel\'s "posted" notes from the server', () => {
       expect(component.notes.length).toBe(2);
+    });
+
+    it('gets all of Rachel\'s "pinned" notes from the server', () => {
+      expect(component.notes.some((note: Note) => note.pinned === true));
     });
 
     it('contains a note with body \'This is the first "posted" note\'', () => {
@@ -69,10 +73,5 @@ describe('ViewerPageComponent: using Rachel Johnson data from MockOwnerService f
       component.retrieveNotes();
       expect(component.notes.forEach((note: Note) => note.posted === true));
     });
-
-  });
-
-  describe('The retrieveOwner() method:', () => {
-
   });
 });
