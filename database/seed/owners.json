@@ -1,12 +1,5 @@
 [
   {
-    "name": "Rachel Johnson",
-    "officeNumber": "1234",
-    "email": "rmjohns@morris.umn.edu",
-    "building": "Science",
-    "x500": "rmjohns"
-  },
-  {
     "name": "Joe Beaver",
     "officeNumber": "5678",
     "email": "jbeaver@morris.umn.edu",
