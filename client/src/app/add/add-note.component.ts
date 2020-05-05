@@ -68,6 +68,7 @@ export class AddNoteComponent implements OnInit {
     let newNote: Note = this.addNoteForm.value;
     newNote.owner_id = this.owner._id;
     newNote.posted = true;
+    newNote.timestamp = new Date();
     newNote.pinned = false;
     this.noteService.addNote(newNote).subscribe(newID => {
       this.snackBar.open('Successfully added note', null, {

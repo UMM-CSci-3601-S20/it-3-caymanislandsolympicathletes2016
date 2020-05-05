@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy} from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Owner } from '../owner';
 import { OwnerService } from '../owner.service';
@@ -19,7 +19,7 @@ export class OwnerComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute, public auth: AuthService,
               private _location: Location, private notesService: NotesService,
               private ownerService: OwnerService, private snackBar: MatSnackBar) {
-                console.log("Constructing Owner Component");
+                console.log('Constructing Owner Component');
               }
   notes: Note[];
   owner: Owner;
@@ -72,7 +72,14 @@ export class OwnerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.retrieveNotes();
+    this._location.replaceState('/');
+    if (!localStorage.getItem('foo')) {
+      localStorage.setItem('foo', 'no reload');
+      location.reload();
+    } else {
+      localStorage.removeItem('foo');
+      this.retrieveNotes();
+    }
   }
 
   ngOnDestroy(): void {

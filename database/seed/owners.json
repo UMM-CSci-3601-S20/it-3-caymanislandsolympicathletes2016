@@ -4,14 +4,16 @@
     "officeNumber": "5678",
     "email": "jbeaver@morris.umn.edu",
     "building": "Imholte",
-    "x500": "jbeaver"
+    "x500": "jbeaver",
+    "gcalLink": "jbeaver%40morris.umn.edu"
   },
   {
     "name": "James Flegel",
     "officeNumber": "9012",
     "email": "flege0003@morris.umn.edu",
     "building": "HFA",
-    "x500": "flege0003"
+    "x500": "flege0003",
+    "gcalLink": "flege0003%40morris.umn.edu"
   },
   {
     "name": "Cookie Vang",
