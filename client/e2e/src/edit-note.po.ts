@@ -1,5 +1,6 @@
 import { browser, element, by } from 'protractor';
 import { HomePage } from './home.po';
+import { E2EUtil } from './e2e.util';
 
 export class EditNotePage {
 

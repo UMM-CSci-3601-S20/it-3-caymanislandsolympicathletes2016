@@ -3,7 +3,7 @@ import { browser, protractor } from 'protractor';
 import { E2EUtil } from './e2e.util';
 
 
-describe('The home page:', () => {
+xdescribe('The home page:', () => {
   let page: HomePage;
   const EC = protractor.ExpectedConditions;
 
@@ -13,7 +13,6 @@ describe('The home page:', () => {
 
   beforeEach(async () => {
     page = new HomePage();
-    console.log('Navigating to localhost');
     page.navigateTo();
   });
 

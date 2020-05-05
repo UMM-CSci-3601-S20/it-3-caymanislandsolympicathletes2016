@@ -40,5 +40,6 @@ export class HomePage {
     // the material pencil icon. It's not actually a button for
     // creating things.
     element.all(by.buttonText('create')).get(0).click();
+    browser.sleep(3000);
   }
 }
