@@ -63,8 +63,8 @@ export class OwnerService {
     var retrievedOwner;
     try {
       retrievedOwner = await this.getOwnerByx500(this.ownerx500).toPromise();
-    } catch(err) {
-      let errorTitle = "The requested owner was not found"
+    } catch (err) {
+      const errorTitle = 'The requested owner was not found';
       if (err.status === 404 && err.error.title === errorTitle) {
         this.createOwner();
       }

@@ -3,7 +3,8 @@ import { browser, element, by } from 'protractor';
 export class HomePage {
 
   navigateTo() {
-    return browser.get('/');
+    browser.get('/');
+    browser.sleep(3000);
   }
 
   getUrl() {

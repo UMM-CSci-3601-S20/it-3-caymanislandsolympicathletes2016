@@ -14,7 +14,7 @@
 <div *ngIf="notes; else notesError">
 <ul class= "note-container">
   <div *ngFor="let note of this.notes" >
-    <mat-card class="pinned-note-card" *ngIf="note.pinned">
+    <mat-card class="pinned-note-card note-card" *ngIf="note.pinned">
       <p> {{this.note.body}} </p>
       <mat-card-actions>
         <button mat-button class="note-action edit" matTooltip="Edit Note" matTooltipPosition="above" [routerLink]="note._id + '/edit'">
@@ -24,13 +24,13 @@
           <mat-icon aria-label="Unpin note">star</mat-icon>
         </button>
         <button mat-button class="note-action delete" matTooltip="Move to Trash" matTooltipPosition="above" (click)="deleteNote(note._id);">
-          <mat-icon aria-label="Move to trash">delete</mat-icon>
+          <mat-icon aria-label="Move to trash">delete_outline</mat-icon>
         </button>
       </mat-card-actions>
     </mat-card>
   </div>
   <div *ngFor="let note of this.notes" >
-    <mat-card class="unpinned-note-card" *ngIf="!note.pinned">
+    <mat-card class="unpinned-note-card note-card" *ngIf="!note.pinned">
       <p> {{this.note.body}} </p>
       <mat-card-actions>
         <button mat-button class="note-action edit" matTooltip="Edit Note" matTooltipPosition="above" [routerLink]="note._id + '/edit'">
@@ -40,7 +40,7 @@
           <mat-icon aria-label="Pin note">star_border</mat-icon>
         </button>
         <button mat-button class="note-action delete" matTooltip="Move to Trash" matTooltipPosition="above" (click)="deleteNote(note._id);">
-          <mat-icon aria-label="Move to trash">delete</mat-icon>
+          <mat-icon aria-label="Move to trash">delete_outline</mat-icon>
         </button>
       </mat-card-actions>
     </mat-card>
