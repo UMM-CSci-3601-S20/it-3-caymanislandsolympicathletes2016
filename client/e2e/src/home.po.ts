@@ -19,9 +19,16 @@ export class HomePage {
     element(by.className('add-note-fab')).click();
   }
 
-
   async getNumberOfNotes(): Promise<number> {
     return await element.all(by.className('note-card')).count();
+  }
+
+  async getPinnedNotes() {
+    return await element.all(by.className('pinned-note-card')).count();
+  }
+
+  async getUnpinnedNotes() {
+    return await element.all(by.className('unpinned-note-card')).count();
   }
 
   async deleteAllNotes() {
@@ -41,5 +48,13 @@ export class HomePage {
     // creating things.
     element.all(by.buttonText('create')).get(0).click();
     browser.sleep(3000);
+  }
+
+  async pinFirstNote() {
+    await element.all(by.buttonText('star_border')).get(0).click();
+  }
+
+  async unpinFirstNote() {
+    await element.all(by.buttonText('star')).get(0).click();
   }
 }

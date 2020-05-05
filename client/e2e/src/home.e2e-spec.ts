@@ -84,4 +84,29 @@ describe('The home page:', () => {
       expect(url.includes('/edit')).toBe(true);
     });
   });
+
+  describe('The pin note button: ', () => {
+    beforeAll(async () => {
+      let body = E2EUtil.randomText(8);
+      await E2EUtil.addNewNote(body);
+      browser.sleep(3000);
+    });
+
+    it('pins and unpins the note', async () => {
+      const initialUnpinned = await page.getUnpinnedNotes();
+      const initialPinned = await page.getPinnedNotes();
+
+      await page.pinFirstNote();
+      browser.sleep(3000);
+
+      expect(page.getUnpinnedNotes()).toBe(initialUnpinned - 1);
+      expect(page.getPinnedNotes()).toBe(initialPinned + 1);
+
+      await page.unpinFirstNote();
+      browser.sleep(3000);
+
+      expect(page.getUnpinnedNotes()).toBe(initialUnpinned);
+      expect(page.getPinnedNotes()).toBe(initialPinned);
+    });
+  });
 });
