@@ -4,7 +4,7 @@ export class HomePage {
 
   navigateTo() {
     browser.get('/');
-    browser.sleep(3000);
+    browser.sleep(7000);
   }
 
   getUrl() {

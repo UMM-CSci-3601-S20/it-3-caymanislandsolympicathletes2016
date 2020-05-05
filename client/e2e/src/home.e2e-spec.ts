@@ -38,9 +38,11 @@ describe('The home page:', () => {
       console.log('Adding first note');
       let body = E2EUtil.randomText(8);
       await E2EUtil.addNewNote(body);
+      browser.sleep(3000);
       console.log('Adding second note');
       body = E2EUtil.randomText(9);
       await E2EUtil.addNewNote(body);
+      browser.sleep(3000);
     });
 
     it('should delete exactly one note when clicked', async () => {
@@ -64,10 +66,11 @@ describe('The home page:', () => {
     });
   });
 
-  xdescribe('The edit button:', () => {
+  describe('The edit button:', () => {
     beforeEach(async () => {
       await page.deleteAllNotes();
       await E2EUtil.addNewNote('foo');
+      browser.sleep(3000);
     });
 
     it('navigates to the correct page', async () => {
