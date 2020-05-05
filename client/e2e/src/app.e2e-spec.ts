@@ -1,18 +1,25 @@
-// import {AppPage} from './app.po';
+import {AppPage} from './app.po';
+import { E2EUtil } from './e2e.util';
+import { browser } from 'protractor';
 
-// describe('App', () => {
-//   let page: AppPage;
+describe('App', () => {
+  let page: AppPage;
 
-//   beforeEach(() => {
-//     page = new AppPage();
-//   });
+  beforeAll(async () => {
+    await E2EUtil.login();
+    browser.sleep(5000);
+  });
 
-//   it('Should load', () => {
-//     page.navigateTo();
-//   });
+  beforeEach(() => {
+    page = new AppPage();
+  });
 
-//   it('Should have the correct title', () => {
-//     page.navigateTo();
-//     expect(page.getAppTitle()).toEqual('DoorBoard');
-//   });
-// });
+  it('Should load', () => {
+    page.navigateTo();
+  });
+
+  it('Should have the correct title', () => {
+    page.navigateTo();
+    expect(page.getAppTitle()).toEqual('DoorBoard');
+  });
+});

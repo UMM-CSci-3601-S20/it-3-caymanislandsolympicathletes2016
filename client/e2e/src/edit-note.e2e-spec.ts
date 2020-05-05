@@ -1,34 +1,52 @@
-// import { EditNotePage } from './edit-note.po';
-// import { by, element, browser, protractor } from 'protractor';
-// import { E2EUtil } from './e2e.util';
+import { EditNotePage } from './edit-note.po';
+import { by, element, browser, protractor } from 'protractor';
+import { E2EUtil } from './e2e.util';
 
 
-// describe('Edit note:', () => {
-//   let page: EditNotePage;
-//   const EC = protractor.ExpectedConditions;
+describe('Edit note:', () => {
+  let page: EditNotePage;
+  const EC = protractor.ExpectedConditions;
 
-//   beforeEach(() => {
-//     page = new EditNotePage();
-//     page.navigateTo();
-//   });
+  beforeAll(async () => {
+    await E2EUtil.login();
+    browser.sleep(5000);
+    const body = E2EUtil.randomText(7);
+    await E2EUtil.addNewNote(body);
+    browser.sleep(5000);
+  });
 
-//   it('Should have the correct title', () => {
-//     expect(page.getTitle()).toEqual('Edit Note');
-//   });
+  beforeEach(() => {
+    page = new EditNotePage();
+    page.navigateTo();
+  });
 
-//   it('Should enable and disable the edit note button', async () => {
-//     expect(element(by.buttonText('EDIT NOTE')).isEnabled()).toBe(true);
+  it('Should have the correct title', () => {
+    expect(page.getTitle()).toEqual('Edit Note');
+  });
 
-//     await page.typeInput('bodyField', E2EUtil.randomText(1000));
-//     expect(element(by.buttonText('EDIT NOTE')).isEnabled()).toBe(false);
-//   });
+  it('Should enable and disable the edit note button', async () => {
+    expect(element(by.buttonText('EDIT NOTE')).isEnabled()).toBe(true);
 
-//   it('Should go to the right page after being clicked', async () => {
-//     const body = E2EUtil.randomText(10);
+    await page.typeInput('bodyField', E2EUtil.randomText(1000));
+    expect(element(by.buttonText('EDIT NOTE')).isEnabled()).toBe(false);
+  });
 
-//     await page.typeInput('bodyField', body);
-//     page.clickEditNote();
+  it('Should go to the right page after being clicked', async () => {
+    const body = E2EUtil.randomText(10);
 
-//     await browser.wait(EC.not(EC.urlContains('/new')), 10000);
-//   });
-// });
+    await page.typeInput('bodyField', body);
+    page.clickEditNote();
+
+    await browser.wait(EC.not(EC.urlContains('/edit')), 10000);
+
+    browser.sleep(5000);
+  });
+
+  it('Should click the cancel button and go to the right page', async () => {
+    await page.clickCancelNote();
+
+    await browser.wait(EC.not(EC.urlContains('/edit')));
+
+    browser.sleep(5000);
+  });
+});

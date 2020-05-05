@@ -1,12 +1,12 @@
 import { browser, element, by } from 'protractor';
-import { HomePage } from './home.po';
+import { OwnerPage } from './owner.po';
 
 export class EditNotePage {
 
   navigateTo() {
-    const homePage = new HomePage();
-    homePage.navigateTo();
-    homePage.editFirstNote();
+    const ownerPage = new OwnerPage();
+    ownerPage.navigateTo();
+    ownerPage.editFirstNote();
   }
 
   getTitle() {
@@ -21,7 +21,11 @@ export class EditNotePage {
   }
 
   clickEditNote() {
-    return element(by.buttonText('EDIT NOTE')).click();
+    return element(by.id('confirmEditNoteButton')).click();
+  }
+
+  clickCancelNote() {
+    return element(by.id('cancelEditNoteButton')).click();
   }
 
   getUrl() {

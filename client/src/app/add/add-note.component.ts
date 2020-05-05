@@ -52,9 +52,9 @@ export class AddNoteComponent implements OnInit {
   }
 
 
-  retrieveOwner(): void {
+  async retrieveOwner(): Promise<void> {
     if (this.ownerService.owner == null) {
-      this.ownerService.retrieveOwner();
+      await this.ownerService.retrieveOwner();
     }
     this.owner = this.ownerService.owner;
   }
