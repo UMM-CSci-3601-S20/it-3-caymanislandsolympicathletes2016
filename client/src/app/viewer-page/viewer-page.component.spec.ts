@@ -12,7 +12,7 @@ import { Owner } from '../owner';
 import { Observable } from 'rxjs';
 import { ActivatedRouteStub } from 'src/testing/activated-route-stub';
 
-fdescribe('ViewerPageComponent: using Rachel Johnson data from MockOwnerService for valid requests', () => {
+describe('ViewerPageComponent: using Rachel Johnson data from MockOwnerService for valid requests', () => {
   let component: ViewerPageComponent;
   let fixture: ComponentFixture<ViewerPageComponent>;
   let mockNoteService: MockNoteService;
@@ -28,8 +28,8 @@ fdescribe('ViewerPageComponent: using Rachel Johnson data from MockOwnerService 
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
       declarations: [ ViewerPageComponent ],
-      providers: [{provide: NotesService, useValue: mockNoteService},
-        {provide: OwnerService, useValue: mockOwnerService},
+      providers: [{ provide: NotesService, useValue: mockNoteService },
+        { provide: OwnerService, useValue: mockOwnerService },
         { provide: ActivatedRoute, useValue: activatedRoute }]
       }).compileComponents();
   }));
@@ -45,7 +45,7 @@ fdescribe('ViewerPageComponent: using Rachel Johnson data from MockOwnerService 
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create the testing component', () => {
     expect(component).toBeTruthy();
     expect(component.owner._id).toEqual(expectedOwner._id);
     expect(component.owner).toEqual(expectedOwner);

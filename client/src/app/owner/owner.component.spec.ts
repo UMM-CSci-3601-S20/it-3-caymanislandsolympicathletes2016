@@ -14,11 +14,11 @@ import { Router, ActivatedRoute, Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRouteStub } from 'src/testing/activated-route-stub';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { Owner } from '../owner';
 
 
 
-describe('Component: Owner page:', () => {
-
+describe('OwnerPageComponent: using Rachel Johnson data from MockOwnerService for valid requests', () => {
   let component: OwnerComponent;
   let fixture: ComponentFixture<OwnerComponent>;
   let de: DebugElement;
@@ -26,11 +26,13 @@ describe('Component: Owner page:', () => {
   let mockNoteService: MockNoteService;
   let mockOwnerService: MockOwnerService;
   let authService: AuthService;
-  //let mockAuthService: MockAuthService;
   let spy: any;
+
   const activatedRoute: ActivatedRouteStub = new ActivatedRouteStub();
 
-  beforeEach(() => {
+  let expectedOwner: Owner;
+
+  beforeEach(async(() => {
     mockNoteService = new MockNoteService();
     mockOwnerService = new MockOwnerService();
     TestBed.configureTestingModule({
@@ -39,18 +41,28 @@ describe('Component: Owner page:', () => {
       providers: [
           {provide: NotesService, useValue: mockNoteService},
           {provide: OwnerService, useValue: mockOwnerService},
-          {provide: activatedRoute, useValue: activatedRoute},
-          {provide: AuthService, useValue: authService}
-      ]
-    });
+          {provide: ActivatedRoute, useValue: activatedRoute},
+          {provide: AuthService, useValue: authService}]
+      }).compileComponents();
+    }));
 
+  beforeEach(() => {
+
+    expectedOwner = MockOwnerService.testOwners[0];
+    activatedRoute.setParamMap({ x500: expectedOwner.x500 });
+
+    // initialize the testing component
     fixture = TestBed.createComponent(OwnerComponent);
-
-    component = fixture.componentInstance; // BannerComponent test instance
-
-    // query for the link (<a> tag) by CSS element selector
+    component = fixture.componentInstance;
+    fixture.detectChanges();
     de = fixture.debugElement.query(By.css('#generate-pdf-button'));
     el = de.nativeElement;
+  });
+
+  it('should create the testing component', () => {
+    expect(component).toBeTruthy();
+    expect(component.owner._id).toEqual(expectedOwner._id);
+    expect(component.owner).toEqual(expectedOwner);
   });
 
   describe('The retrieveOwner() method:', () => {
