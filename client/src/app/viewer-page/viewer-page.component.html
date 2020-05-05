@@ -7,9 +7,6 @@
 
 <div *ngIf="notes; else notesError">
   <ul class= "note-container">
-    <mat-card class="note-card" *ngFor="let note of this.notes">
-      <p> {{this.note.body}} </p>
-    </mat-card>
     <div *ngFor="let note of this.notes" >
       <mat-card class="pinned-note-card" *ngIf="note.pinned">
         <p class="date"> {{this.note.timestamp | date:'short'}} </p>
