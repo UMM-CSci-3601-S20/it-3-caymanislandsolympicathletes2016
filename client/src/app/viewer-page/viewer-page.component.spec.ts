@@ -1,55 +1,78 @@
-// import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-// import { ViewerPageComponent } from './viewer-page.component';
-// import { MockNoteService } from 'src/testing/note.service.mock';
-// import { NotesService } from '../notes.service';
-// import { OwnerService } from '../owner.service';
-// import { MockOwnerService } from 'src/testing/owner.service.mock';
-// import { Note } from '../note';
-// import { Router } from '@angular/router';
+import { ViewerPageComponent } from './viewer-page.component';
+import { MockNoteService } from 'src/testing/note.service.mock';
+import { NotesService } from '../notes.service';
+import { OwnerService } from '../owner.service';
+import { MockOwnerService } from 'src/testing/owner.service.mock';
+import { Note } from '../note';
+import { Router, ActivatedRoute } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { Owner } from '../owner';
+import { Observable } from 'rxjs';
+import { ActivatedRouteStub } from 'src/testing/activated-route-stub';
 
-// describe('ViewerPageComponent:', () => {
-//   let component: ViewerPageComponent;
-//   let fixture: ComponentFixture<ViewerPageComponent>;
-//   let mockNoteService: MockNoteService;
-//   let mockOwnerService: MockOwnerService;
+describe('ViewerPageComponent: using Rachel Johnson data from MockOwnerService for valid requests', () => {
+  let component: ViewerPageComponent;
+  let fixture: ComponentFixture<ViewerPageComponent>;
+  let mockNoteService: MockNoteService;
+  let mockOwnerService: MockOwnerService;
 
-//   beforeEach(() => {
-//     mockNoteService = new MockNoteService();
+  const activatedRoute: ActivatedRouteStub = new ActivatedRouteStub();
 
-//     TestBed.configureTestingModule({
-//       declarations: [ ViewerPageComponent ],
-//       providers: [{provide: NotesService, useValue: mockNoteService},
-//       {provide: OwnerService, useValue: mockOwnerService}]
-//     });
+  let expectedOwner: Owner;
 
-//     fixture = TestBed.createComponent(ViewerPageComponent);
-//     component = fixture.componentInstance;
-//   });
+  beforeEach(async(() => {
+    mockNoteService = new MockNoteService();
+    mockOwnerService = new MockOwnerService();
+    TestBed.configureTestingModule({
+      imports: [RouterTestingModule],
+      declarations: [ ViewerPageComponent ],
+      providers: [{provide: NotesService, useValue: mockNoteService},
+        {provide: OwnerService, useValue: mockOwnerService},
+        { provide: ActivatedRoute, useValue: activatedRoute }]
+      }).compileComponents();
+  }));
 
-//   it('should create', () => {
-//     expect(component).toBeTruthy();
-//   });
+  beforeEach(() => {
 
-//   describe('The retrieveNotes() method:', () => {
+    expectedOwner = MockOwnerService.testOwners[0];  // owner Rachel Johnson from mock owners
+    activatedRoute.setParamMap({ x500: expectedOwner.x500 });  // subscribe to Rachel Johnson and
 
-//     it('gets all the notes from the server', () =>{
-//       component.retrieveNotes();
+    // initialize the testing component
+    fixture = TestBed.createComponent(ViewerPageComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
 
-//       expect(component.notes.length).toBe(3);
-//     });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+    expect(component.owner._id).toEqual(expectedOwner._id);
+    expect(component.owner).toEqual(expectedOwner);
+  });
 
-//     it('contains a note with body \'This is the first note\'', () => {
-//       component.retrieveNotes();
+  describe('The retrieveNotes() method:', () => {
 
-//       expect(component.notes.some((note: Note) => note.body === 'This is the first note')).toBe(true);
-//     });
+    it('gets all of Rachel\'s notes from the server', () => {
+      expect(component.notes.length).toBe(2);
+    });
 
-//     // it('notes are posted', () =>{
-//     //   component.retrieveNotes();
+    it('contains a note with body \'This is the first "posted" note\'', () => {
+      expect(component.notes.some((note: Note) => note.body === 'This is the first "posted" note')).toBe(true);
+    });
 
-//     //   expect(component.notes.forEach((note: Note) => note.posted === true)).toBe(true);
-//     // })
+    it('contains a note with body \'This is the first "pinned" note\'', () => {
+      expect(component.notes.some((note: Note) => note.body === 'This is the first "pinned" note')).toBe(true);
+    });
 
-//   });
-// });
+    it('notes are posted', () => {
+      component.retrieveNotes();
+      expect(component.notes.forEach((note: Note) => note.posted === true));
+    });
+
+  });
+
+  describe('The retrieveOwner() method:', () => {
+
+  });
+});

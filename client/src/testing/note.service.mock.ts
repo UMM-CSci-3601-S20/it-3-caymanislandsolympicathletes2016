@@ -1,56 +1,80 @@
 import { Injectable } from '@angular/core';
 import { NotesService } from '../app/notes.service';
 import { Note } from '../app/note';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Injectable()
 export class MockNoteService extends NotesService {
 
   static testNotes: Note[] = [
-    // Posted Notes
+    // Posted Notes -> posted notes
     {
-      _id: 'first_id',
+      _id: 'first_posted_id',
       owner_id: 'rachel_id',
-      body: 'This is the first note',
-      posted: true
+      body: 'This is the first "posted" note',
+      posted: true,
+      pinned: false
     },
     {
-      _id: 'second_id',
+      _id: 'second_posted_id',
       owner_id: 'joe_id',
-      body: 'This is the second note',
-      posted: true
+      body: 'This is the second "posted" note',
+      posted: true,
+      pinned: false
     },
     {
-      _id: 'third_id',
+      _id: 'third_posted_id',
       owner_id: 'james_id',
-      body: 'This is the third note',
-      posted: true
+      body: 'This is the third "posted" note',
+      posted: true,
+      pinned: false
     },
 
-    // Trashed Notes
+    // Pinned Notes -> saved on board until "unpinned" or moved to trash
     {
-      _id: 'fourth_id',
+      _id: 'first_pinned_id',
       owner_id: 'rachel_id',
-      body: 'This is the fourth note',
-      posted: false
+      body: 'This is the first "pinned" note',
+      posted: true,
+      pinned: true
     },
     {
-      _id: 'fifth_id',
+      _id: 'second_pinned_id',
       owner_id: 'joe_id',
-      body: 'This is the fifth note',
-      posted: false
+      body: 'This is the second "pinned" note',
+      posted: true,
+      pinned: true
     },
     {
-      _id: 'sixth_id',
+      _id: 'third_pinned_id',
       owner_id: 'james_id',
-      body: 'This is the 6th note',
-      posted: false
+      body: 'This is the third "pinned" note',
+      posted: true,
+      pinned: true
+    },
+
+    // Trashed Notes -> notes in the trash
+    {
+      _id: 'first_trashed_id',
+      owner_id: 'rachel_id',
+      body: 'This is the first "trashed" note',
+      posted: false,
+      pinned: false
     },
     {
-      _id: 'seventh_id',
-      owner_id: 'kyle_id',
-      body: 'This is the 7th note',
-      posted: false
+      _id: 'second_trashed_id',
+      owner_id: 'joe_id',
+      body: 'This is the second "trashed" note',
+      posted: false,
+      pinned: false
+    },
+    {
+      _id: 'third_trashed_id',
+      owner_id: 'james_id',
+      body: 'This is the third "trashed" note',
+      posted: false,
+      pinned: false
     }
   ];
 
@@ -58,6 +82,19 @@ export class MockNoteService extends NotesService {
 
   constructor() {
     super(null);
+  }
+
+  getOwnerNotes(filters?: { owner_id?: string, posted?: boolean}): Observable<Note[]> {
+    let arr = MockNoteService.testNotes;
+
+    if (filters.owner_id) {
+      arr = arr.filter(note => note.owner_id === filters.owner_id);
+    }
+    if (filters.posted === true || filters.posted === false) {
+      arr = arr.filter(note => note.posted === filters.posted);
+    }
+
+    return of(arr);
   }
 
   getNotes() {
@@ -68,7 +105,7 @@ export class MockNoteService extends NotesService {
     return of(true);
   }
 
-  addNote(note) {
+  addNote(note: Note) {
     return of('I just put your note in the database and this is its new ID');
   }
 
@@ -82,6 +119,7 @@ export class MockNoteService extends NotesService {
       owner_id: 'rachel_id',
       body: MockNoteService.FAKE_BODY,
       posted: true,
+      pinned: true
     });
   }
 }
