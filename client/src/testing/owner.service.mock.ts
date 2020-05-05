@@ -6,8 +6,7 @@ import { AuthService } from 'src/app/authentication/auth.service';
 
 /**
  * A "mock" version of the `OwnerService` that can be used to test components
- * without having to create an actual service. Need to add a mock auth service to avoid making actual calls to Auth0 for authentication
- * Check on constructor arguments -> do these need to be null or actual instances
+ * without having to create an actual service.
  */
 @Injectable()
 export class MockOwnerService extends OwnerService {
@@ -47,7 +46,7 @@ export class MockOwnerService extends OwnerService {
   ];
 
   constructor() {
-    super(null, null, null); // may need to add actual instances
+    super(null);
   }
   // no filters here yet, don't know what we want to have the database filter for us
   getOwners(filters: {  }): Observable<Owner[]> {
