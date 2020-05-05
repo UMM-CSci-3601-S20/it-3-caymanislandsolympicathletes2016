@@ -2,7 +2,8 @@ import {browser, element, by} from 'protractor';
 
 export class AppPage {
   navigateTo() {
-    return browser.get('/');
+    browser.get('/');
+    browser.sleep(7000)
   }
 
   getAppTitle() {

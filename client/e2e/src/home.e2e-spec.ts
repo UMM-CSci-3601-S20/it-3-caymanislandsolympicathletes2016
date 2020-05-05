@@ -3,7 +3,7 @@ import { browser, protractor } from 'protractor';
 import { E2EUtil } from './e2e.util';
 
 
-xdescribe('The home page:', () => {
+describe('The home page:', () => {
   let page: HomePage;
   const EC = protractor.ExpectedConditions;
 
