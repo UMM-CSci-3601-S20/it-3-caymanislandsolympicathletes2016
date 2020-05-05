@@ -1,6 +1,7 @@
 import { AddNotePage } from './add-note.po';
 import { browser, protractor, element, by } from 'protractor';
 import { E2EEnvironment } from './e2e.env';
+import { HomePage } from './home.po';
 
 const EC = protractor.ExpectedConditions;
 
@@ -30,6 +31,14 @@ export class E2EUtil {
     await addNotePage.clickAddNote();
 
     await browser.wait(EC.not(EC.urlContains('/new')), 10000);
+  }
+
+  public static async deleteAllNotes() {
+    const homePage = new HomePage();
+
+    homePage.navigateTo();
+
+    await homePage.deleteAllNotes();
   }
 
   public static async login() {

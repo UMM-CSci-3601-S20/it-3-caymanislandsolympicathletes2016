@@ -15,6 +15,10 @@ export class HomePage {
     return element(by.className('add-note-fab')).click();
   }
 
+  clickTrashPage() {
+    return element(by.className('trash-fab')).click();
+  }
+
   addNewNote(body: string) {
     element(by.className('add-note-fab')).click();
   }

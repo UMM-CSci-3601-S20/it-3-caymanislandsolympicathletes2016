@@ -28,6 +28,20 @@ describe('The home page:', () => {
     expect(url.endsWith('/new')).toBe(true);
   });
 
+  it('Should click the trash page button and navigate to the correct page', async () => {
+    let url = await page.getUrl();
+    expect(url.endsWith('/')).toBe(true);
+
+    await page.clickTrashPage();
+
+    await browser.wait(EC.urlContains('/trash'), 10000);
+
+    url = await page.getUrl();
+    expect(url.endsWith('/trash')).toBe(true);
+
+    browser.sleep(3000);
+  });
+
   describe('The delete button:', () => {
     // Note: these tests depend on there being at least 2 notes seeded in the
     // database.
