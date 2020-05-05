@@ -51,13 +51,13 @@ describe('The home page:', () => {
       expect(await page.getNumberOfNotes()).toBe(initialNumberOfNotes - 1);
     });
 
-    xit('should delete all notes when we click all the buttons', async () => {
+    it('should delete all notes when we click all the buttons', async () => {
       expect(await page.getNumberOfNotes()).not.toBe(0);
       await page.deleteAllNotes();
       expect(await page.getNumberOfNotes()).toBe(0);
     });
 
-    xit('should be persistent', async () => {
+    it('should be persistent', async () => {
       // Since we've already run the previous two tests, all the notes should
       // be deleted now, even after we re-navigate to the page.
       expect(await page.getNumberOfNotes()).toBe(0);

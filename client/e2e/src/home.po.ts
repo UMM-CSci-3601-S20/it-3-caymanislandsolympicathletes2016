@@ -27,11 +27,12 @@ export class HomePage {
   async deleteAllNotes() {
     while (await this.getNumberOfNotes() !== 0) {
       this.deleteFirstNote();
+      browser.sleep(3000);
     }
   }
 
   deleteFirstNote() {
-    element.all(by.buttonText('delete')).get(0).click();
+    element.all(by.className('delete-note-button')).get(0).click();
   }
 
   editFirstNote() {
