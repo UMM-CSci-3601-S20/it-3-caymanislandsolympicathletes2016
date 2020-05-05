@@ -33,6 +33,12 @@
   padding: 10px;
 }
 
+.date{
+  text-align: right;
+  font-size: small;
+  font-style: italic;
+}
+
 @media (prefers-color-scheme: dark) {
   .pinned-note-card{
     background-color: #4a5563;
