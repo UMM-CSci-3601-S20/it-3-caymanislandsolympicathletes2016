@@ -82,9 +82,9 @@ public class NoteControllerSpec {
     MongoCollection<Document> noteDocuments = db.getCollection("notes");
     noteDocuments.drop();
     List<Document> testNotes = new ArrayList<>();
-    testNotes.add(Document.parse("{ owner_id: \"owner1ID\", " + "body: \"First body\", " + "posted: \"true\", " + "pinned: \"true\"}"));
-    testNotes.add(Document.parse("{ owner_id: \"owner2ID\", " + "body: \"Second body\", " + "posted: \"true\", " + "pinned: \"false\"}"));
-    testNotes.add(Document.parse("{ owner_id: \"owner3ID\", " + "body: \"Third body\", " + "posted: \"true\", " + "pinned: \"false\"}"));
+    testNotes.add(Document.parse("{ owner_id: \"owner1ID\", " + "body: \"First body\", " + "posted: \"true\", " + "pinned: \"true\", " + "timestamp: \"2020-04-29T20:38:39.974+00:00\"}"));
+    testNotes.add(Document.parse("{ owner_id: \"owner2ID\", " + "body: \"Second body\", " + "posted: \"true\", " + "pinned: \"false\", " + "timestamp: \"2020-04-29T20:38:39.974+00:00\"}"));
+    testNotes.add(Document.parse("{ owner_id: \"owner3ID\", " + "body: \"Third body\", " + "posted: \"true\", " + "pinned: \"false\", " + "timestamp: \"2020-04-29T20:38:39.974+00:00\"}"));
 
     importantNoteId = new ObjectId();
     importantNote = new BasicDBObject("_id", importantNoteId)
