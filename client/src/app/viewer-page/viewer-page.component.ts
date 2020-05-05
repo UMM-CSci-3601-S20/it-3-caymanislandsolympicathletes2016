@@ -39,7 +39,7 @@ export class ViewerPageComponent implements OnInit {
     this.getOwnerSub = this.ownerService.getOwnerByx500(this.urlx500).subscribe(returnedOwner => {
       this.owner = returnedOwner;
       this.owner.gcalLink = 'https://calendar.google.com/calendar/embed?src=' + this.urlx500 + '%40morris.umn.edu';
-      this.gcalicon = this.owner.name +"'s gcal";
+      this.gcalicon = this.owner.name +"'s GCal";
       this.retrieveNotes();
     }, err => {
       console.log(err);
