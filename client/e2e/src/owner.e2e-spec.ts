@@ -1,10 +1,10 @@
-import { HomePage } from './home.po';
+import { OwnerPage } from './owner.po';
 import { browser, protractor } from 'protractor';
 import { E2EUtil } from './e2e.util';
 
 
-describe('The home page:', () => {
-  let page: HomePage;
+describe('The owner page:', () => {
+  let page: OwnerPage;
   const EC = protractor.ExpectedConditions;
 
   beforeAll(async () => {
@@ -12,7 +12,7 @@ describe('The home page:', () => {
   });
 
   beforeEach(async () => {
-    page = new HomePage();
+    page = new OwnerPage();
     page.navigateTo();
   });
 

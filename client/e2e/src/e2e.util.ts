@@ -1,7 +1,7 @@
 import { AddNotePage } from './add-note.po';
 import { browser, protractor, element, by } from 'protractor';
 import { E2EEnvironment } from './e2e.env';
-import { HomePage } from './home.po';
+import { OwnerPage } from './owner.po';
 
 const EC = protractor.ExpectedConditions;
 
@@ -34,11 +34,11 @@ export class E2EUtil {
   }
 
   public static async deleteAllNotes() {
-    const homePage = new HomePage();
+    const ownerPage = new OwnerPage();
 
-    homePage.navigateTo();
+    ownerPage.navigateTo();
 
-    await homePage.deleteAllNotes();
+    await ownerPage.deleteAllNotes();
   }
 
   public static async login() {
