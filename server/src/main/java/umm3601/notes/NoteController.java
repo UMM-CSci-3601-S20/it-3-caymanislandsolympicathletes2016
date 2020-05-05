@@ -4,16 +4,15 @@ import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
-
-import javax.annotation.CheckReturnValue;
 
 import com.google.common.collect.ImmutableMap;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.result.DeleteResult;
+import com.mongodb.client.model.Filters;
 
-import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Updates.set;
 
 import org.bson.Document;
@@ -110,6 +109,7 @@ public class NoteController {
   public void getOwnerNotes(Context ctx) {
 
     List<Bson> filters = new ArrayList<Bson>(); // start with a blank document
+    List<Note> filteredNotes = new ArrayList<Note>();
 
     if (ctx.queryParamMap().containsKey("owner_id")) {
       filters.add(eq("owner_id", ctx.queryParam("owner_id")));
@@ -120,8 +120,11 @@ public class NoteController {
       throw new NotFoundResponse("The requested owner was not found");
     }
 
-    ctx.json(noteCollection.find(filters.isEmpty() ? new Document() : and(filters))
-    .into(new ArrayList<>()));
+    filteredNotes = noteCollection.find(filters.isEmpty() ? new Document() : and(filters))
+    .into(new ArrayList<>());
+    filteredNotes.sort((n1,n2) -> n1.timestamp.compareTo(n2.timestamp));
+
+    ctx.json(filteredNotes);
   }
 
 
@@ -146,7 +149,7 @@ public class NoteController {
     .check((note) -> note.body.length() >= 2 && note.body.length() <= 300).get();
     String newBody = newNote.body;
 
-    Note oldNote = noteCollection.findOneAndUpdate(eq("_id", new ObjectId(id)), set("body", newBody));
+    Note oldNote = noteCollection.findOneAndUpdate(eq("_id", new ObjectId(id)), Filters.and(set("body", newBody), set("timestamp", new Date())));
 
     if (oldNote == null) {
       ctx.status(400);
@@ -229,7 +232,7 @@ public class NoteController {
   public void restoreNote(Context ctx) {
     String id = ctx.pathParamMap().get("id");
     // check if owner id of a note, matches logged in user's id
-    Note oldNote = noteCollection.findOneAndUpdate(eq("_id", new ObjectId(id)), set("posted", true));
+    Note oldNote = noteCollection.findOneAndUpdate(eq("_id", new ObjectId(id)), Filters.and(set("posted", true), set("timestamp", new Date())));
 
     if (oldNote == null) {
       throw new NotFoundResponse("The requested note was not found");
