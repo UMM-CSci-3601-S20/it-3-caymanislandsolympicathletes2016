@@ -36,8 +36,8 @@ describe('ViewerPageComponent: using Rachel Johnson data from MockOwnerService f
 
   beforeEach(() => {
 
-    expectedOwner = MockOwnerService.testOwners[0];
-    activatedRoute.setParamMap({ x500: expectedOwner.x500 });
+    expectedOwner = MockOwnerService.testOwners[0];  // owner Rachel Johnson from mock owners
+    activatedRoute.setParamMap({ x500: expectedOwner.x500 });  // subscribe to Rachel Johnson and
 
     // initialize the testing component
     fixture = TestBed.createComponent(ViewerPageComponent);
