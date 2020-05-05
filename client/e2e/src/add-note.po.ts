@@ -8,7 +8,7 @@ export class AddNotePage {
 
   navigateTo() {
     browser.get('/new');
-    browser.sleep(3000);
+    browser.sleep(5000);
   }
 
   getTitle() {
@@ -24,6 +24,10 @@ export class AddNotePage {
 
   clickAddNote() {
     return element(by.id('confirmAddNoteButton')).click();
+  }
+
+  clickCancelNote() {
+    return element(by.id('cancelAddNoteButton')).click();
   }
 
   getUrl() {

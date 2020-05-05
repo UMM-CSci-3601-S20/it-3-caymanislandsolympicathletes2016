@@ -1,5 +1,5 @@
 import { AddNotePage } from './add-note.po';
-import { browser, protractor, element, by, until } from 'protractor';
+import { browser, protractor, element, by } from 'protractor';
 import { E2EEnvironment } from './e2e.env';
 
 const EC = protractor.ExpectedConditions;

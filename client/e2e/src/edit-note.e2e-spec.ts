@@ -37,6 +37,16 @@ describe('Edit note:', () => {
     await page.typeInput('bodyField', body);
     page.clickEditNote();
 
-    await browser.wait(EC.not(EC.urlContains('/new')), 10000);
+    await browser.wait(EC.not(EC.urlContains('/edit')), 10000);
+
+    browser.sleep(5000);
+  });
+
+  it('Should click the cancel button and go to the right page', async () => {
+    await page.clickCancelNote();
+
+    await browser.wait(EC.not(EC.urlContains('/edit')));
+
+    browser.sleep(5000);
   });
 });

@@ -42,4 +42,10 @@ describe('Add note:', () => {
 
     await browser.wait(EC.not(EC.urlContains('/new')), 10000);
   });
+
+  it('Should click the cancel button and go to the right page', async () => {
+    await page.clickCancelNote();
+
+    await browser.wait(EC.not(EC.urlContains('/new')));
+  });
 });

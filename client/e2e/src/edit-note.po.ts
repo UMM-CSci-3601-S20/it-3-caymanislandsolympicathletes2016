@@ -1,6 +1,5 @@
 import { browser, element, by } from 'protractor';
 import { HomePage } from './home.po';
-import { E2EUtil } from './e2e.util';
 
 export class EditNotePage {
 
@@ -22,7 +21,11 @@ export class EditNotePage {
   }
 
   clickEditNote() {
-    return element(by.buttonText('EDIT NOTE')).click();
+    return element(by.id('confirmEditNoteButton')).click();
+  }
+
+  clickCancelNote() {
+    return element(by.id('cancelEditNoteButton')).click();
   }
 
   getUrl() {
