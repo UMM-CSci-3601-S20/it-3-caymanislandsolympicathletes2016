@@ -18,9 +18,11 @@ export class ViewerPageComponent implements OnInit {
   public notes: Note[];
   public urlId: string;
   public urlx500: string;
-  public getNotesSub: Subscription;
-  public getOwnerSub: Subscription;
-  public owner: Owner;
+  public urlgcal: string;
+  public gcalicon: string;
+  getNotesSub: Subscription;
+  getOwnerSub: Subscription;
+  owner: Owner;
 
 
 
@@ -45,7 +47,7 @@ export class ViewerPageComponent implements OnInit {
   }
 
   retrieveNotes(): void {
-    this.getNotesSub = this.notesService.getOwnerNotes({owner_id: this.owner._id, posted: true}).subscribe(returnedNotes => {
+    this.getNotesSub = this.notesService.getOwnerNotes({owner_id: this.owner._id, posted: true}).subscribe(returnedNotes =>{
       this.notes = returnedNotes.reverse();
     }, err => {
       console.log(err);
