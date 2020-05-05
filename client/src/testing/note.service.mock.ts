@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { NotesService } from '../app/notes.service';
 import { Note } from '../app/note';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Injectable()
 export class MockNoteService extends NotesService {
@@ -81,6 +82,19 @@ export class MockNoteService extends NotesService {
 
   constructor() {
     super(null);
+  }
+
+  getOwnerNotes(filters?: { owner_id?: string, posted?: boolean}): Observable<Note[]> {
+    let arr = MockNoteService.testNotes;
+
+    if (filters.owner_id) {
+      arr = arr.filter(note => note.owner_id === filters.owner_id);
+    }
+    if (filters.posted === true || filters.posted === false) {
+      arr = arr.filter(note => note.posted === filters.posted);
+    }
+
+    return of(arr);
   }
 
   getNotes() {

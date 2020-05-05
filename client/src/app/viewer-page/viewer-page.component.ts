@@ -18,9 +18,9 @@ export class ViewerPageComponent implements OnInit {
   public notes: Note[];
   public urlId: string;
   public urlx500: string;
-  getNotesSub: Subscription;
-  getOwnerSub: Subscription;
-  owner: Owner;
+  public getNotesSub: Subscription;
+  public getOwnerSub: Subscription;
+  public owner: Owner;
 
   constructor(private notesService: NotesService, private ownerService: OwnerService,
               private router: Router, private route: ActivatedRoute) {}
