@@ -2,6 +2,8 @@
 
 Our server has the following endpoints:
 
+# Notes
+
 
 ## 📩 `GET api/notes`
 
@@ -88,30 +90,99 @@ Mongo ID of the note that was edited.
  + `500 Internal Server Error` if the path parameter `:id` isn't in the form of
    a real Mongo ID.
 
+## 'PIN api/notes/pin:id'
 
-## 🗑 `DELETE api/notes/:id`
+Pin an existing note.
 
-Delete an existing note.
+This note must exist in the database in order to be pinned.
 
-If the note is not present in the database, this operation does nothing.
+**Path parameters:**
 
-**Path parameters:** `:id`, the Mongo ID of the note to delete.
+**Response type:**
 
-**Response type:** `text/plain`
-
-**Response:** If the object was found, the string `"deleted"`; otherwise, the
-string `"nothing deleted"`.
+**Response:**
 
 **Status codes:**
 
- + `200 OK`
-   + if the note was successfully deleted, or
-   + if the id provided doesn't refer to any note in the database, in which
-     case no action was taken.
- + `500 Internal Server Error` if the path parameter `:id` isn't in the form of
-   a real Mongo ID.
 
----
+## 'UNPIN api/notes/pin/:id'
 
-(Note that there is no endpoint for generating a PDF; that happens entirely on
-the client-side.)
+**Path parameters:**
+
+**Response type:**
+
+**Response:**
+
+**Status codes:**
+
+## 'RESTORE api/notes/:id'
+
+**Path parameters:**
+
+**Response type:**
+
+**Response:**
+
+**Status codes:**
+
+## 'TRASH api/notes/:id'
+
+**Path parameters:**
+
+**Response type:**
+
+**Response:**
+
+**Status codes:**
+
+## 'DELETE api/notes/delete/:id'
+
+**Path parameters:**
+
+**Response type:**
+
+**Response:**
+
+**Status codes:**
+
+# OWNER
+
+## 'GET OWNER api/owner'
+
+**Path parameters:**
+
+**Response type:**
+
+**Response:**
+
+**Status codes:**
+
+## 'GET SINGLE OWNER api/owner/:id'
+
+**Path parameters:**
+
+**Response type:**
+
+**Response:**
+
+**Status codes:**
+
+## 'GET x500 OWNER api/owner/x500/:x500'
+
+**Path parameters:**
+
+**Response type:**
+
+**Response:**
+
+**Status codes:**
+
+## 'ADD OWNER api/owner/new'
+
+**Path parameters:**
+
+**Response type:**
+
+**Response:**
+
+**Status codes:**
