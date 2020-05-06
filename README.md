@@ -18,6 +18,11 @@ Team Members: Aaron Otten, Audrey Le Meur, Erik Rauer, Kyle Fluto, Luke Burdette
 This repository began as team Nicolai Thärichen’s code for iteration 1 of the DoorBoard app. It was then expanded upon in iteration 2 by Team Rocket. It was then used as the code base for iteration 3 by the 2016 Olympic Athletes from the Cayman Islands.
 
 Insert images here
+### Owner DoorBoard
+![](owner_DB.jpg)
+
+### Viewer Page
+![](viewer_PG.jpg)
 
 ## Known Issues
 
@@ -57,7 +62,7 @@ Known bugs and potential enhancements include:
 ## Resources
 | Client | Server | Database | Deployment |
 |--------|--------|:--------:|:----------:|
-| <ul> <li> [Angular Documentation](https://angular.io/docs)</li> <li>[Jasmine Documentation](https://jasmine.github.io/)</li> <li>[Karma Documentation](https://karma-runner.github.io/)</li> <li>[Protractor Documentation](https://www.protractortest.org/#/api) </li> <li>[Javalin Documentation](https://javalin.io/documentation)</li> <li>[Gradle Guides](https://gradle.org/guides/)</li> <li>[JsPDF Repository](https://github.com/MrRio/jsPDF)</li> <li>[Kjua Repository](https://github.com/werthdavid/kjua)</li> <li>[Auth0 Documentation](https://auth0.com/docs/)</li> <li>[Node.js Documentation](https://nodejs.org/en/docs/)</li> <li>[Mockito Documentation](https://javadoc.io/doc/org.mockito/mockito-core/latest/org/mockito/Mockito.html)</li> </ul> | Insert server links | <ul> <li> [MongoDB Documentation](https://docs.mongodb.com/) </li> </ul> | <ul> <li> [Docker Documentation](https://docs.docker.com/) </li> <li> [Digital Ocean Tutorials](https://www.digitalocean.com/community/tutorials) </li> </ul> |
+| <ul> <li> [Angular Documentation](https://angular.io/docs)</li> <li>[Jasmine Documentation](https://jasmine.github.io/)</li> <li>[Karma Documentation](https://karma-runner.github.io/)</li> <li>[Protractor Documentation](https://www.protractortest.org/#/api) </li> <li>[Gradle Guides](https://gradle.org/guides/)</li> <li>[JsPDF Repository](https://github.com/MrRio/jsPDF)</li> <li>[Kjua Repository](https://github.com/werthdavid/kjua)</li> <li>[Auth0 Documentation](https://auth0.com/docs/)</li> <li>[Node.js Documentation](https://nodejs.org/en/docs/)</li> </ul> |  <li>[Mockito Documentation](https://javadoc.io/doc/org.mockito/mockito-core/latest/org/mockito/Mockito.html)</li> <li>[Javalin Documentation](https://javalin.io/documentation)</li> | <ul> <li> [MongoDB Documentation](https://docs.mongodb.com/) </li> </ul> | <ul> <li> [Docker Documentation](https://docs.docker.com/) </li> <li> [Digital Ocean Tutorials](https://www.digitalocean.com/community/tutorials) </li> </ul> |
 
 ## API
 
