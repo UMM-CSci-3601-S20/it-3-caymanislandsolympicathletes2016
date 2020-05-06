@@ -40,7 +40,7 @@ is a string, the body of the note.
    doesn't correspond to any note in the database.
 
 
-## 📮 `POST api/notes/new`
+## 📮 `POST api/new/notes`
 
 Add a new note with a given body to the database.
 
@@ -90,44 +90,59 @@ Mongo ID of the note that was edited.
  + `500 Internal Server Error` if the path parameter `:id` isn't in the form of
    a real Mongo ID.
 
-## 'PIN api/notes/pin:id'
+## 'PUT api/notes/pin/:id'
 
 Pin an existing note.
 
 This note must exist in the database in order to be pinned.
 
-**Path parameters:**
+**Request Type** `application/json`
 
-**Response type:**
+**Request Body**
 
-**Response:**
+**Path parameters:** `:id`, the Mongo ID of the note to pin.
 
-**Status codes:**
-
-
-## 'UNPIN api/notes/pin/:id'
-
-**Path parameters:**
-
-**Response type:**
+**Response type:** `application/json`
 
 **Response:**
 
 **Status codes:**
 
-## 'RESTORE api/notes/:id'
 
-**Path parameters:**
+## 'DELETE api/notes/pin/:id'
+Unpin a note that has been pinned.
 
-**Response type:**
+This note must exist and must be pinned.
 
-**Response:**
+**Path parameters:** `:id`, the Mongo ID of the note to unpin.
+
+
+**Response type:** 
+
+**Response:** 
 
 **Status codes:**
 
-## 'TRASH api/notes/:id'
+## 'DELETE api/notes/:id'
+Trash note
 
-**Path parameters:**
+**Path parameters:** `:id`, the Mongo ID of the note to Trash.
+
+
+**Response type:** 
+
+**Response:** 
+
+**Status codes:**
+
+## 'POST api/notes/:id'
+Restore a note to the doorboard.
+
+**Request Type** `application/json`
+**Request Body**
+
+**Path parameters:** `:id`, the Mongo ID of the note to Restore.
+
 
 **Response type:**
 
@@ -136,53 +151,77 @@ This note must exist in the database in order to be pinned.
 **Status codes:**
 
 ## 'DELETE api/notes/delete/:id'
+Delete the note from the database
 
-**Path parameters:**
+**Path parameters:** `:id`, the Mongo ID of the note to delete.
 
-**Response type:**
 
-**Response:**
+**Response type:** text/plain
+
+**Response:** If the object was found, the string "deleted"; otherwise, the string "nothing deleted".
 
 **Status codes:**
 
 # OWNER
 
-## 'GET OWNER api/owner'
+## 'GET api/owner'
+This gets a list of all owners.
 
+**Response type:** `application/json`
+
+**Response:** A json array of all of the owners in the database.
+
+**Status codes:**
++ `200 OK` if the owners were retrieved successfully.
+
+
+## 'GET api/owner/:id'
+Get an owner by id.
+
+**Path parameters:**`:id`, the Mongo ID of the note to get.
+
+
+**Response type:** `application/json`
+
+**Response:** A json object with two keys: `id`, whose value is a string,
+the Mongo ID of the newly created owner in the database; and 'name' is a string,'officeNumber' as a string, 'email' as a string, 'building' as string,'x500' as a string, and 'gcalLink' as a string.
+
+**Status codes:**
++ `200 OK` if the owner was retrieved successfully.
++ + `400 Bad Request` if the path parameter `:id` isn't in the form of a real
+   Mongo ID. (for example, it might not be a hexidecimal number, or it might
+   have the wrong number of digits.)
+ + `404 Not Found` if the path parameter `:id` is a legal Mongo ID, but it
+   doesn't correspond to any note in the database.
+
+
+## 'GET api/owner/x500/:x500'
+Get owner by x500.
 **Path parameters:**
 
-**Response type:**
+**Response type:** `application/json`
 
 **Response:**
 
 **Status codes:**
++ `200 OK` if the owner was retrieved successfully.
++ + `400 Bad Request` if the path parameter `:id` isn't in the form of a real
+   Mongo ID. (for example, it might not be a hexidecimal number, or it might
+   have the wrong number of digits.)
+ + `404 Not Found` if the path parameter `:id` is a legal Mongo ID, but it
+   doesn't correspond to any note in the database.
 
-## 'GET SINGLE OWNER api/owner/:id'
 
-**Path parameters:**
+## 'POST api/owner/new'
+Add a new owner.
 
-**Response type:**
+**Request Type** `application/json`
 
-**Response:**
+**Request Body**
 
-**Status codes:**
-
-## 'GET x500 OWNER api/owner/x500/:x500'
-
-**Path parameters:**
-
-**Response type:**
-
-**Response:**
-
-**Status codes:**
-
-## 'ADD OWNER api/owner/new'
-
-**Path parameters:**
-
-**Response type:**
+**Response type:** `application/json`
 
 **Response:**
 
 **Status codes:**
++ `201 Created` if the owner was added successfully.
