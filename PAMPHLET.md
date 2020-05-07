@@ -62,7 +62,7 @@ In addition, the **Owner Page** allows members to generate a PDF that displays a
 
   ![owner hub](doorboard_pamphlet_images/Doorboard%20Owner%20Hub.png)
 
-  ![owner page -> QR & PDF](doorboard_pamphlet_images/Doorboard%20QR%20Code:PDF.png)
+  ![owner page -> QR & PDF](doorboard_pamphlet_images/Doorboard%20QR%20Code%20&%20PDF.png)
 
 **Doorboard** is available on mobile platforms.
 
