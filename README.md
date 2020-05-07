@@ -89,5 +89,5 @@ Known bugs and potential enhancements include:
 
  ## Set up and Deployment
 
- Set up instructions are in [SETUP.md](SETUP.md)
+ Set up instructions are in [SETUP.md](SETUP.md) <br>
  Instructions on how to create a DigitalOcean Droplet are in [DEPLOYMENT.md](DEPLOYMENT.md).
