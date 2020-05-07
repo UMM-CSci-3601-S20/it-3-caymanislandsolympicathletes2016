@@ -19,6 +19,7 @@ import io.javalin.http.Context;
 
 public class TokenVerifier {
 
+  final String AUTH_DOMAIN = "https://dev-h60mw6th.auth0.com/";
 
   public TokenVerifier() {
   }
@@ -32,14 +33,14 @@ public class TokenVerifier {
    */
   public boolean verifyToken(Context ctx) {
     String token = ctx.header("Authorization").replace("Bearer ", "");
-    JwkProvider provider = new UrlJwkProvider("https://dev-h60mw6th.auth0.com/");
+    JwkProvider provider = new UrlJwkProvider(AUTH_DOMAIN);
     try {
       DecodedJWT jwt = JWT.decode(token);
       Jwk jwk = provider.get(jwt.getKeyId());
 
       Algorithm algorithm = Algorithm.RSA256((RSAPublicKey) jwk.getPublicKey(), null);
 
-      JWTVerifier verifier = JWT.require(algorithm).withIssuer("https://dev-h60mw6th.auth0.com/").acceptLeeway(1).build();
+      JWTVerifier verifier = JWT.require(algorithm).withIssuer(AUTH_DOMAIN).acceptLeeway(1).build();
 
       jwt = verifier.verify(token);
 
@@ -87,7 +88,7 @@ public class TokenVerifier {
   public String getUserInfo(Context ctx) {
     String token = ctx.header("Authorization");
 
-    String userInfo = HttpRequest.get("https://dev-h60mw6th.auth0.com/userinfo").authorization(token).body();
+    String userInfo = HttpRequest.get(AUTH_DOMAIN + "userinfo").authorization(token).body();
 
     return userInfo;
   }
@@ -100,15 +101,10 @@ public class TokenVerifier {
   public String getNewOwnerx500(String userInfo) {
 
     // Pull the x500 out of the body, there's definitely a better way to do this, but idk how
-    System.err.println(userInfo);
     int startIndex = userInfo.indexOf("\"nickname\":\"");
-    System.err.println(startIndex);
     String temp = userInfo.substring(startIndex + 12);
-    System.err.println(temp);
     int endIndex = temp.indexOf('"');
-    System.err.println(endIndex);
     String x500 = temp.substring(0, endIndex);
-    System.err.println(x500);
 
     return x500;
   }
@@ -120,15 +116,10 @@ public class TokenVerifier {
    */
   public String getNewOwnerSub(String userInfo) {
 
-    System.err.println(userInfo);
     int startIndex = userInfo.indexOf("\"sub\":\"");
-    System.err.println(startIndex);
     String temp = userInfo.substring(startIndex + 7);
-    System.err.println(temp);
     int endIndex = temp.indexOf('"');
-    System.err.println(endIndex);
     String sub = temp.substring(0, endIndex);
-    System.err.println(sub);
 
     return sub;
   }
