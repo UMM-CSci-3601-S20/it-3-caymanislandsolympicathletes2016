@@ -90,7 +90,7 @@ Mongo ID of the note that was edited.
  + `500 Internal Server Error` if the path parameter `:id` isn't in the form of
    a real Mongo ID.
 
-## 'PUT api/notes/pin/:id'
+## 🏌️--⛳ `PUT api/notes/pin/:id`
 
 Pin an existing note.
 
@@ -117,7 +117,7 @@ Mongo ID of the note that was edited.
    fields.)
 
 
-## 'DELETE api/notes/pin/:id'
+## 🗑 `DELETE api/notes/pin/:id`
 Unpin a note that has been pinned.
 
 This note must exist and must be pinned.
@@ -132,7 +132,7 @@ This note must exist and must be pinned.
 + `200 OK` Note was successfully deleted. 
 + `500 Internal Server Error` if the parameter :id isn't in the form of a real Mongo ID.
 
-## 'POST api/notes/:id'
+## 📮 'POST api/notes/:id'
 Restore a note to the doorboard.
 
 **Request Type** `application/json`
@@ -156,7 +156,7 @@ Mongo ID of the note that was edited.
    object may not have had a `body` field at all; or it may have had extra
    fields.)
 
-## 'DELETE api/notes/:id'
+## 🗑 `DELETE api/notes/:id`
 Trash note
 
 **Path parameters:** `:id`, the Mongo ID of the note to Trash.
@@ -169,7 +169,7 @@ Trash note
 + `200 OK` Note was successfully deleted. 
 + `500 Internal Server Error` if the parameter :id isn't in the form of a real Mongo ID.
 
-## 'DELETE api/notes/delete/:id'
+## 🗑 `DELETE api/notes/delete/:id`
 Delete the note from the database
 
 **Path parameters:** `:id`, the Mongo ID of the note to delete.
@@ -184,7 +184,7 @@ Delete the note from the database
 
 # OWNER
 
-## 'GET api/owner'
+## 📩 `GET api/owner`
 This gets a list of all owners.
 
 **Response type:** `application/json`
@@ -195,7 +195,7 @@ This gets a list of all owners.
 + `200 OK` if the owners were retrieved successfully. If there is no id provided in the database no action is taken. 
 
 
-## 'GET api/owner/:id'
+## 📩 `GET api/owner/:id`
 Get an owner by `:id`.
 
 **Path parameters:**`:id`, the Mongo ID of the owner to get.
@@ -213,7 +213,7 @@ the Mongo ID of the newly created owner in the database; and `name` is a string,
  + `404 Not Found` if the path parameter `:id` is a legal Mongo ID, but it
    doesn't correspond to any note in the database.
 
-## 'GET api/owner/x500/:x500'
+## 📩`GET api/owner/x500/:x500`
 Get owner by `x500`.
 **Path parameters:** `:x500`, This is the x500 string created as an id of the owner to get
 
@@ -229,7 +229,7 @@ Get owner by `x500`.
  + `404 Not Found` if the path parameter `:id` is a legal Mongo ID, but it
    doesn't correspond to any note in the database.
 
-## 'POST api/owner/new'
+## 📮`POST api/owner/new`
 Add a new owner.
 
 **Request Type** `application/json`
