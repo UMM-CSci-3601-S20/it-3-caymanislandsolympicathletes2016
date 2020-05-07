@@ -85,16 +85,9 @@ Known bugs and potential enhancements include:
 
 ## API
 
- The server's API is a bit weird in places. A full description of
- the API is can be found in [HTTP_API.md](HTTP_API.md).
+ A full description of the API is can be found in [HTTP_API.md](HTTP_API.md).
 
- ## Deployment
+ ## Set up and Deployment
 
- As always, instructions on how to crate a DigitalOcean Droplet and setup the project are in [DEPLOYMENT.md](DEPLOYMENT.md).
-
- If you want to deploy this project on a new droplet, you will need to
- change the domain name in the file
- `client/src/environments/environment.prod.ts`. (Specifically, you need to
- change the value of `BASE_URL`.) This value is used to generate the link on
- the PDF; if you don't change it, the PDF will point to the webpage from
- iteration one.
+ Set up instructions are in [SETUP.md](SETUP.md)
+ Instructions on how to create a DigitalOcean Droplet are in [DEPLOYMENT.md](DEPLOYMENT.md).
