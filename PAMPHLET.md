@@ -22,7 +22,7 @@ Within each view, **Notes** are displayed with the following information:
 
 The **Owner Page** provides the interface for faculty to manage their "live" and "trashed" Notes. The main features are as follows:
 - **Authentication** - authentication is managed through google's Auth0 platform
-![authentication | 40%](doorboard_pamphlet_images/Doorboard%20Auth0%20Login.png)
+![authentication|40%](doorboard_pamphlet_images/Doorboard%20Auth0%20Login.png)
 - **Creating Notes** - posts live notes
 ![new note button](doorboard_pamphlet_images/Doorboard%20Add%20Note%20Button.png)
 ![new note view](doorboard_pamphlet_images/Doorboard%20New%20Note%20View.png)
@@ -31,9 +31,24 @@ The **Owner Page** provides the interface for faculty to manage their "live" and
 ![edit note button](doorboard_pamphlet_images/Doorboard%20Edit%20Note%20Button.png)
 ![editing notes](doorboard_pamphlet_images/Doorboard%20Edit%20Note%20View.png)
 - **Pinning Notes** - highlights important notes and puts them at the top of an owner's **Doorboard**
+![pinning notes](doorboard_pamphlet_images/Doorboard%20%20Pin%20Note%20Button.png)
+![live & pinned notes](doorboard_pamphlet_images/Doorboard%20Live%20&%20Pinned%20Notes.png)
 - **Trashing Notes** - puts notes inside of the **Owner's** trash
+![trash note button](doorboard_pamphlet_images/Doorboard%20Move%20Note%20to%20Trash%20Button.png)
 - **Deleting & Restoring Note** - permanently removes notes from the **Owner's** trash or restores them to the **Doorboard** by first navigating to the trash and selecting delete/restore
+![go to trash button](doorboard_pamphlet_images/Doorboard%20Trash%20Can%20Button.png)
+![trash can view](doorboard_pamphlet_images/Doorboard%20Trash%20Can%20View.png)
+![delete note button](doorboard_pamphlet_images/Doorboard%20Delete%20from%20Trash%20Button.png)
+![restore note button](doorboard_pamphlet_images/Doorboard%20Restore%20Note%20Button.png)
 
 In addition, the **Owner Page** allows members to generate a PDF that displays a unique URL and QR code that links to their **Doorboard**. This URL provides the **Viewer Page** view to anyone wanting to visit that member's **Doorboard**.
 
+![owner hub](doorboard_pamphlet_images/Doorboard%20Owner%20Hub.png)
+
+![owner page -> QR & PDF](doorboard_pamphlet_images/Doorboard%20QR%20Code:PDF.png)
+
 **Doorboard** is available on mobile platforms.
+
+![mobile owner page](doorboard_pamphlet_images/Doorboard%20Mobile%20Owner%20View.png)
+
+![mobile viewer page](doorboard_pamphlet_images/Doorboard%20Mobile%20Viewer%20View.png)
