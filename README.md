@@ -8,17 +8,16 @@
 - [DoorBoard](#doorboard)
   - [Contents](#contents)
   - [Introduction](#introduction)
-    - [Owner DoorBoard](#owner-doorboard)
-    - [Viewer Page](#viewer-page)
   - [Libraries Used](#libraries-used)
     - [Client Side](#client-side)
     - [Server Side](#server-side)
     - [Database](#database)
     - [Deployment](#deployment)
+    - [Authentication](#authentication)
   - [Resources](#resources)
   - [Known Issues](#known-issues)
   - [API](#api)
-  - [Deployment](#deployment-1)
+  - [Set up and Deployment](#set-up-and-deployment)
 
 
 ## Introduction
@@ -66,6 +65,10 @@ This repository began as team Nicolai Thärichen’s code for iteration 1 of the
 ### Deployment
 * Docker is used to contain software in its own packages and still allow it to communicate with each other.
 * DigitalOcean is used as a hosting service.
+
+### Authentication
+* Auth0 is used to generate secure tokens with which we authenticate our users.
+* Google OAuth 2.0 is used to log users in through their google accounts.
 
 ## Resources
 | Client | Server | Database | Deployment |
