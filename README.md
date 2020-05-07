@@ -25,7 +25,7 @@
 
 We were approached by a professor at the University of Minnesota Morris to create an alternative announcement system to replace the use of sticky notes posted on a door. DoorBoard allows owners to create notes to display to their viewers, accessible from anywhere. This application is currently intended to be used to announce things like “running late due to traffic” or  “Office Hours are cancelled today, my child got sick.”
 
-Owners can create notes, edit notes,  pin written notes to the top of the page, delete notes, and view their trashcan of deleted notes to decide whether to permanently delete the notes or reuse them. Owners also have access to a button which generates a PDF containing the URL of the viewer page for their DoorBoard, as well as a QR code linking to that same URL.
+Owners can create notes, edit notes,  pin written notes to the top of the page, trash notes, and view their trashcan of deleted notes to decide whether to permanently delete the notes or reuse them. Additionally, each note is timestamped with the data and time when the note was created or last edited. Owners also have access to a button which generates a PDF containing the URL of the viewer page for their DoorBoard, as well as a QR code linking to that same URL.
 Viewers can see the notes left by the owner and see the owner’s Google Calendar using the link on the viewer page.
 
 This project is made possible by the students and faculty of CSci 3601, Software Development and Design, at the University of Minnesota Morris, and a special thanks to Rachel Johnson, Professor at the University of Minnesota Morris for being our customer for this project. 
