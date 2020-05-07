@@ -62,6 +62,42 @@ Then go to `client/src/environments/environment.prod.ts` and do the same there.
 Finally, open `server/src/main/java/umm3601/TokenVerifier.java` and change the "AUTH_DOMAIN" variable to your application's domain.
 
 
+## Before Development
+
+Before you can start working on the project, you must do the following:
+- Clone the GitHub repository onto your device
+- Make sure MongoDB is running
+- cd into the `client` directory and run `npm install`
+
+### Running the Project
+
+Upon completing those actions the project is ready to be run. To do so you will need two terminals:
+- In the first terminal, navigate to the `server` directory, then run `./gradlew run` to start the server
+- In the other terminal, navigate to the `client` directory, then run `ng serve` to start the client
+
+After doing so, the client will be available on `localhost:4200`
+
+
+## Testing 
+
+### Testing the client
+
+From the `client` directory:
+* `ng test` runs the client tests.
+* `ng test --code-coverage` runs the client tests and generates a coverage file you can find in your client directory `client/coverage/client/index.html`.
+Right click on `index.html` and select `Copy path` and paste it into your browser of choice. For Chrome users, you can drag and drop `index.html` onto the tab area of Chrome and it will open it.
+
+### Testing the server
+
+From the `server` directory:
+* `./gradlew test` runs the server tests once.
+* `./gradlew test jacocoTestReport` runs the server tests and generates a coverage file you can find in `server/build/jacocoHtml/index.html`.
+
+### End to end testing
+* `npm run e2e` from the `client` directory runs end to end tests.
+  * NOTE: The server (`./gradlew run` in the `server` directory) needs to be actively executing for these tests to work!
+
+
 ## Deploy
 
 Once you've completed these steps, you should be ready to develop or deploy the project. For more information on deployment, see [DEPLOYMENT.md](DEPLOYMENT.md).
