@@ -22,7 +22,7 @@ Within each view, **Notes** are displayed with the following information:
 
 The **Owner Page** provides the interface for members to manage their "live" and "trashed" Notes. The main features are as follows:
 - **Authentication** - authentication is managed through google's Auth0 platform
-  <img src="/doorboard_pamphlet_images/Doorboard%20Auth0%20Login.png" alt="Authentication" width = "375" height = "812"/>
+  <img src="/doorboard_pamphlet_images/Auth0 Mobile.png" alt="Authentication" width = "375" height = "812"/>
 
 - **Creating Notes** - posts live notes
 
