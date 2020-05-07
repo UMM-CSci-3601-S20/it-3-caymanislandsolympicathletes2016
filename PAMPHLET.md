@@ -22,7 +22,8 @@ Within each view, **Notes** are displayed with the following information:
 
 The **Owner Page** provides the interface for faculty to manage their "live" and "trashed" Notes. The main features are as follows:
 - **Authentication** - authentication is managed through google's Auth0 platform
-![authentication|40%](doorboard_pamphlet_images/Doorboard%20Auth0%20Login.png)
+<img src="/doorboard_pamphlet_images/Doorboard%20Auth0%20Login.png" alt="Authentication" width = "450" height = "300"/>
+
 - **Creating Notes** - posts live notes
 ![new note button](doorboard_pamphlet_images/Doorboard%20Add%20Note%20Button.png)
 ![new note view](doorboard_pamphlet_images/Doorboard%20New%20Note%20View.png)
