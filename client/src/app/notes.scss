@@ -17,6 +17,7 @@
   position: relative;
   background-color: palegoldenrod;
   word-wrap: break-word;
+  white-space: pre-line;
 }
 
 .pinned-note-card{
@@ -26,11 +27,18 @@
   background-color: #606f81;
   color: white;
   word-wrap: break-word;
+  white-space: pre-line;
 }
 
 .note-error {
   text-align: center;
   padding: 10px;
+}
+
+.date{
+  text-align: right;
+  font-size: small;
+  font-style: italic;
 }
 
 @media (prefers-color-scheme: dark) {

@@ -4,4 +4,5 @@ export interface Note {
   body: string;
   posted: boolean;
   pinned: boolean;
+  timestamp: Date;
 }

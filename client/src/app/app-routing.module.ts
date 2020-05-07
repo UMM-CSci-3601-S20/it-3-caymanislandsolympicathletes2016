@@ -7,7 +7,6 @@ import { EditComponent } from './edit/edit.component';
 import { AuthGuard } from './authentication/auth.guard';
 import { OwnerComponent } from './owner/owner.component';
 import { TrashComponent } from './trash/trash.component';
-import { RouterTestingModule } from '@angular/router/testing';
 
 const routes: Routes = [
   {path: '', component: OwnerComponent, canActivate: [AuthGuard]},
@@ -20,6 +19,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule, RouterTestingModule]
+  exports: [RouterModule]
 })
 export class AppRoutingModule { }

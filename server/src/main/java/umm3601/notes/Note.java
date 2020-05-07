@@ -1,5 +1,7 @@
 package umm3601.notes;
 
+import java.util.Date;
+
 import org.mongojack.Id;
 import org.mongojack.ObjectId;
 
@@ -11,5 +13,6 @@ public class Note {
   public String body;
   public boolean posted;
   public boolean pinned;
+  public Date timestamp;
 
 }

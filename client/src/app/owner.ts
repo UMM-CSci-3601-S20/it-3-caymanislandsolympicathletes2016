@@ -5,6 +5,7 @@ export interface Owner {
   email: string;
   building: string;
   x500: string;
+  gcalLink: string;
 }
 
 // x500 is the part of an email address before the @
