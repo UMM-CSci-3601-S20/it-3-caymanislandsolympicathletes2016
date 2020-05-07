@@ -10,14 +10,21 @@ The power of **Doorboard** is the ability to share messages that were traditiona
 - **Owner Page** - member view for managing notes
   ![owner page](doorboard_pamphlet_images/Doorboard%20Owner%20Page.png)
 - **Viewer Page** - end user view for accessing member notes (read-only access) and their google calendar
+  ![viewer page](doorboard_pamphlet_images/Doorboard%20Viewer%20Page.png)
+  ![viewer page gcal button](doorboard_pamphlet_images/Doorboard%20g-cal%20button.png)
+  ![viewer page gcal](doorboard_pamphlet_images/Doorboard%20-%20Gcal%20view.png)
 
 Within each view, **Notes** are displayed with the following information:
 - **Timestamps** - time of creation or last modification
+![note timestamps](doorboard_pamphlet_images/Doorboard%20timestamp.png)
 - **Body** - text of the note
+![note body](doorboard_pamphlet_images/Doorboard%20body.png)
 - **Pin Star & Background Color** - indicates important messages that have been highlighted by the **Doorboard** member
+![note pinning & background](doorboard_pamphlet_images/Doorboard%20Live%20&%20Pinned%20Notes.png)
 
 The **Owner Page** provides the interface for faculty to manage their "live" and "trashed" Notes. The main features are as follows:
 - **Authentication** - authentication is managed through google's Auth0 platform
+![authentication](doorboard_pamphlet_images/Doorboard%20Auth0%20Login.png)
 - **Creating Notes** - posts live notes
 - **Editing Notes** - edits live notes
 - **Pinning Notes** - highlights important notes and puts them at the top of an owner's **Doorboard**
