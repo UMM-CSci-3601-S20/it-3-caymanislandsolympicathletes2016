@@ -36,12 +36,9 @@ Team Members: Aaron Otten, Audrey Le Meur, Erik Rauer, Kyle Fluto, Luke Burdette
 
 This repository began as team Nicolai Thärichen’s code for iteration 1 of the DoorBoard app. It was then expanded upon in iteration 2 by Team Rocket. It was then used as the code base for iteration 3 by the 2016 Olympic Athletes from the Cayman Islands.
 
-### Owner DoorBoard
-![](owner_DB.jpg)
-
-### Viewer Page
-![](viewer_PG.jpg)
-
+| Owner DoorBoard | Viewer Doorboard |
+|-----------------|------------------|
+| ![](owner_DB.jpg)    | ![](viewer_PG.jpg)    |
 
 ## Libraries Used
 
