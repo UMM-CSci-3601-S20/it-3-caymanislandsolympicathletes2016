@@ -1,0 +1,29 @@
+# Doorboard Web Application
+
+The power of **Doorboard** is the ability to share messages that were traditionally on a post-it note in an online format for greater access.
+
+**Doorboard** is a lightweight web application that was designed to allow members within an organization to quickly communicate updates about their availability during scheduled hours. It is meant to replace the iconic “post-it” note and improve upon it to provide a more meaningful medium of communication. Members within an organization no longer need to worry that their message is not communicated to those that are not local to their facility (e.g. remote learners, employees, affiliates, etc.). If things should change, members can quickly access the platform to manage their notes to keep information current. **Doorboard** can be accessed via a normal computer browser or with mobile devices.
+
+**Doorboard** uses the nomenclature **Note**, **Owner** and **Viewer** to differentiate between member posts (posted messages), member users (**Doorboard** owners) and the end users for that specific organization.
+
+**Doorboard** is split into two main views, each with their own functionality:
+- **Owner Page** - member view for managing notes
+  ![owner page](doorboard_pamphlet_images/Doorboard%20Owner%20Page.png)
+- **Viewer Page** - end user view for accessing member notes (read-only access) and their google calendar
+
+Within each view, **Notes** are displayed with the following information:
+- **Timestamps** - time of creation or last modification
+- **Body** - text of the note
+- **Pin Star & Background Color** - indicates important messages that have been highlighted by the **Doorboard** member
+
+The **Owner Page** provides the interface for faculty to manage their "live" and "trashed" Notes. The main features are as follows:
+- **Authentication** - authentication is managed through google's Auth0 platform
+- **Creating Notes** - posts live notes
+- **Editing Notes** - edits live notes
+- **Pinning Notes** - highlights important notes and puts them at the top of an owner's **Doorboard**
+- **Trashing Notes** - puts notes inside of the **Owner's** trash
+- **Deleting & Restoring Note** - permanently removes notes from the **Owner's** trash or restores them to the **Doorboard** by first navigating to the trash and selecting delete/restore
+
+In addition, the **Owner Page** allows members to generate a PDF that displays a unique URL and QR code that links to their **Doorboard**. This URL provides the **Viewer Page** view to anyone wanting to visit that member's **Doorboard**.
+
+**Doorboard** is available on mobile platforms.
