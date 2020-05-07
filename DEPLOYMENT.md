@@ -56,6 +56,8 @@ One for the Java server, one for hosting the client files, and one for the datab
 - It will ask you to set a new password for `root`. Enter the original password emailed to you and then set a new one. 
   - This should be a good, secure password since it gives access to everything on your droplet and anyone can attempt to `ssh` into it. You may wish to use a random password generator for this.
   - You can change this password later with the `passwd` command.
+- Navigate to `client/src/environments/environment.prod.ts` and switch "BASE_URL" to `https://[your droplet ip].nip.io`. This will be the url of your deployed project.
+  - NOTE: If you use a different custom domain put that here instead.
 - `git clone` your repository
 - `cd` into the newly created directory
 - run `./setupdroplet.sh` to go through the initial setup steps
