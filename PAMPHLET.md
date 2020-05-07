@@ -18,7 +18,7 @@ Within each view, **Notes** are displayed with the following information:
 - **Timestamps** - time of creation or last modification
 - **Body** - text of the note
 - **Pin Star & Background Color** - indicates important messages that have been highlighted by the **Doorboard** member
-  ![note pinning & background](doorboard_pamphlet_images/Doorboard%20Live%20&%20Pinned%20Notes.png)
+  ![note pinning & background](doorboard_pamphlet_images/Doorboard%20posted%20notes.png)
 
 The **Owner Page** provides the interface for members to manage their "live" and "trashed" Notes. The main features are as follows:
 - **Authentication** - authentication is managed through google's Auth0 platform
