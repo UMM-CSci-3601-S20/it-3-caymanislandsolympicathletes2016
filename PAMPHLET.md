@@ -20,7 +20,7 @@ Within each view, **Notes** are displayed with the following information:
 - **Pin Star & Background Color** - indicates important messages that have been highlighted by the **Doorboard** member
   ![note pinning & background](doorboard_pamphlet_images/Doorboard%20Live%20&%20Pinned%20Notes.png)
 
-The **Owner Page** provides the interface for faculty to manage their "live" and "trashed" Notes. The main features are as follows:
+The **Owner Page** provides the interface for members to manage their "live" and "trashed" Notes. The main features are as follows:
 - **Authentication** - authentication is managed through google's Auth0 platform
   <img src="/doorboard_pamphlet_images/Doorboard%20Auth0%20Login.png" alt="Authentication" width = "450" height = "620"/>
 
