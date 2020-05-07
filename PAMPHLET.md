@@ -22,7 +22,7 @@ Within each view, **Notes** are displayed with the following information:
 
 The **Owner Page** provides the interface for faculty to manage their "live" and "trashed" Notes. The main features are as follows:
 - **Authentication** - authentication is managed through google's Auth0 platform
-  <img src="/doorboard_pamphlet_images/Doorboard%20Auth0%20Login.png" alt="Authentication" width = "450" height = "500"/>
+  <img src="/doorboard_pamphlet_images/Doorboard%20Auth0%20Login.png" alt="Authentication" width = "450" height = "620"/>
 
 - **Creating Notes** - posts live notes
 
@@ -66,6 +66,6 @@ In addition, the **Owner Page** allows members to generate a PDF that displays a
 
 **Doorboard** is available on mobile platforms.
 
-  ![mobile owner page](doorboard_pamphlet_images/Doorboard%20Mobile%20Owner%20View.png)
+  <img src="/doorboard_pamphlet_images/Doorboard%20Mobile%20Owner%20View.png" alt="Mobile Owner Page" width = "450" height = "620"/>
 
-  ![mobile viewer page](doorboard_pamphlet_images/Doorboard%20Mobile%20Viewer%20View.png)
+  <img src="/doorboard_pamphlet_images/Doorboard%20Mobile%20Viewer%20View.png" alt="Mobile Viewer Page" width = "450" height = "620"/>
