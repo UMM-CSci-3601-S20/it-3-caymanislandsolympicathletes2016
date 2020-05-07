@@ -8,8 +8,10 @@ Before development or deployment of this project can occur, make sure to complet
 You will need the following:
 - [An Auth0 Account](https://auth0.com/)
 - [A Google Account](https://support.google.com/accounts/answer/27441?hl=en)
-
-TODO: Finish Prereqs
+- A Multi Language IDE (We recommend [VS Code](https://code.visualstudio.com/))
+- [NodeJS](https://nodejs.org/en/)
+- [Angular CLI](https://cli.angular.io/)
+- [MongoDB](https://www.mongodb.com/download-center/community)
 
 
 ## Setting up Auth0
@@ -62,4 +64,4 @@ Finally, open `server/src/main/java/umm3601/TokenVerifier.java` and change the "
 
 ## Deploy
 
-Once you've completed these steps, you should be ready to develop or deploy the project. For more information on deployment, see[DEPLOYMENT.md](DEPLOYMENT.md).
+Once you've completed these steps, you should be ready to develop or deploy the project. For more information on deployment, see [DEPLOYMENT.md](DEPLOYMENT.md).
