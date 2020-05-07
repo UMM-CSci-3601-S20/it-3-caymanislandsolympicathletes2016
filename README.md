@@ -37,7 +37,7 @@ This repository began as team Nicolai Thärichen’s code for iteration 1 of the
 
 | Owner DoorBoard | Viewer Doorboard |
 |-----------------|------------------|
-| ![](owner_DB.jpg)    | ![](viewer_PG.jpg)    |
+| ![](images/owner_DB.jpg)    | ![](images/viewer_PG.jpg)    |
 
 ## Libraries Used
 
