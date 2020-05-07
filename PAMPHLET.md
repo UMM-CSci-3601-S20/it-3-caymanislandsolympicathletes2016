@@ -16,17 +16,20 @@ The power of **Doorboard** is the ability to share messages that were traditiona
 
 Within each view, **Notes** are displayed with the following information:
 - **Timestamps** - time of creation or last modification
-![note timestamps](doorboard_pamphlet_images/Doorboard%20timestamp.png)
 - **Body** - text of the note
-![note body](doorboard_pamphlet_images/Doorboard%20body.png)
 - **Pin Star & Background Color** - indicates important messages that have been highlighted by the **Doorboard** member
 ![note pinning & background](doorboard_pamphlet_images/Doorboard%20Live%20&%20Pinned%20Notes.png)
 
 The **Owner Page** provides the interface for faculty to manage their "live" and "trashed" Notes. The main features are as follows:
 - **Authentication** - authentication is managed through google's Auth0 platform
-![authentication](doorboard_pamphlet_images/Doorboard%20Auth0%20Login.png)
+![authentication | 40%](doorboard_pamphlet_images/Doorboard%20Auth0%20Login.png)
 - **Creating Notes** - posts live notes
+![new note button](doorboard_pamphlet_images/Doorboard%20Add%20Note%20Button.png)
+![new note view](doorboard_pamphlet_images/Doorboard%20New%20Note%20View.png)
+![new live note](doorboard_pamphlet_images/Doorboard%20Live%20Note.png)
 - **Editing Notes** - edits live notes
+![edit note button](doorboard_pamphlet_images/Doorboard%20Edit%20Note%20Button.png)
+![editing notes](doorboard_pamphlet_images/Doorboard%20Edit%20Note%20View.png)
 - **Pinning Notes** - highlights important notes and puts them at the top of an owner's **Doorboard**
 - **Trashing Notes** - puts notes inside of the **Owner's** trash
 - **Deleting & Restoring Note** - permanently removes notes from the **Owner's** trash or restores them to the **Doorboard** by first navigating to the trash and selecting delete/restore
